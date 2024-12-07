@@ -44,7 +44,7 @@ public class RolePersonnelXMLUtilsTest {
 
     @AfterEach
     public void tearDown() {
-        File xmlFile = new File(TypeInscriptionXMLUtils.XML_FILE);
+        File xmlFile = new File(RolePersonnelXMLUtils.XML_FILE);
         if (xmlFile.exists()) {
             xmlFile.delete();
         }

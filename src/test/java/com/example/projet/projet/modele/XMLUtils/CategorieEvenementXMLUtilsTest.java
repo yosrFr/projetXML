@@ -44,7 +44,7 @@ public class CategorieEvenementXMLUtilsTest {
 
     @AfterEach
     public void tearDown() {
-        File xmlFile = new File(TypeInscriptionXMLUtils.XML_FILE);
+        File xmlFile = new File(CategorieEvenementXMLUtils.XML_FILE);
         if (xmlFile.exists()) {
             xmlFile.delete();
         }

@@ -5,7 +5,6 @@ import com.example.projet.projet.modele.Dto.PersonnelDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,7 +22,7 @@ public class PersonnelService {
         this.reservationMaterielService = reservationMaterielService;
     }
 
-    public List<String> getAllNomsPersonnelDispoByRole (String role, Date date, LocalTime tempsDeb, LocalTime tempsFin){
+    public List<String> getAllNomsPersonnelDispoByRole (String role, Date date, String tempsDeb, String tempsFin){
         List<String> nomsPersonnel = new ArrayList<>();
         List<PersonnelDto> list = personnelXMLUtils.unmarshaller();
         List<PersonnelDto> persoParRole = list.stream().filter(personnel -> personnel.getRolePersonnel().equals(role)).collect(Collectors.toList());

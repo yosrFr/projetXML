@@ -46,7 +46,7 @@ public class LocalXMLUtilsTest {
 
     @AfterEach
     public void tearDown() {
-        File xmlFile = new File(TypeInscriptionXMLUtils.XML_FILE);
+        File xmlFile = new File(LocalXMLUtils.XML_FILE);
         if (xmlFile.exists()) {
             xmlFile.delete();
         }

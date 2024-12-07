@@ -24,15 +24,15 @@ public class ReservationMaterielService {
         reservationMaterielXMLUtils.marshaller(list);
     }
 
-    public boolean estReservé (long idMateriel, LocalTime tempsDebut, LocalTime tempsFin, Date date){
+    public boolean estReservé (long idMateriel, String tempsDebut, String tempsFin, Date date){
         List<ReservationMaterielsDto> list = reservationMaterielXMLUtils.unmarshaller();
         return list.stream()
                 .filter(reservationMateriels -> reservationMateriels.getMateriel()
                         .stream().anyMatch(materielDto -> materielDto.getIdMateriel() == idMateriel))
                 .anyMatch(reservationMateriels ->
                         !reservationMateriels.getSession().getDateSession().equals(date) &&
-                        tempsDebut.isAfter(reservationMateriels.getSession().getHeureFinSession()) &
-                        tempsFin.isBefore(reservationMateriels.getSession().getHeureDebutSession()));
+                                LocalTime.parse(tempsDebut).isAfter(LocalTime.parse(reservationMateriels.getSession().getHeureFinSession())) &
+                                        LocalTime.parse(tempsFin).isBefore(LocalTime.parse(reservationMateriels.getSession().getHeureDebutSession())));
     }
 
 }

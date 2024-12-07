@@ -5,7 +5,6 @@ import com.example.projet.projet.modele.Dto.MaterielDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,7 +21,7 @@ public class MaterielService {
         this.reservationMaterielService = reservationMaterielService;
     }
 
-    public List<String> getAllNomsMaterielsDispo(LocalTime tempsDebut, LocalTime tempsFin, Date date){
+    public List<String> getAllNomsMaterielsDispo(String tempsDebut, String tempsFin, Date date){
         List<String> nomsMaterielsDispo = new ArrayList<String>();
         List<MaterielDto> list = materielXMLUtils.unmarshaller();
         for (MaterielDto materiel: list){

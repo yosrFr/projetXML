@@ -47,7 +47,7 @@ public class MaterielXMLUtilsTest {
 
     @AfterEach
     public void tearDown() {
-        File xmlFile = new File(TypeInscriptionXMLUtils.XML_FILE);
+        File xmlFile = new File(MaterielXMLUtils.XML_FILE);
         if (xmlFile.exists()) {
             xmlFile.delete();
         }

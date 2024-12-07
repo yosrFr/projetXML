@@ -14,7 +14,7 @@ import java.util.List;
 
 @Component
 public class SessionXMLUtils {
-    private static final String XML_FILE = "Session.xml";
+    public static final String XML_FILE = "C:/Users/asus/Desktop/Session.xml";
 
     public void marshaller(List<SessionDto> sessions) {
         JAXBContext jaxbContext = null;

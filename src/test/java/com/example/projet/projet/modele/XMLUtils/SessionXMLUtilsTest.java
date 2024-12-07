@@ -1,59 +1,56 @@
 package com.example.projet.projet.modele.XMLUtils;
 
 import com.example.projet.projet.modele.Dto.SessionDto;
-import jakarta.xml.bind.JAXBException;
-import jakarta.xml.bind.Marshaller;
-import jakarta.xml.bind.Unmarshaller;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class SessionXMLUtilsTest {
     private SessionXMLUtils sessionXMLUtils;
-    private Marshaller mockMarshaller;
-    private Unmarshaller mockUnmarshaller;
+    private List<SessionDto> SessionDtos;
 
     @BeforeEach
     public void setUp() {
         sessionXMLUtils = new SessionXMLUtils();
-        mockMarshaller = mock(Marshaller.class);
-        mockUnmarshaller = mock(Unmarshaller.class);
+        SessionDtos = new ArrayList<>();
+        SessionDtos.add(new SessionDto(1, new Date(), "titreSession1", "09:45", "09:45"));
+        SessionDtos.add(new SessionDto(2, new Date(), "titreSession2", "09:45", "09:45"));
     }
 
     @Test
-    public void testMarshal() throws JAXBException {
-        SessionDto sessionDto = new SessionDto(1L, new Date(), "Test Session", LocalTime.of(9, 0), LocalTime.of(12, 0));
-
-        // Mocking marshaller
-        doNothing().when(mockMarshaller).marshal(sessionDto, new File("sessions.xml"));
-
-        List<SessionDto> list = new ArrayList<>();
-        list.add(sessionDto);
-        // Verifying marshalling process
-        sessionXMLUtils.marshaller(list);
-
-        verify(mockMarshaller, times(1)).marshal(sessionDto, new File("sessions.xml"));
+    public void testMarshaller() {
+        sessionXMLUtils.marshaller(SessionDtos);
+        File xmlFile = new File(SessionXMLUtils.XML_FILE);
+        assertTrue(xmlFile.exists(), "XML file should exist");
+        assertTrue(xmlFile.length() > 0, "XML file ne devrait pas etre vide");
     }
 
     @Test
-    public void testUnmarshal() throws JAXBException {
-        // Mocking unmarshaller
-        when(mockUnmarshaller.unmarshal(new File("sessions.xml"))).thenReturn(new SessionDto(1L, new Date(), "Test Session", LocalTime.of(9, 0), LocalTime.of(12, 0)));
-
-        // Verifying unmarshalling process
-        SessionDto result = (SessionDto) sessionXMLUtils.unmarshaller();
-
-        assertEquals(1L, result.getIdSession());
-        assertEquals("Test Session", result.getTitreSession());
-        assertEquals(LocalTime.of(9, 0), result.getHeureDebutSession());
-        assertEquals(LocalTime.of(12, 0), result.getHeureFinSession());
+    public void testUnmarshaller() {
+        sessionXMLUtils.marshaller(SessionDtos);
+        List<SessionDto> unmarshalledDtos = sessionXMLUtils.unmarshaller();
+        assertEquals(SessionDtos.size(), unmarshalledDtos.size(), "The size of unmarshalled list should match");
+        assertEquals(SessionDtos.get(0).getIdSession(), unmarshalledDtos.get(0).getIdSession(), "The ID should match");
+        assertEquals(SessionDtos.get(0).getTitreSession(), unmarshalledDtos.get(0).getTitreSession(), "The name should match");
+        assertEquals(SessionDtos.get(0).getDateSession(), unmarshalledDtos.get(0).getDateSession(), "The date should match");
+        assertEquals(SessionDtos.get(0).getHeureDebutSession(), unmarshalledDtos.get(0).getHeureDebutSession(), "The time should match");
+        assertEquals(SessionDtos.get(0).getHeureFinSession(), unmarshalledDtos.get(0).getHeureFinSession(), "The time should match");
     }
+
+    @AfterEach
+    public void tearDown() {
+        File xmlFile = new File(SessionXMLUtils.XML_FILE);
+        if (xmlFile.exists()) {
+            xmlFile.delete();
+        }
+    }
+
 }

@@ -49,7 +49,7 @@ public class PersonneXMLUtilsTest {
 
     @AfterEach
     public void tearDown() {
-        File xmlFile = new File(TypeInscriptionXMLUtils.XML_FILE);
+        File xmlFile = new File(PersonneXMLUtils.XML_FILE);
         if (xmlFile.exists()) {
             xmlFile.delete();
         }
