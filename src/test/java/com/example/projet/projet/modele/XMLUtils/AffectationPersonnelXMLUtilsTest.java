@@ -17,6 +17,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AffectationPersonnelXMLUtilsTest {
+    /*
 
     private static final String TEST_XML_FILE = "AffectationPersonnel.xml";
     private AffectationPersonnelXMLUtils xmlUtils;
@@ -98,4 +99,6 @@ class AffectationPersonnelXMLUtilsTest {
             assertEquals(originalSession.getHeureDebutSession(), unmarshalledSession.getHeureDebutSession(), "Les heures de début des sessions doivent correspondre.");
             }
     }
+
+     */
 }

@@ -14,13 +14,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TypeSessionXMLUtilsTest {
     private TypeSessionXMLUtils typeSessionXMLUtils;
-
     private List<TypeSessionDto> typeSessionDtos;
 
     @BeforeEach
     public void setUp() {
         typeSessionXMLUtils = new TypeSessionXMLUtils();
-
         typeSessionDtos = new ArrayList<>();
         typeSessionDtos.add(new TypeSessionDto(1, "Nom1", "Description1"));
         typeSessionDtos.add(new TypeSessionDto(2, "Nom2", "Description2"));
@@ -29,8 +27,7 @@ public class TypeSessionXMLUtilsTest {
     @Test
     public void testMarshaller() {
         typeSessionXMLUtils.marshaller(typeSessionDtos);
-
-        File xmlFile = new File(TypeInscriptionXMLUtils.XML_FILE);
+        File xmlFile = new File(TypeSessionXMLUtils.XML_FILE);
         assertTrue(xmlFile.exists(), "XML file should exist");
         assertTrue(xmlFile.length() > 0, "XML file ne devrait pas etre vide");
     }
@@ -38,9 +35,7 @@ public class TypeSessionXMLUtilsTest {
     @Test
     public void testUnmarshaller() {
         typeSessionXMLUtils.marshaller(typeSessionDtos);
-
         List<TypeSessionDto> unmarshalledDtos = typeSessionXMLUtils.unmarshaller();
-
         assertEquals(typeSessionDtos.size(), unmarshalledDtos.size(), "The size of unmarshalled list should match");
         assertEquals(typeSessionDtos.get(0).getDescriptionTypeSession(), unmarshalledDtos.get(0).getDescriptionTypeSession(), "The description should match");
         assertEquals(typeSessionDtos.get(0).getNomTypeSession(), unmarshalledDtos.get(0).getNomTypeSession(), "The name should match");

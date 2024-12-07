@@ -14,7 +14,7 @@ import java.util.List;
 
 @Component
 public class RolePersonnelXMLUtils {
-    private static final String XML_FILE = "RolePersonnel.xml";
+    public static final String XML_FILE = "C:/Users/asus/Desktop/RolePersonnel.xml";
 
     public void marshaller(List<RolePersonnelDto> rolePersonnel) {
         JAXBContext jaxbContext = null;
