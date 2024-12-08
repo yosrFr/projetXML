@@ -33,15 +33,19 @@ public class TypeInscriptionService {
 
     public void supprimerTypeInscription(long id){
         List<TypeInscriptionDto> list = typeInscriptionXMLUtils.unmarshaller();
-        TypeInscriptionDto typeInscription = getTypeInscriptionById(id);
-        list.remove(typeInscription);
+        list.remove(list.stream()
+                .filter(typeInscription -> typeInscription.getIdTypeInscription() == id)
+                .findFirst()
+                .orElse(null));
         typeInscriptionXMLUtils.marshaller(list);
     }
 
     public void modifierTypeInscription(TypeInscriptionDto typeInscriptionDto){
         List<TypeInscriptionDto> list = typeInscriptionXMLUtils.unmarshaller();
-        TypeInscriptionDto typeInscription = getTypeInscriptionById(typeInscriptionDto.getIdTypeInscription());
-        list.remove(typeInscription);
+        list.remove(list.stream()
+                .filter(typeInscription -> typeInscription.getIdTypeInscription() == typeInscriptionDto.getIdTypeInscription())
+                .findFirst()
+                .orElse(null));
         list.add(typeInscriptionDto);
         typeInscriptionXMLUtils.marshaller(list);
     }

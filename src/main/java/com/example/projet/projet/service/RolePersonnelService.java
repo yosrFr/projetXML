@@ -33,8 +33,10 @@ public class RolePersonnelService {
 
     public void modifierRolePerssonnel(RolePersonnelDto rolePersonnelDto){
         List<RolePersonnelDto> list = rolePersonnelXMLUtils.unmarshaller();
-        RolePersonnelDto rolePersonnel = getRolePersonnelById(rolePersonnelDto.getIdRolePersonnel());
-        list.remove(rolePersonnel);
+        list.remove(list.stream()
+                .filter(role -> role.getIdRolePersonnel() == rolePersonnelDto.getIdRolePersonnel())
+                .findFirst()
+                .orElse(null));
         list.add(rolePersonnelDto);
         rolePersonnelXMLUtils.marshaller(list);
     }
@@ -47,8 +49,10 @@ public class RolePersonnelService {
 
     public void supprimerRolePersonnel(long id){
         List<RolePersonnelDto> list = rolePersonnelXMLUtils.unmarshaller();
-        RolePersonnelDto rolePersonnel = getRolePersonnelById(id);
-        list.remove(rolePersonnel);
+        list.remove(list.stream()
+                .filter(role -> role.getIdRolePersonnel() == id)
+                .findFirst()
+                .orElse(null));
         rolePersonnelXMLUtils.marshaller(list);
     }
 }

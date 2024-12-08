@@ -29,16 +29,20 @@ public class SessionService {
 
     public void modifierSession(SessionDto sessionDto){
         List<SessionDto> list = sessionXMLUtils.unmarshaller();
-        SessionDto session = getSessionById(sessionDto.getIdSession());
-        list.remove(session);
+        list.remove(list.stream()
+                .filter(session -> session.getIdSession() == sessionDto.getIdSession())
+                .findFirst()
+                .orElse(null));
         list.add(sessionDto);
         sessionXMLUtils.marshaller(list);
     }
 
     public void supprimerSession(long id){
         List<SessionDto> list = sessionXMLUtils.unmarshaller();
-        SessionDto session = getSessionById(id);
-        list.remove(session);
+        list.remove(list.stream()
+                .filter(session -> session.getIdSession() == id)
+                .findFirst()
+                .orElse(null));
         sessionXMLUtils.marshaller(list);
     }
 }

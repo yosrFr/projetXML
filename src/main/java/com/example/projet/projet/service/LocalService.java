@@ -39,14 +39,19 @@ public class LocalService {
 
     public void supprimerLocal(long id){
         List<LocalDto> list = localXMLUtils.unmarshaller();
-        LocalDto local = getLocalById(id);
-        list.remove(local);
+        list.remove(list.stream()
+                .filter(local -> local.getIdLocal() == id)
+                .findFirst()
+                .orElse(null));
         localXMLUtils.marshaller(list);
     }
+
     public void modifierLocal(LocalDto localDto){
         List<LocalDto> list = localXMLUtils.unmarshaller();
-        LocalDto local = getLocalById(localDto.getIdLocal());
-        list.remove(local);
+        list.remove(list.stream()
+                .filter(local -> local.getIdLocal() == localDto.getIdLocal())
+                .findFirst()
+                .orElse(null));
         list.add(localDto);
         localXMLUtils.marshaller(list);
     }

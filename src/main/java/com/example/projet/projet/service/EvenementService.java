@@ -34,18 +34,22 @@ public class EvenementService {
         return list.stream().filter(evenement -> evenement.getIdEvenement() == id).findFirst().orElse(null);
     }
 
-    public void modifierEvenement(EvenementDto evenement){
+    public void modifierEvenement(EvenementDto evenementDto){
         List<EvenementDto> list = evenementXMLUtils.unmarshaller();
-        EvenementDto event = getEvenementById(evenement.getIdEvenement());
-        list.remove(event);
-        list.add(evenement);
+        list.remove(list.stream()
+                .filter(evenement -> evenement.getIdEvenement() == evenementDto.getIdEvenement())
+                .findFirst()
+                .orElse(null));
+        list.add(evenementDto);
         evenementXMLUtils.marshaller(list);
     }
 
     public void supprimerEvenement(long id){
         List<EvenementDto> list = evenementXMLUtils.unmarshaller();
-        EvenementDto evenement = getEvenementById(id);
-        list.remove(evenement);
+        list.remove(list.stream()
+                .filter(evenement -> evenement.getIdEvenement() == id)
+                .findFirst()
+                .orElse(null));
         evenementXMLUtils.marshaller(list);
     }
 

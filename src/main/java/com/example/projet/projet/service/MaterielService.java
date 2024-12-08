@@ -43,8 +43,10 @@ public class MaterielService {
 
     public void modifierMateriel(MaterielDto materielDto){
         List<MaterielDto> list = materielXMLUtils.unmarshaller();
-        MaterielDto materiel = getMaterielById(materielDto.getIdMateriel());
-        list.remove(materiel);
+        list.remove(list.stream()
+                .filter(materiel -> materiel.getIdMateriel() == materielDto.getIdMateriel())
+                .findFirst()
+                .orElse(null));
         list.add(materielDto);
         materielXMLUtils.marshaller(list);
     }
@@ -57,8 +59,10 @@ public class MaterielService {
 
     public void supprimerMateriel(long id){
         List<MaterielDto> list = materielXMLUtils.unmarshaller();
-        MaterielDto materiel = getMaterielById(id);
-        list.remove(materiel);
+        list.remove(list.stream()
+                .filter(materiel -> materiel.getIdMateriel() == id)
+                .findFirst()
+                .orElse(null));
         materielXMLUtils.marshaller(list);
     }
 }

@@ -39,16 +39,20 @@ public class TypeSessionService {
 
     public void modifierTypeSession(TypeSessionDto typeSessionDto){
         List<TypeSessionDto> list = typeSessionXMLUtils.unmarshaller();
-        TypeSessionDto typeSession = getTypeSessionById(typeSessionDto.getIdTypeSession());
-        list.remove(typeSession);
+        list.remove(list.stream()
+                .filter(typeSession -> typeSession.getIdTypeSession() == typeSessionDto.getIdTypeSession())
+                .findFirst()
+                .orElse(null));
         list.add(typeSessionDto);
         typeSessionXMLUtils.marshaller(list);
     }
 
     public void supprimerTypeSession(long id){
         List<TypeSessionDto> list = typeSessionXMLUtils.unmarshaller();
-        TypeSessionDto typeSession = getTypeSessionById(id);
-        list.remove(typeSession);
+        list.remove(list.stream()
+                .filter(typeSession -> typeSession.getIdTypeSession() == id)
+                .findFirst()
+                .orElse(null));
         typeSessionXMLUtils.marshaller(list);
     }
 }

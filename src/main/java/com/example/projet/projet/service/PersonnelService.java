@@ -51,16 +51,20 @@ public class PersonnelService {
 
     public void modifierPersonnel(PersonnelDto personnelDto){
         List<PersonnelDto> list = personnelXMLUtils.unmarshaller();
-        PersonnelDto personnel = getPersonnelById(personnelDto.getIdPersonnel());
-        list.remove(personnel);
+        list.remove(list.stream()
+                .filter(personnel -> personnel.getIdPersonnel() == personnelDto.getIdPersonnel())
+                .findFirst()
+                .orElse(null));
         list.add(personnelDto);
         personnelXMLUtils.marshaller(list);
     }
 
     public void supprimerPersonnel(long id){
         List<PersonnelDto> list = personnelXMLUtils.unmarshaller();
-        PersonnelDto personnel = getPersonnelById(id);
-        list.remove(personnel);
+        list.remove(list.stream()
+                .filter(personnel -> personnel.getIdPersonnel() == id)
+                .findFirst()
+                .orElse(null));
         personnelXMLUtils.marshaller(list);
     }
 }

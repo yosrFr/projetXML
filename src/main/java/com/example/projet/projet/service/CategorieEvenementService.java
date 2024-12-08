@@ -33,16 +33,20 @@ public class CategorieEvenementService {
 
     public void modifierCategorieEvenement(CategorieEvenementDto categorieEvenement) {
         List<CategorieEvenementDto> list = categorieEvenementXMLUtils.unmarshaller();
-        CategorieEvenementDto categorie = getCategorieEvenementById(categorieEvenement.getIdCategorieEvenement());
-        list.remove(categorie);
+        list.remove(list.stream()
+                .filter(categorie -> categorie.getIdCategorieEvenement() == categorieEvenement.getIdCategorieEvenement())
+                .findFirst()
+                .orElse(null));
         list.add(categorieEvenement);
         categorieEvenementXMLUtils.marshaller(list);
     }
 
     public void supprimerCategorieEvenement(long id) {
         List<CategorieEvenementDto> list = categorieEvenementXMLUtils.unmarshaller();
-        CategorieEvenementDto categorie = getCategorieEvenementById(id);
-        list.remove(categorie);
+        list.remove(list.stream()
+                .filter(categorie -> categorie.getIdCategorieEvenement() == id)
+                .findFirst()
+                .orElse(null));
         categorieEvenementXMLUtils.marshaller(list);
     }
 }
