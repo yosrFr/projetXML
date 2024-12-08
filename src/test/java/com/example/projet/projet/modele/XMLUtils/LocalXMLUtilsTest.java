@@ -28,20 +28,22 @@ public class LocalXMLUtilsTest {
     public void testMarshaller() {
         localXMLUtils.marshaller(localDtos);
         File xmlFile = new File(LocalXMLUtils.XML_FILE);
-        assertTrue(xmlFile.exists(), "XML file should exist");
-        assertTrue(xmlFile.length() > 0, "XML file ne devrait pas etre vide");
+        assertTrue(xmlFile.exists(), "Le fichier XML doit exister");
+        assertTrue(xmlFile.length() > 0, "Le fichier XML ne devrait pas etre vide");
     }
 
     @Test
     public void testUnmarshaller() {
         localXMLUtils.marshaller(localDtos);
         List<LocalDto> unmarshalledDtos = localXMLUtils.unmarshaller();
-        assertEquals(localDtos.size(), unmarshalledDtos.size(), "The size of unmarshalled list should match");
-        assertEquals(localDtos.get(0).getIdLocal(), unmarshalledDtos.get(0).getIdLocal(), "The ID should match");
-        assertEquals(localDtos.get(0).getNomLocal(), unmarshalledDtos.get(0).getNomLocal(), "The name should match");
-        assertEquals(localDtos.get(0).getAdresseLocal(), unmarshalledDtos.get(0).getAdresseLocal(), "The adress should match");
-        assertEquals(localDtos.get(0).getNumTelLocal(), unmarshalledDtos.get(0).getNumTelLocal(), "The phone number should match");
-        assertEquals(localDtos.get(0).getCapaciteLocal(), unmarshalledDtos.get(0).getCapaciteLocal(), "The capacite should match");
+        assertEquals(localDtos.size(), unmarshalledDtos.size(), "Les tailles des listes doivent etre égales");
+        for(int i = 0; i < unmarshalledDtos.size(); i++){
+            assertEquals(localDtos.get(i).getIdLocal(), unmarshalledDtos.get(i).getIdLocal(), "L'ID doit etre la meme");
+            assertEquals(localDtos.get(i).getNomLocal(), unmarshalledDtos.get(i).getNomLocal(), "Le nom doit etre la meme");
+            assertEquals(localDtos.get(i).getAdresseLocal(), unmarshalledDtos.get(i).getAdresseLocal(), "L'adresse doit etre la meme");
+            assertEquals(localDtos.get(i).getNumTelLocal(), unmarshalledDtos.get(i).getNumTelLocal(), "Le numero de telephone doit etre la meme");
+            assertEquals(localDtos.get(i).getCapaciteLocal(), unmarshalledDtos.get(i).getCapaciteLocal(), "La capacite doit etre la meme");
+        }
     }
 
     @AfterEach

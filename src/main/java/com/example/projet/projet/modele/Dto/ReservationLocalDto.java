@@ -2,7 +2,6 @@ package com.example.projet.projet.modele.Dto;
 
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlElement;
-import java.time.LocalTime;
 
 @XmlRootElement
 public class ReservationLocalDto {
@@ -10,9 +9,7 @@ public class ReservationLocalDto {
     private LocalDto local;
     private SessionDto session;
 
-    public ReservationLocalDto() {
-
-    }
+    public ReservationLocalDto() {}
 
     public ReservationLocalDto(long idReservationLocal, LocalDto local, SessionDto session) {
         this.idReservationLocal = idReservationLocal;

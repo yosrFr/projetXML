@@ -8,8 +8,8 @@ import java.util.Date;
 public class InscriptionDto {
     private Date DateInscription;
     private long idInscription;
-    private boolean presence;
-    private boolean retour;
+    private Boolean presence;
+    private Boolean retour;
     private ParticipantDto participant;
     private EvenementDto evenement;
 
@@ -17,7 +17,7 @@ public class InscriptionDto {
 
     }
 
-    public InscriptionDto(Date dateInscription, long idInscription, boolean presence, boolean retour, ParticipantDto participant, EvenementDto evenement) {
+    public InscriptionDto(Date dateInscription, long idInscription, Boolean presence, Boolean retour, ParticipantDto participant, EvenementDto evenement) {
         DateInscription = dateInscription;
         this.idInscription = idInscription;
         this.presence = presence;
@@ -45,20 +45,20 @@ public class InscriptionDto {
     }
 
     @XmlElement
-    public boolean getPresence() {
+    public Boolean getPresence() {
         return presence;
     }
 
-    public void setPresence(boolean presence) {
+    public void setPresence(Boolean presence) {
         this.presence = presence;
     }
 
     @XmlElement
-    public boolean getRetour() {
+    public Boolean getRetour() {
         return retour;
     }
 
-    public void setRetour(boolean retour) {
+    public void setRetour(Boolean retour) {
         this.retour = retour;
     }
 

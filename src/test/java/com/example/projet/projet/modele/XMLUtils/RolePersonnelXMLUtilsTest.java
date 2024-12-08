@@ -28,18 +28,20 @@ public class RolePersonnelXMLUtilsTest {
     public void testMarshaller() {
         rolePersonnelXMLUtils.marshaller(rolePersonnelDtos);
         File xmlFile = new File(RolePersonnelXMLUtils.XML_FILE);
-        assertTrue(xmlFile.exists(), "XML file should exist");
-        assertTrue(xmlFile.length() > 0, "XML file ne devrait pas etre vide");
+        assertTrue(xmlFile.exists(), "Le fichier XML doit exister");
+        assertTrue(xmlFile.length() > 0, "Le fichier XML ne devrait pas etre vide");
     }
 
     @Test
     public void testUnmarshaller() {
         rolePersonnelXMLUtils.marshaller(rolePersonnelDtos);
         List<RolePersonnelDto> unmarshalledDtos = rolePersonnelXMLUtils.unmarshaller();
-        assertEquals(rolePersonnelDtos.size(), unmarshalledDtos.size(), "The size of unmarshalled list should match");
-        assertEquals(rolePersonnelDtos.get(0).getDescriptionRolePersonnel(), unmarshalledDtos.get(0).getDescriptionRolePersonnel(), "The description should match");
-        assertEquals(rolePersonnelDtos.get(0).getNomRolePersonnel(), unmarshalledDtos.get(0).getNomRolePersonnel(), "The name should match");
-        assertEquals(rolePersonnelDtos.get(0).getIdRolePersonnel(), unmarshalledDtos.get(0).getIdRolePersonnel(), "The ID should match");
+        assertEquals(rolePersonnelDtos.size(), unmarshalledDtos.size(), "Les tailles des listes doivent etre égales");
+        for (int i = 0; i < unmarshalledDtos.size(); i++) {
+            assertEquals(rolePersonnelDtos.get(i).getDescriptionRolePersonnel(), unmarshalledDtos.get(i).getDescriptionRolePersonnel(), "La description doit etre la meme");
+            assertEquals(rolePersonnelDtos.get(i).getNomRolePersonnel(), unmarshalledDtos.get(i).getNomRolePersonnel(), "Le nom doit etre la meme");
+            assertEquals(rolePersonnelDtos.get(i).getIdRolePersonnel(), unmarshalledDtos.get(i).getIdRolePersonnel(), "L'ID doit etre la meme");
+        }
     }
 
     @AfterEach

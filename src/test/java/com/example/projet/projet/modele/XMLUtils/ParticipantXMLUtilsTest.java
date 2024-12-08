@@ -29,23 +29,25 @@ public class ParticipantXMLUtilsTest {
     public void testMarshaller() {
         participantXMLUtils.marshaller(participantDtos);
         File xmlFile = new File(ParticipantXMLUtils.XML_FILE);
-        assertTrue(xmlFile.exists(), "XML file should exist");
-        assertTrue(xmlFile.length() > 0, "XML file ne devrait pas etre vide");
+        assertTrue(xmlFile.exists(), "Le fichier XML doit exister");
+        assertTrue(xmlFile.length() > 0, "Le fichier XML ne devrait pas etre vide");
     }
 
     @Test
     public void testUnmarshaller() {
         participantXMLUtils.marshaller(participantDtos);
         List<ParticipantDto> unmarshalledDtos = participantXMLUtils.unmarshaller();
-        assertEquals(participantDtos.size(), unmarshalledDtos.size(), "The size of unmarshalled list should match");
-        assertEquals(participantDtos.get(0).getNom(), unmarshalledDtos.get(0).getNom(), "The nom should match");
-        assertEquals(participantDtos.get(0).getPrenom(), unmarshalledDtos.get(0).getPrenom(), "The prenom should match");
-        assertEquals(participantDtos.get(0).getAdresse(), unmarshalledDtos.get(0).getAdresse(), "The adress should match");
-        assertEquals(participantDtos.get(0).getEmail(), unmarshalledDtos.get(0).getEmail(), "The email should match");
-        assertEquals(participantDtos.get(0).getTelephone(), unmarshalledDtos.get(0).getTelephone(), "The tel should match");
-        assertEquals(participantDtos.get(0).getDateNaissance(), unmarshalledDtos.get(0).getDateNaissance(), "The date should match");
-        assertEquals(participantDtos.get(0).getSexe(), unmarshalledDtos.get(0).getSexe(), "The sexe should match");
-        assertEquals(participantDtos.get(0).getIdParticipant(), unmarshalledDtos.get(0).getIdParticipant(), "The sexe should match");
+        assertEquals(participantDtos.size(), unmarshalledDtos.size(), "Les tailles des listes doivent etre égales");
+        for (int i = 0; i < participantDtos.size(); i++) {
+            assertEquals(participantDtos.get(i).getNom(), unmarshalledDtos.get(i).getNom(), "Le nom doit etre la meme");
+            assertEquals(participantDtos.get(i).getPrenom(), unmarshalledDtos.get(i).getPrenom(), "Le prenom doit etre la meme");
+            assertEquals(participantDtos.get(i).getAdresse(), unmarshalledDtos.get(i).getAdresse(), "L'adresse doit etre la meme");
+            assertEquals(participantDtos.get(i).getEmail(), unmarshalledDtos.get(i).getEmail(), "L'email doit etre la meme");
+            assertEquals(participantDtos.get(i).getTelephone(), unmarshalledDtos.get(i).getTelephone(), "Le numero de telephone doit etre la meme");
+            assertEquals(participantDtos.get(i).getDateNaissance(), unmarshalledDtos.get(i).getDateNaissance(), "La date de naissance doit etre la meme");
+            assertEquals(participantDtos.get(i).getSexe(), unmarshalledDtos.get(i).getSexe(), "Le sexe doit etre la meme");
+            assertEquals(participantDtos.get(i).getIdParticipant(), unmarshalledDtos.get(i).getIdParticipant(), "L'ID doit etre la meme");
+        }
     }
 
     @AfterEach

@@ -12,8 +12,8 @@ public class EvenementDto {
     private String descriptionEvenement;
     private String dateDebutEvenement;
     private String dateFinEvenement;
-    private String NombreParticipantsEstime;
-    private String NombrePaerticipantsMaximal;
+    private int NombreParticipantsEstime;
+    private int NombreParticipantsMaximal;
     private List<SessionDto> sessions;
 
     public EvenementDto() {
@@ -21,14 +21,14 @@ public class EvenementDto {
         sessions = new ArrayList<SessionDto>();
     }
 
-    public EvenementDto(long idEvenement, String titreEvenement, String descriptionEvenement, String dateDebutEvenement, String dateFinEvenement, String nombreParticipantsEstime, String nombrePaerticipantsMaximal, List<SessionDto> sessions) {
+    public EvenementDto(long idEvenement, String titreEvenement, String descriptionEvenement, String dateDebutEvenement, String dateFinEvenement, int nombreParticipantsEstime, int nombreParticipantsMaximal, List<SessionDto> sessions) {
         this.idEvenement = idEvenement;
         this.titreEvenement = titreEvenement;
         this.descriptionEvenement = descriptionEvenement;
         this.dateDebutEvenement = dateDebutEvenement;
         this.dateFinEvenement = dateFinEvenement;
         NombreParticipantsEstime = nombreParticipantsEstime;
-        NombrePaerticipantsMaximal = nombrePaerticipantsMaximal;
+        NombreParticipantsMaximal = nombreParticipantsMaximal;
         this.sessions = sessions;
     }
 
@@ -78,21 +78,21 @@ public class EvenementDto {
     }
 
     @XmlElement
-    public String getNombreParticipantsEstime() {
+    public int getNombreParticipantsEstime() {
         return NombreParticipantsEstime;
     }
 
-    public void setNombreParticipantsEstime(String nombreParticipantsEstime) {
+    public void setNombreParticipantsEstime(int nombreParticipantsEstime) {
         NombreParticipantsEstime = nombreParticipantsEstime;
     }
 
     @XmlElement
-    public String getNombrePaerticipantsMaximal() {
-        return NombrePaerticipantsMaximal;
+    public int getNombreParticipantsMaximal() {
+        return NombreParticipantsMaximal;
     }
 
-    public void setNombrePaerticipantsMaximal(String nombrePaerticipantsMaximal) {
-        NombrePaerticipantsMaximal = nombrePaerticipantsMaximal;
+    public void setNombreParticipantsMaximal(int nombreParticipantsMaximal) {
+        NombreParticipantsMaximal = nombreParticipantsMaximal;
     }
 
     @XmlElement

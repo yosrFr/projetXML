@@ -28,18 +28,20 @@ public class TypeInscriptionXMLUtilsTest {
     public void testMarshaller() {
         typeInscriptionXMLUtils.marshaller(typeInscriptionDtos);
         File xmlFile = new File(TypeInscriptionXMLUtils.XML_FILE);
-        assertTrue(xmlFile.exists(), "XML file should exist");
-        assertTrue(xmlFile.length() > 0, "XML file ne devrait pas etre vide");
+        assertTrue(xmlFile.exists(), "Le fichier XML doit exister");
+        assertTrue(xmlFile.length() > 0, "Le fichier XML ne devrait pas etre vide");
     }
 
     @Test
     public void testUnmarshaller() {
         typeInscriptionXMLUtils.marshaller(typeInscriptionDtos);
         List<TypeInscriptionDto> unmarshalledDtos = typeInscriptionXMLUtils.unmarshaller();
-        assertEquals(typeInscriptionDtos.size(), unmarshalledDtos.size(), "The size of unmarshalled list should match");
-        assertEquals(typeInscriptionDtos.get(0).getDescriptionTypeInscription(), unmarshalledDtos.get(0).getDescriptionTypeInscription(), "The description should match");
-        assertEquals(typeInscriptionDtos.get(0).getNomTypeInscription(), unmarshalledDtos.get(0).getNomTypeInscription(), "The name should match");
-        assertEquals(typeInscriptionDtos.get(0).getIdTypeInscription(), unmarshalledDtos.get(0).getIdTypeInscription(), "The ID should match");
+        assertEquals(typeInscriptionDtos.size(), unmarshalledDtos.size(), "Les tailles des listes doivent etre égales");
+        for (int i = 0; i < unmarshalledDtos.size(); i++) {
+            assertEquals(typeInscriptionDtos.get(i).getDescriptionTypeInscription(), unmarshalledDtos.get(i).getDescriptionTypeInscription(), "La description doit etre la meme");
+            assertEquals(typeInscriptionDtos.get(i).getNomTypeInscription(), unmarshalledDtos.get(i).getNomTypeInscription(), "Le nom doit etre la meme");
+            assertEquals(typeInscriptionDtos.get(i).getIdTypeInscription(), unmarshalledDtos.get(i).getIdTypeInscription(), "L'ID doit etre la meme");
+        }
     }
 
     @AfterEach

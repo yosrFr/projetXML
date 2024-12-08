@@ -14,7 +14,7 @@ import java.util.List;
 
 @Component
 public class ReservationLocalXMLUtils {
-    private static final String XML_FILE = "ReservationLocal.xml";
+    public static final String XML_FILE = "C:/Users/asus/Desktop/ReservationLocal.xml";
 
     public void marshaller(List<ReservationLocalDto> reservationLocal) {
         JAXBContext jaxbContext = null;

@@ -9,7 +9,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,88 +16,61 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AffectationPersonnelXMLUtilsTest {
-    /*
-
-    private static final String TEST_XML_FILE = "AffectationPersonnel.xml";
-    private AffectationPersonnelXMLUtils xmlUtils;
+    private AffectationPersonnelXMLUtils affectationPersonnelXMLUtils;
+    private List<AffectationPersonnelDto> affectationPersonnelDtos;
 
     @BeforeEach
-    void setUp() {
-        xmlUtils = new AffectationPersonnelXMLUtils();
+    public void setUp() {
+        affectationPersonnelXMLUtils = new AffectationPersonnelXMLUtils();
+        affectationPersonnelDtos = new ArrayList<>();
+        RolePersonnelDto role1 = new RolePersonnelDto(1, "Nom1", "Description1");
+        RolePersonnelDto role2 = new RolePersonnelDto(2, "Nom2", "Description2");
+        PersonnelDto personnel1 = new PersonnelDto("nom", "prenom", "adresse", "email", "telephone", new Date(), "M", 1, role1);
+        PersonnelDto personnel2 = new PersonnelDto("nom", "prenom", "adresse", "email", "telephone", new Date(), "F", 2, role2);
+        SessionDto session1 = new SessionDto(1, new Date(), "titreSession1", "09:45", "09:45");
+        SessionDto session2 = new SessionDto(2, new Date(), "titreSession2", "09:45", "09:45");
+        affectationPersonnelDtos.add(new AffectationPersonnelDto(1, personnel1, session1));
+        affectationPersonnelDtos.add(new AffectationPersonnelDto(2, personnel2, session2));
+    }
+
+    @Test
+    void testMarshaller() {
+        affectationPersonnelXMLUtils.marshaller(affectationPersonnelDtos);
+        File xmlFile = new File(AffectationPersonnelXMLUtils.XML_FILE);
+        assertTrue(xmlFile.exists(), "Le fichier XML doit exister");
+        assertTrue(xmlFile.length() > 0, "Le fichier XML ne devrait pas etre vide");
+    }
+
+    @Test
+    public void testUnmarshaller() {
+        affectationPersonnelXMLUtils.marshaller(affectationPersonnelDtos);
+        List<AffectationPersonnelDto> unmarshalledDtos = affectationPersonnelXMLUtils.unmarshaller();
+        assertEquals(affectationPersonnelDtos.size(), unmarshalledDtos.size(), "Les tailles des listes doivent etre égales");
+        for(int i = 0; i < affectationPersonnelDtos.size(); i++) {
+            assertEquals(affectationPersonnelDtos.get(i).getIdAffectationPersonnel(), unmarshalledDtos.get(i).getIdAffectationPersonnel(), "L'ID d'affectation doit etre la meme");
+            assertEquals(affectationPersonnelDtos.get(i).getPersonnel().getIdPersonnel(), unmarshalledDtos.get(i).getPersonnel().getIdPersonnel(), "L'ID du personnel doit etre la meme");
+            assertEquals(affectationPersonnelDtos.get(i).getPersonnel().getNom(), unmarshalledDtos.get(i).getPersonnel().getNom(), "Le nom doit etre le meme");
+            assertEquals(affectationPersonnelDtos.get(i).getPersonnel().getPrenom(), unmarshalledDtos.get(i).getPersonnel().getPrenom(), "Le prenom doit etre le meme");
+            assertEquals(affectationPersonnelDtos.get(i).getPersonnel().getAdresse(), unmarshalledDtos.get(i).getPersonnel().getAdresse(), "L'adresse doit etre la meme");
+            assertEquals(affectationPersonnelDtos.get(i).getPersonnel().getEmail(), unmarshalledDtos.get(i).getPersonnel().getEmail(), "L'email doit etre le meme");
+            assertEquals(affectationPersonnelDtos.get(i).getPersonnel().getDateNaissance(), unmarshalledDtos.get(i).getPersonnel().getDateNaissance(), "La date de naissance doit etre la meme");
+            assertEquals(affectationPersonnelDtos.get(i).getPersonnel().getTelephone(), unmarshalledDtos.get(i).getPersonnel().getTelephone(), "Le numero de telephone doit etre le meme");
+            assertEquals(affectationPersonnelDtos.get(i).getPersonnel().getRolePersonnel().getIdRolePersonnel(), unmarshalledDtos.get(i).getPersonnel().getRolePersonnel().getIdRolePersonnel(), "L'ID du role doit etre le meme");
+            assertEquals(affectationPersonnelDtos.get(i).getPersonnel().getRolePersonnel().getDescriptionRolePersonnel(), unmarshalledDtos.get(i).getPersonnel().getRolePersonnel().getDescriptionRolePersonnel(), "La description du role doit etre la meme");
+            assertEquals(affectationPersonnelDtos.get(i).getPersonnel().getRolePersonnel().getNomRolePersonnel(), unmarshalledDtos.get(i).getPersonnel().getRolePersonnel().getNomRolePersonnel(), "Le nom du role doit etre le meme");
+            assertEquals(affectationPersonnelDtos.get(i).getSession().getIdSession(), unmarshalledDtos.get(i).getSession().getIdSession(), "L'ID de la session doit etre la meme");
+            assertEquals(affectationPersonnelDtos.get(i).getSession().getTitreSession(), unmarshalledDtos.get(i).getSession().getTitreSession(), "Le titre de la session doit etre le meme");
+            assertEquals(affectationPersonnelDtos.get(i).getSession().getDateSession(), unmarshalledDtos.get(i).getSession().getDateSession(), "La date doit etre le meme");
+            assertEquals(affectationPersonnelDtos.get(i).getSession().getHeureDebutSession(), unmarshalledDtos.get(i).getSession().getHeureDebutSession(), "L'heure de debut doit etre le meme");
+            assertEquals(affectationPersonnelDtos.get(i).getSession().getHeureFinSession(), unmarshalledDtos.get(i).getSession().getHeureFinSession(), "L'heure de fin doit etre la meme");
+        }
     }
 
     @AfterEach
     void tearDown() {
-        // Supprimez le fichier de test après chaque exécution
-        File file = new File(TEST_XML_FILE);
+        File file = new File(AffectationPersonnelXMLUtils.XML_FILE);
         if (file.exists()) {
             file.delete();
         }
     }
-
-    @Test
-    void testMarshallerAndUnmarshaller() {
-        // Préparer une liste de données
-        RolePersonnelDto role = new RolePersonnelDto(1, "role1", "DescriptionRole1");
-
-        PersonnelDto personnel1 = new PersonnelDto("nom1", "prenom1", "adresse1", "email1", "telephone1", new Date(), "F", 1, role);
-        PersonnelDto personnel2 = new PersonnelDto("nom2", "prenom2", "adresse2", "email2", "telephone2", new Date(), "M", 2, role);
-
-        SessionDto session1 = new SessionDto(1, new Date(), "session1", LocalTime.of(9, 0));
-        SessionDto session2 = new SessionDto(2, new Date(), "session2", LocalTime.of(10, 0));
-
-        List<AffectationPersonnelDto> originalList = new ArrayList<>();
-        originalList.add(new AffectationPersonnelDto(1, personnel1, session1));
-        originalList.add(new AffectationPersonnelDto(2, personnel2, session2));
-
-        // Sérialiser les données dans le fichier XML
-        xmlUtils.marshaller(originalList);
-
-        // Vérifiez que le fichier a été créé
-        File file = new File(TEST_XML_FILE);
-        assertTrue(file.exists(), "Le fichier XML doit être créé après l'exécution de la méthode marshaller.");
-
-        // Lire les données depuis le fichier XML
-        List<AffectationPersonnelDto> unmarshalledList = xmlUtils.unmarshaller();
-
-        // Vérifiez que la liste désérialisée n'est pas nulle et a la bonne taille
-        assertNotNull(unmarshalledList, "La liste désérialisée ne doit pas être nulle.");
-        assertEquals(originalList.size(), unmarshalledList.size(), "Les tailles des listes doivent correspondre.");
-
-        // Comparer chaque élément de la liste
-        for (int i = 0; i < originalList.size(); i++) {
-            AffectationPersonnelDto original = originalList.get(i);
-            AffectationPersonnelDto unmarshalled = unmarshalledList.get(i);
-
-            // Vérifier les ID
-            assertEquals(original.getIdAffectationPersonnel(), unmarshalled.getIdAffectationPersonnel(), "Les ID doivent correspondre.");
-
-            // Vérifier les données du personnel
-            PersonnelDto originalPersonnel = original.getPersonnel();
-            PersonnelDto unmarshalledPersonnel = unmarshalled.getPersonnel();
-            assertEquals(originalPersonnel.getNom(), unmarshalledPersonnel.getNom(), "Les noms des personnels doivent correspondre.");
-            assertEquals(originalPersonnel.getPrenom(), unmarshalledPersonnel.getPrenom(), "Les prénoms des personnels doivent correspondre.");
-            assertEquals(originalPersonnel.getAdresse(), unmarshalledPersonnel.getAdresse(), "Les adresses des personnels doivent correspondre.");
-            assertEquals(originalPersonnel.getEmail(), unmarshalledPersonnel.getEmail(), "Les emails des personnels doivent correspondre.");
-            assertEquals(originalPersonnel.getTelephone(), unmarshalledPersonnel.getTelephone(), "Les téléphones des personnels doivent correspondre.");
-            assertEquals(originalPersonnel.getSexe(), unmarshalledPersonnel.getSexe(), "Les sexes des personnels doivent correspondre.");
-            assertEquals(originalPersonnel.getIdPersonnel(), unmarshalledPersonnel.getIdPersonnel(), "Les IDs des personnels doivent correspondre.");
-
-            // Vérifier le rôle du personnel
-            RolePersonnelDto originalRole = originalPersonnel.getRolePersonnel();
-            RolePersonnelDto unmarshalledRole = unmarshalledPersonnel.getRolePersonnel();
-            assertEquals(originalRole.getIdRolePersonnel(), unmarshalledRole.getIdRolePersonnel(), "Les IDs des rôles doivent correspondre.");
-            assertEquals(originalRole.getNomRolePersonnel(), unmarshalledRole.getNomRolePersonnel(), "Les noms des rôles doivent correspondre.");
-            assertEquals(originalRole.getDescriptionRolePersonnel(), unmarshalledRole.getDescriptionRolePersonnel(), "Les descriptions des rôles doivent correspondre.");
-
-            // Vérifier les données de session
-            SessionDto originalSession = original.getSession();
-            SessionDto unmarshalledSession = unmarshalled.getSession();
-            assertEquals(originalSession.getIdSession(), unmarshalledSession.getIdSession(), "Les IDs des sessions doivent correspondre.");
-            assertEquals(originalSession.getTitreSession(), unmarshalledSession.getTitreSession(), "Les noms des sessions doivent correspondre.");
-            assertEquals(originalSession.getHeureDebutSession(), unmarshalledSession.getHeureDebutSession(), "Les heures de début des sessions doivent correspondre.");
-            }
-    }
-
-     */
 }

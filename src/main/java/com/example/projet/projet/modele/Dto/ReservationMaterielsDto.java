@@ -2,7 +2,6 @@ package com.example.projet.projet.modele.Dto;
 
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlElement;
-import java.time.LocalTime;
 import java.util.List;
 
 @XmlRootElement

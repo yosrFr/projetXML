@@ -29,20 +29,22 @@ public class MaterielXMLUtilsTest {
     public void testMarshaller() {
         materielXMLUtils.marshaller(materielDtos);
         File xmlFile = new File(MaterielXMLUtils.XML_FILE);
-        assertTrue(xmlFile.exists(), "XML file should exist");
-        assertTrue(xmlFile.length() > 0, "XML file ne devrait pas etre vide");
+        assertTrue(xmlFile.exists(), "Le fichier XML doit exister");
+        assertTrue(xmlFile.length() > 0, "Le fichier XML ne devrait pas etre vide");
     }
 
     @Test
     public void testUnmarshaller() {
         materielXMLUtils.marshaller(materielDtos);
         List<MaterielDto> unmarshalledDtos = materielXMLUtils.unmarshaller();
-        assertEquals(materielDtos.size(), unmarshalledDtos.size(), "The size of unmarshalled list should match");
-        assertEquals(materielDtos.get(0).getIdMateriel(), unmarshalledDtos.get(0).getIdMateriel(), "The ID should match");
-        assertEquals(materielDtos.get(0).getNomMateriel(), unmarshalledDtos.get(0).getNomMateriel(), "The name should match");
-        assertEquals(materielDtos.get(0).getMarqueMateriel(), unmarshalledDtos.get(0).getMarqueMateriel(), "The marque should match");
-        assertEquals(materielDtos.get(0).getModeleMateriel(), unmarshalledDtos.get(0).getModeleMateriel(), "The modele should match");
-        assertEquals(materielDtos.get(0).getDateAchatMateriel(), unmarshalledDtos.get(0).getDateAchatMateriel(), "The capacite should match");
+        assertEquals(materielDtos.size(), unmarshalledDtos.size(), "Les tailles des listes doivent etre égales");
+        for (int i = 0; i < materielDtos.size(); i++) {
+            assertEquals(materielDtos.get(i).getIdMateriel(), unmarshalledDtos.get(i).getIdMateriel(), "L'ID doit etre la meme");
+            assertEquals(materielDtos.get(i).getNomMateriel(), unmarshalledDtos.get(i).getNomMateriel(), "Le nom doit etre la meme");
+            assertEquals(materielDtos.get(i).getMarqueMateriel(), unmarshalledDtos.get(i).getMarqueMateriel(), "La marque doit etre la meme");
+            assertEquals(materielDtos.get(i).getModeleMateriel(), unmarshalledDtos.get(i).getModeleMateriel(), "Le modele doit etre la meme");
+            assertEquals(materielDtos.get(i).getDateAchatMateriel(), unmarshalledDtos.get(i).getDateAchatMateriel(), "La date d'achat doit etre la meme");
+        }
     }
 
     @AfterEach

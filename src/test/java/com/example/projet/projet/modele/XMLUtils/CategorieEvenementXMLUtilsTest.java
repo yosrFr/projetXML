@@ -28,20 +28,21 @@ public class CategorieEvenementXMLUtilsTest {
     public void testMarshaller() {
         categorieEvenementXMLUtils.marshaller(categorieEvenementDtos);
         File xmlFile = new File(CategorieEvenementXMLUtils.XML_FILE);
-        assertTrue(xmlFile.exists(), "XML file should exist");
-        assertTrue(xmlFile.length() > 0, "XML file ne devrait pas etre vide");
+        assertTrue(xmlFile.exists(), "Le fichier XML doit exister");
+        assertTrue(xmlFile.length() > 0, "Le fichier XML ne devrait pas etre vide");
     }
 
     @Test
     public void testUnmarshaller() {
         categorieEvenementXMLUtils.marshaller(categorieEvenementDtos);
         List<CategorieEvenementDto> unmarshalledDtos = categorieEvenementXMLUtils.unmarshaller();
-        assertEquals(categorieEvenementDtos.size(), unmarshalledDtos.size(), "The size of unmarshalled list should match");
-        assertEquals(categorieEvenementDtos.get(0).getDescriptionCategorieEvenement(), unmarshalledDtos.get(0).getDescriptionCategorieEvenement(), "The description should match");
-        assertEquals(categorieEvenementDtos.get(0).getNomCategorieEvenement(), unmarshalledDtos.get(0).getNomCategorieEvenement(), "The name should match");
-        assertEquals(categorieEvenementDtos.get(0).getIdCategorieEvenement(), unmarshalledDtos.get(0).getIdCategorieEvenement(), "The ID should match");
+        assertEquals(categorieEvenementDtos.size(), unmarshalledDtos.size(), "Les tailles des listes doivent etre égales");
+        for (int i = 0; i < unmarshalledDtos.size(); i++) {
+            assertEquals(categorieEvenementDtos.get(i).getDescriptionCategorieEvenement(), unmarshalledDtos.get(i).getDescriptionCategorieEvenement(), "La description doit etre la meme");
+            assertEquals(categorieEvenementDtos.get(i).getNomCategorieEvenement(), unmarshalledDtos.get(i).getNomCategorieEvenement(), "Le nom doit etre le meme");
+            assertEquals(categorieEvenementDtos.get(i).getIdCategorieEvenement(), unmarshalledDtos.get(i).getIdCategorieEvenement(), "L'ID doit etre la meme");
+        }
     }
-
     @AfterEach
     public void tearDown() {
         File xmlFile = new File(CategorieEvenementXMLUtils.XML_FILE);

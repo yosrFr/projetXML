@@ -29,20 +29,22 @@ public class SessionXMLUtilsTest {
     public void testMarshaller() {
         sessionXMLUtils.marshaller(SessionDtos);
         File xmlFile = new File(SessionXMLUtils.XML_FILE);
-        assertTrue(xmlFile.exists(), "XML file should exist");
-        assertTrue(xmlFile.length() > 0, "XML file ne devrait pas etre vide");
+        assertTrue(xmlFile.exists(), "Le fichier XML doit exister");
+        assertTrue(xmlFile.length() > 0, "Le fichier XML ne devrait pas etre vide");
     }
 
     @Test
     public void testUnmarshaller() {
         sessionXMLUtils.marshaller(SessionDtos);
         List<SessionDto> unmarshalledDtos = sessionXMLUtils.unmarshaller();
-        assertEquals(SessionDtos.size(), unmarshalledDtos.size(), "The size of unmarshalled list should match");
-        assertEquals(SessionDtos.get(0).getIdSession(), unmarshalledDtos.get(0).getIdSession(), "The ID should match");
-        assertEquals(SessionDtos.get(0).getTitreSession(), unmarshalledDtos.get(0).getTitreSession(), "The name should match");
-        assertEquals(SessionDtos.get(0).getDateSession(), unmarshalledDtos.get(0).getDateSession(), "The date should match");
-        assertEquals(SessionDtos.get(0).getHeureDebutSession(), unmarshalledDtos.get(0).getHeureDebutSession(), "The time should match");
-        assertEquals(SessionDtos.get(0).getHeureFinSession(), unmarshalledDtos.get(0).getHeureFinSession(), "The time should match");
+        assertEquals(SessionDtos.size(), unmarshalledDtos.size(), "Les tailles des listes doivent etre égales");
+        for (int i = 0; i < SessionDtos.size(); i++) {
+            assertEquals(SessionDtos.get(i).getIdSession(), unmarshalledDtos.get(i).getIdSession(), "L'ID doit etre la meme");
+            assertEquals(SessionDtos.get(i).getTitreSession(), unmarshalledDtos.get(i).getTitreSession(), "Le titre doit etre la meme");
+            assertEquals(SessionDtos.get(i).getDateSession(), unmarshalledDtos.get(i).getDateSession(), "La date doit etre la meme");
+            assertEquals(SessionDtos.get(i).getHeureDebutSession(), unmarshalledDtos.get(i).getHeureDebutSession(), "L'heure de debut doit etre la meme");
+            assertEquals(SessionDtos.get(i).getHeureFinSession(), unmarshalledDtos.get(i).getHeureFinSession(), "L'heure de fin doit etre la meme");
+        }
     }
 
     @AfterEach

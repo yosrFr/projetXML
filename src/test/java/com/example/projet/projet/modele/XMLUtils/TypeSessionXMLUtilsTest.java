@@ -28,18 +28,20 @@ public class TypeSessionXMLUtilsTest {
     public void testMarshaller() {
         typeSessionXMLUtils.marshaller(typeSessionDtos);
         File xmlFile = new File(TypeSessionXMLUtils.XML_FILE);
-        assertTrue(xmlFile.exists(), "XML file should exist");
-        assertTrue(xmlFile.length() > 0, "XML file ne devrait pas etre vide");
+        assertTrue(xmlFile.exists(), "Le fichier XML doit exister");
+        assertTrue(xmlFile.length() > 0, "Le fichier XML ne devrait pas etre vide");
     }
 
     @Test
     public void testUnmarshaller() {
         typeSessionXMLUtils.marshaller(typeSessionDtos);
         List<TypeSessionDto> unmarshalledDtos = typeSessionXMLUtils.unmarshaller();
-        assertEquals(typeSessionDtos.size(), unmarshalledDtos.size(), "The size of unmarshalled list should match");
-        assertEquals(typeSessionDtos.get(0).getDescriptionTypeSession(), unmarshalledDtos.get(0).getDescriptionTypeSession(), "The description should match");
-        assertEquals(typeSessionDtos.get(0).getNomTypeSession(), unmarshalledDtos.get(0).getNomTypeSession(), "The name should match");
-        assertEquals(typeSessionDtos.get(0).getIdTypeSession(), unmarshalledDtos.get(0).getIdTypeSession(), "The ID should match");
+        assertEquals(typeSessionDtos.size(), unmarshalledDtos.size(), "Les tailles des listes doivent etre égales");
+        for (int i = 0; i < unmarshalledDtos.size(); i++) {
+            assertEquals(typeSessionDtos.get(i).getDescriptionTypeSession(), unmarshalledDtos.get(i).getDescriptionTypeSession(), "La description doit etre la meme");
+            assertEquals(typeSessionDtos.get(i).getNomTypeSession(), unmarshalledDtos.get(i).getNomTypeSession(), "Le nom doit etre la meme");
+            assertEquals(typeSessionDtos.get(i).getIdTypeSession(), unmarshalledDtos.get(i).getIdTypeSession(), "L'ID doit etre la meme");
+        }
     }
 
     @AfterEach
