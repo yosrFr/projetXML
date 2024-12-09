@@ -1,12 +1,12 @@
 package com.example.projet.projet.service;
 
 import com.example.projet.projet.modele.XMLUtils.AffectationPersonnelXMLUtils;
-import com.example.projet.projet.modele.XMLUtils.PersonnelXMLUtils;
 import com.example.projet.projet.modele.Dto.AffectationPersonnelDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -15,7 +15,7 @@ public class AffectationPersonnelService {
     @Autowired
     private AffectationPersonnelXMLUtils affectationPersonnelXMLUtils;
 
-    public AffectationPersonnelService(AffectationPersonnelXMLUtils affectationPersonnelXMLUtils, PersonnelXMLUtils personnelXMLUtils) {
+    public AffectationPersonnelService(AffectationPersonnelXMLUtils affectationPersonnelXMLUtils) {
         this.affectationPersonnelXMLUtils = affectationPersonnelXMLUtils;
     }
 
@@ -29,9 +29,11 @@ public class AffectationPersonnelService {
         List<AffectationPersonnelDto> list = affectationPersonnelXMLUtils.unmarshaller();
         return list.stream()
                 .filter(affectationPersonnel -> affectationPersonnel.getPersonnel().getIdPersonnel() == idPersonnel)
-                .anyMatch(affectationPersonnel ->
+                .noneMatch(affectationPersonnel ->
                         !affectationPersonnel.getSession().getDateSession().equals(date) &&
-                                LocalTime.parse(tempsFin).isBefore(LocalTime.parse(affectationPersonnel.getSession().getHeureDebutSession())) &&
-                                LocalTime.parse(tempsDebut).isAfter(LocalTime.parse(affectationPersonnel.getSession().getHeureFinSession())));
+                                LocalTime.parse(tempsFin, DateTimeFormatter.ofPattern("HH:mm"))
+                                        .isBefore(LocalTime.parse(affectationPersonnel.getSession().getHeureDebutSession())) &&
+                                LocalTime.parse(tempsDebut, DateTimeFormatter.ofPattern("HH:mm"))
+                                        .isAfter(LocalTime.parse(affectationPersonnel.getSession().getHeureFinSession())));
     }
 }

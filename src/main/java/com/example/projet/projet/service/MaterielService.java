@@ -16,7 +16,7 @@ public class MaterielService {
     @Autowired
     private ReservationMaterielService reservationMaterielService;
 
-    public MaterielService(MaterielXMLUtils materielXMLUtils, ReservationMaterielService reservationMaterielService) {
+    public MaterielService(MaterielXMLUtils materielXMLUtils) {
         this.materielXMLUtils = materielXMLUtils;
         this.reservationMaterielService = reservationMaterielService;
     }

@@ -2,7 +2,6 @@ package com.example.projet.projet.service;
 
 import com.example.projet.projet.modele.Dto.ParticipantDto;
 import com.example.projet.projet.modele.XMLUtils.ParticipantXMLUtils;
-import com.example.projet.projet.modele.XMLUtils.TypeInscriptionXMLUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

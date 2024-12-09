@@ -15,11 +15,12 @@ public class PersonnelService {
     @Autowired
     private PersonnelXMLUtils personnelXMLUtils;
     @Autowired
-    private ReservationMaterielService reservationMaterielService;
+    private PersonneService personneService;
+    @Autowired
+    private AffectationPersonnelService affectationPersonnelService;
 
-    public PersonnelService(PersonnelXMLUtils personnelXMLUtils, ReservationMaterielService reservationMaterielService) {
+    public PersonnelService(PersonnelXMLUtils personnelXMLUtils) {
         this.personnelXMLUtils = personnelXMLUtils;
-        this.reservationMaterielService = reservationMaterielService;
     }
 
     public List<String> getAllNomsPersonnelDispoByRole (String role, Date date, String tempsDeb, String tempsFin){
@@ -27,7 +28,7 @@ public class PersonnelService {
         List<PersonnelDto> list = personnelXMLUtils.unmarshaller();
         List<PersonnelDto> persoParRole = list.stream().filter(personnel -> personnel.getRolePersonnel().equals(role)).collect(Collectors.toList());
         for(PersonnelDto personnelDto : persoParRole){
-            if(!reservationMaterielService.estReservé(personnelDto.getIdPersonnel(), tempsDeb, tempsFin, date)){
+            if(!affectationPersonnelService.estAffecté(personnelDto.getIdPersonnel(), tempsDeb, tempsFin, date)){
                 nomsPersonnel.add(personnelDto.getNom());
             }
         }

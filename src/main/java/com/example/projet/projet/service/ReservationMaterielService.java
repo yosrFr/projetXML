@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -25,14 +26,15 @@ public class ReservationMaterielService {
     }
 
     public boolean estReservé (long idMateriel, String tempsDebut, String tempsFin, Date date){
+        LocalTime debut = LocalTime.parse(tempsDebut, DateTimeFormatter.ofPattern("HH:mm"));
+        LocalTime fin = LocalTime.parse(tempsFin, DateTimeFormatter.ofPattern("HH:mm"));
         List<ReservationMaterielsDto> list = reservationMaterielXMLUtils.unmarshaller();
         return list.stream()
-                .filter(reservationMateriels -> reservationMateriels.getMateriel()
-                        .stream().anyMatch(materielDto -> materielDto.getIdMateriel() == idMateriel))
-                .anyMatch(reservationMateriels ->
-                        !reservationMateriels.getSession().getDateSession().equals(date) &&
-                                LocalTime.parse(tempsDebut).isAfter(LocalTime.parse(reservationMateriels.getSession().getHeureFinSession())) &
-                                        LocalTime.parse(tempsFin).isBefore(LocalTime.parse(reservationMateriels.getSession().getHeureDebutSession())));
+                .filter(reservationMateriels -> reservationMateriels.getMateriel().stream()
+                        .anyMatch(materielDto -> materielDto.getIdMateriel() == idMateriel))
+                .anyMatch(reservation ->
+                        reservation.getSession().getDateSession().equals(date) &&
+                        !debut.isAfter(LocalTime.parse(reservation.getSession().getHeureFinSession())) &&
+                                !fin.isBefore(LocalTime.parse(reservation.getSession().getHeureDebutSession())));
     }
-
 }
