@@ -38,7 +38,10 @@ public class MaterielService {
 
     public MaterielDto getMaterielById(long id){
         List<MaterielDto> list = materielXMLUtils.unmarshaller();
-        return list.stream().filter(materiel -> materiel.getIdMateriel() == id).findFirst().orElse(null);
+        return list.stream()
+                .filter(materiel ->
+                        materiel.getIdMateriel() == id)
+                .findFirst().orElse(null);
     }
 
     public void modifierMateriel(MaterielDto materielDto){

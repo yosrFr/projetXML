@@ -22,7 +22,10 @@ public class CategorieEvenementService {
 
     public CategorieEvenementDto getCategorieEvenementById(long id) {
         List<CategorieEvenementDto> list = categorieEvenementXMLUtils.unmarshaller();
-        return list.stream().filter(categorie -> categorie.getIdCategorieEvenement() == id).findFirst().orElse(null);
+        return list.stream()
+                .filter(categorie ->
+                        categorie.getIdCategorieEvenement() == id)
+                .findFirst().orElse(null);
     }
 
     public void ajouterCategorieEvenement(CategorieEvenementDto category) {
@@ -36,7 +39,7 @@ public class CategorieEvenementService {
         list.remove(list.stream()
                 .filter(categorie -> categorie.getIdCategorieEvenement() == categorieEvenement.getIdCategorieEvenement())
                 .findFirst()
-                .orElse(null));
+                .orElseThrow(() -> new RuntimeException("La catégorie d'evenement avec l'ID : " + categorieEvenement.getIdCategorieEvenement() + " n'est pas trouvée")));
         list.add(categorieEvenement);
         categorieEvenementXMLUtils.marshaller(list);
     }

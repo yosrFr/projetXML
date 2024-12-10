@@ -28,7 +28,10 @@ public class RolePersonnelService {
 
     public RolePersonnelDto getRolePersonnelById(long id){
         List<RolePersonnelDto> list = rolePersonnelXMLUtils.unmarshaller();
-        return list.stream().filter(rolePersonnel -> rolePersonnel.getIdRolePersonnel() == id).findFirst().orElse(null);
+        return list.stream()
+                .filter(rolePersonnel ->
+                        rolePersonnel.getIdRolePersonnel() == id)
+                .findFirst().orElse(null);
     }
 
     public void modifierRolePerssonnel(RolePersonnelDto rolePersonnelDto){

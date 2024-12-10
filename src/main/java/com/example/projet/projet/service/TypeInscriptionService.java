@@ -22,7 +22,10 @@ public class TypeInscriptionService {
 
     public TypeInscriptionDto getTypeInscriptionById(long id){
         List<TypeInscriptionDto> list = typeInscriptionXMLUtils.unmarshaller();
-        return list.stream().filter(typeInscription -> typeInscription.getIdTypeInscription() == id).findFirst().orElse(null);
+        return list.stream()
+                .filter(typeInscription ->
+                        typeInscription.getIdTypeInscription() == id)
+                .findFirst().orElse(null);
     }
 
     public void ajouterTypeInscription(TypeInscriptionDto typeInscriptionDto){
@@ -45,7 +48,8 @@ public class TypeInscriptionService {
         list.remove(list.stream()
                 .filter(typeInscription -> typeInscription.getIdTypeInscription() == typeInscriptionDto.getIdTypeInscription())
                 .findFirst()
-                .orElse(null));
+                .orElseThrow(() ->
+                        new RuntimeException("Le type d'inscription pour l'ID : " + typeInscriptionDto.getIdTypeInscription() + " n'est pas trouvé")));
         list.add(typeInscriptionDto);
         typeInscriptionXMLUtils.marshaller(list);
     }

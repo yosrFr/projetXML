@@ -57,8 +57,8 @@ public class RolePersonnelServiceTest {
         rolePersonnelService.modifierRolePerssonnel(updatedRolePersonnel);
         RolePersonnelDto result = rolePersonnelService.getRolePersonnelById(2);
         assertNotNull(result);
-        assertEquals("nom4", result.getNomRolePersonnel());
-        assertEquals(1, result.getIdRolePersonnel());
+        assertEquals("Nom4", result.getNomRolePersonnel());
+        assertEquals(2, result.getIdRolePersonnel());
     }
 
     @Test
@@ -66,7 +66,7 @@ public class RolePersonnelServiceTest {
         RolePersonnelDto newRolePersonnel = new RolePersonnelDto(3, "Nom2", "Description2");
         rolePersonnelService.ajouterRolePersonnel(newRolePersonnel);
         List<RolePersonnelDto> result = rolePersonnelService.getAllRolesPersonnel();
-        assertEquals(rolePersonnelDtos.size(), result.size());
+        assertEquals(rolePersonnelDtos.size() + 1, result.size());
     }
 
     @Test

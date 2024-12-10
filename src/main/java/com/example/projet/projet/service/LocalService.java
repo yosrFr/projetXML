@@ -28,7 +28,10 @@ public class LocalService {
 
     public LocalDto getLocalById(long id){
         List<LocalDto> list = localXMLUtils.unmarshaller();
-        return list.stream().filter(local -> local.getIdLocal() == id).findFirst().orElse(null);
+        return list.stream()
+                .filter(local ->
+                        local.getIdLocal() == id)
+                .findFirst().orElse(null);
     }
 
     public void ajouterLocal(LocalDto localDto){
@@ -51,7 +54,8 @@ public class LocalService {
         list.remove(list.stream()
                 .filter(local -> local.getIdLocal() == localDto.getIdLocal())
                 .findFirst()
-                .orElse(null));
+                .orElseThrow(() ->
+                        new RuntimeException("Le type d'inscription pour l'ID : " + localDto.getIdLocal() + " n'est pas trouvé")));
         list.add(localDto);
         localXMLUtils.marshaller(list);
     }

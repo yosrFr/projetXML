@@ -28,7 +28,10 @@ public class TypeSessionService {
 
     public TypeSessionDto getTypeSessionById(long id){
         List<TypeSessionDto> list = typeSessionXMLUtils.unmarshaller();
-        return list.stream().filter(typeSession -> typeSession.getIdTypeSession() == id).findFirst().orElse(null);
+        return list.stream()
+                .filter(typeSession ->
+                        typeSession.getIdTypeSession() == id)
+                .findFirst().orElse(null);
     }
 
     public void ajouterTypeSession(TypeSessionDto typeSession){
@@ -42,7 +45,7 @@ public class TypeSessionService {
         list.remove(list.stream()
                 .filter(typeSession -> typeSession.getIdTypeSession() == typeSessionDto.getIdTypeSession())
                 .findFirst()
-                .orElse(null));
+                .orElseThrow(() -> new RuntimeException("Le type de session avec l'ID : " + typeSessionDto.getIdTypeSession() + " n'est pas trouvé")));
         list.add(typeSessionDto);
         typeSessionXMLUtils.marshaller(list);
     }

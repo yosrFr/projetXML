@@ -15,8 +15,6 @@ public class PersonnelService {
     @Autowired
     private PersonnelXMLUtils personnelXMLUtils;
     @Autowired
-    private PersonneService personneService;
-    @Autowired
     private AffectationPersonnelService affectationPersonnelService;
 
     public PersonnelService(PersonnelXMLUtils personnelXMLUtils) {
@@ -41,7 +39,10 @@ public class PersonnelService {
 
     public PersonnelDto getPersonnelById(long id){
         List<PersonnelDto> list = personnelXMLUtils.unmarshaller();
-        return list.stream().filter(personnel -> personnel.getIdPersonnel() == id).findFirst().orElse(null);
+        return list.stream()
+                .filter(personnel ->
+                        personnel.getIdPersonnel() == id)
+                .findFirst().orElse(null);
     }
 
     public void ajouterPersonnel(PersonnelDto personnelDto){
@@ -55,7 +56,7 @@ public class PersonnelService {
         list.remove(list.stream()
                 .filter(personnel -> personnel.getIdPersonnel() == personnelDto.getIdPersonnel())
                 .findFirst()
-                .orElse(null));
+                .orElseThrow(() -> new RuntimeException("Le personnel avec l'ID : " + personnelDto.getIdPersonnel() + " n'est pas trouvé")));
         list.add(personnelDto);
         personnelXMLUtils.marshaller(list);
     }

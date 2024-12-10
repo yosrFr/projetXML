@@ -40,7 +40,7 @@ public class MaterielServiceTest {
     @Test
     public void testGetMaterielById() {
         for (int i = 0; i < materielDtos.size(); i++) {
-            MaterielDto result = materielService.getMaterielById(i);
+            MaterielDto result = materielService.getMaterielById(materielDtos.get(i).getIdMateriel());
             assertNotNull(result);
             assertEquals(materielDtos.get(i).getIdMateriel(), result.getIdMateriel());
             assertEquals(materielDtos.get(i).getNomMateriel(), result.getNomMateriel());
@@ -65,7 +65,7 @@ public class MaterielServiceTest {
         MaterielDto result = materielService.getMaterielById(2);
         assertNotNull(result);
         assertEquals("marque1", result.getMarqueMateriel());
-        assertEquals(1, result.getIdMateriel());
+        assertEquals(2, result.getIdMateriel());
     }
 
     @Test

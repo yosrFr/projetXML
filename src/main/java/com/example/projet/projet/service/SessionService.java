@@ -24,7 +24,10 @@ public class SessionService {
 
     public SessionDto getSessionById(long id){
         List<SessionDto> list = sessionXMLUtils.unmarshaller();
-        return list.stream().filter(session -> session.getIdSession() == id).findFirst().orElse(null);
+        return list.stream()
+                .filter(session ->
+                        session.getIdSession() == id)
+                .findFirst().orElseThrow(() -> new RuntimeException("La session l'ID : " + id + " n'est pas trouvée"));
     }
 
     public void modifierSession(SessionDto sessionDto){
@@ -32,7 +35,7 @@ public class SessionService {
         list.remove(list.stream()
                 .filter(session -> session.getIdSession() == sessionDto.getIdSession())
                 .findFirst()
-                .orElse(null));
+                .orElseThrow(() -> new RuntimeException("La session avec l'ID : " + sessionDto.getIdSession() + " n'est pas trouvée")));
         list.add(sessionDto);
         sessionXMLUtils.marshaller(list);
     }

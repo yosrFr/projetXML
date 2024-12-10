@@ -31,7 +31,10 @@ public class EvenementService {
 
     public EvenementDto getEvenementById(long id){
         List<EvenementDto> list = evenementXMLUtils.unmarshaller();
-        return list.stream().filter(evenement -> evenement.getIdEvenement() == id).findFirst().orElse(null);
+        return list.stream()
+                .filter(evenement ->
+                        evenement.getIdEvenement() == id)
+                .findFirst().orElse(null);
     }
 
     public void modifierEvenement(EvenementDto evenementDto){
@@ -39,7 +42,7 @@ public class EvenementService {
         list.remove(list.stream()
                 .filter(evenement -> evenement.getIdEvenement() == evenementDto.getIdEvenement())
                 .findFirst()
-                .orElse(null));
+                .orElseThrow(() -> new RuntimeException("L'evenement avec' l'ID : " + evenementDto.getIdEvenement() + " n'est pas trouvé")));
         list.add(evenementDto);
         evenementXMLUtils.marshaller(list);
     }
