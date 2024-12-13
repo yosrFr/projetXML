@@ -5,15 +5,18 @@ import com.example.projet.projet.service.TypeInscriptionService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/type-inscriptions")
+@Validated
 public class TypeInscriptionController {
 
     private final TypeInscriptionService typeInscriptionService;
@@ -57,7 +60,7 @@ public class TypeInscriptionController {
             @ApiResponse(code = 201, message = "Type of inscription created successfully"),
             @ApiResponse(code = 400, message = "Invalid request data")
     })
-    public ResponseEntity<Void> addTypeInscription(@RequestBody TypeInscriptionDto typeInscriptionDto) {
+    public ResponseEntity<Void> addTypeInscription(@Valid @RequestBody TypeInscriptionDto typeInscriptionDto) {
         typeInscriptionService.ajouterTypeInscription(typeInscriptionDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -68,7 +71,7 @@ public class TypeInscriptionController {
             @ApiResponse(code = 200, message = "Type of inscription updated successfully"),
             @ApiResponse(code = 404, message = "Type of inscription not found")
     })
-    public ResponseEntity<Void> updateTypeInscription(@PathVariable long id, @RequestBody TypeInscriptionDto typeInscriptionDto) {
+    public ResponseEntity<Void> updateTypeInscription(@PathVariable long id, @Valid @RequestBody TypeInscriptionDto typeInscriptionDto) {
         if (typeInscriptionService.getTypeInscriptionById(id) == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }

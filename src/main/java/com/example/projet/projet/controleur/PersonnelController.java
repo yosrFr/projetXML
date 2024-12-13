@@ -6,8 +6,11 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -16,10 +19,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/personnel")
 @Tag(name = "Personnel", description = "API for managing personnel")
+@Validated
 public class PersonnelController {
 
     private final PersonnelService personnelService;
 
+    @Autowired
     public PersonnelController(PersonnelService personnelService) {
         this.personnelService = personnelService;
     }
@@ -59,7 +64,7 @@ public class PersonnelController {
             @ApiResponse(responseCode = "400", description = "Invalid request data")
     })
     @PostMapping
-    public ResponseEntity<Void> ajouterPersonnel(@RequestBody PersonnelDto personnelDto) {
+    public ResponseEntity<Void> ajouterPersonnel(@Valid @RequestBody PersonnelDto personnelDto) {
         try {
             personnelService.ajouterPersonnel(personnelDto);
             return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -74,7 +79,7 @@ public class PersonnelController {
             @ApiResponse(responseCode = "404", description = "Personnel not found")
     })
     @PutMapping
-    public ResponseEntity<Void> modifierPersonnel(@RequestBody PersonnelDto personnelDto) {
+    public ResponseEntity<Void> modifierPersonnel(@Valid @RequestBody PersonnelDto personnelDto) {
         try {
             personnelService.modifierPersonnel(personnelDto);
             return ResponseEntity.ok().build();

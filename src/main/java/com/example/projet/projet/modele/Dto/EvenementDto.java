@@ -1,5 +1,7 @@
 package com.example.projet.projet.modele.Dto;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlElement;
 import java.util.ArrayList;
@@ -7,13 +9,21 @@ import java.util.List;
 
 @XmlRootElement
 public class EvenementDto {
+    @NotNull
     private long idEvenement;
+    @NotNull
+    @Size(max = 30)
     private String titreEvenement;
+    @Size(min = 10, max = 200)
     private String descriptionEvenement;
+    @NotNull
     private String dateDebutEvenement;
+    @NotNull
     private String dateFinEvenement;
     private int NombreParticipantsEstime;
+    @NotNull
     private int NombreParticipantsMaximal;
+    @NotNull
     private List<SessionDto> sessions;
 
     public EvenementDto() {

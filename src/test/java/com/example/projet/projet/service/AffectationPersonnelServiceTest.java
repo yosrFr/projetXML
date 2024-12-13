@@ -54,7 +54,7 @@ public class AffectationPersonnelServiceTest {
         boolean result = affectationPersonnelService.estAffecté(1, "09:45", "09:45", new Date());
         assertTrue(result);
     }
-
+/*
     @AfterEach
     void tearDown() {
         File xmlFile = new File(AffectationPersonnelXMLUtils.XML_FILE);
@@ -62,4 +62,5 @@ public class AffectationPersonnelServiceTest {
             xmlFile.delete();
         }
     }
+ */
 }

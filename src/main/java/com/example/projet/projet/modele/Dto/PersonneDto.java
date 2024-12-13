@@ -1,16 +1,26 @@
 package com.example.projet.projet.modele.Dto;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlElement;
+import org.hibernate.validator.constraints.Length;
+
 import java.util.Date;
 
 @XmlRootElement
 public class PersonneDto {
+    @NotNull
     private String nom;
+    @NotNull
     private String prenom;
     private String adresse;
+    @Email
     private String email;
+    @NotNull
+    @Length(min =12, max = 12)
     private String telephone;
+    @NotNull
     private Date dateNaissance;
     private String sexe;
 

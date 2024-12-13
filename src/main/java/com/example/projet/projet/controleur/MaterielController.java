@@ -5,9 +5,11 @@ import com.example.projet.projet.service.MaterielService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -15,6 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/materiels")
+@Validated
 public class MaterielController {
     private final MaterielService materielService;
 
@@ -48,7 +51,7 @@ public class MaterielController {
     @PostMapping
     @ApiOperation(value = "Add a new material", notes = "This endpoint allows to add a new material")
     @ApiResponse(code = 201, message = "Material added successfully")
-    public ResponseEntity<Void> addMateriel(@RequestBody MaterielDto materielDto) {
+    public ResponseEntity<Void> addMateriel(@Valid @RequestBody MaterielDto materielDto) {
         materielService.ajouterMateriel(materielDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -59,7 +62,7 @@ public class MaterielController {
             @ApiResponse(code = 200, message = "Material updated successfully"),
             @ApiResponse(code = 404, message = "Material not found")
     })
-    public ResponseEntity<Void> updateMateriel(@PathVariable long id, @RequestBody MaterielDto materielDto) {
+    public ResponseEntity<Void> updateMateriel(@PathVariable long id, @Valid @RequestBody MaterielDto materielDto) {
         MaterielDto existingMateriel = materielService.getMaterielById(id);
         if (existingMateriel == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

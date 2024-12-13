@@ -1,14 +1,23 @@
 package com.example.projet.projet.modele.Dto;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlElement;
+import org.hibernate.validator.constraints.Length;
 
 @XmlRootElement
 public class LocalDto {
+    @Size(min = 4, max = 30)
     private String adresseLocal;
+    @NotNull
     private int capaciteLocal;
+    @NotNull
     private long idLocal;
+    @NotNull
     private String nomLocal;
+    @NotNull
+    @Length(min = 12, max = 12)
     private String numTelLocal;
 
     public LocalDto() {

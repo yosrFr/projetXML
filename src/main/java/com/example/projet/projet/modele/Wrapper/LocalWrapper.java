@@ -6,7 +6,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 import java.util.List;
 
-@XmlRootElement(name = "Locals")
+@XmlRootElement(name = "Locaux")
 public class LocalWrapper {
     private List<LocalDto> locals;
 

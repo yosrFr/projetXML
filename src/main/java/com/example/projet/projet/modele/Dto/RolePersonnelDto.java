@@ -1,12 +1,17 @@
 package com.example.projet.projet.modele.Dto;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlElement;
 
 @XmlRootElement
 public class RolePersonnelDto {
+    @NotNull
     private long idRolePersonnel;
+    @NotNull
     private String nomRolePersonnel;
+    @Size(min = 10, max = 200)
     private String descriptionRolePersonnel;
 
     public RolePersonnelDto() {

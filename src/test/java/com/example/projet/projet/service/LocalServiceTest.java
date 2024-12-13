@@ -78,7 +78,7 @@ public class LocalServiceTest {
         assertEquals(localDtos.size() - 1, result.size(), "Le nombre de locaux doit diminuer");
         assertNull(localService.getLocalById(1), "Le local supprimé ne doit pas exister");
     }
-
+/*
     @AfterEach
     public void tearDown() {
         File xmlFile = new File(LocalXMLUtils.XML_FILE);
@@ -86,4 +86,6 @@ public class LocalServiceTest {
             xmlFile.delete();
         }
     }
+
+ */
 }

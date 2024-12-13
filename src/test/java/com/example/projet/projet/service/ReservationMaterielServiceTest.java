@@ -9,9 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -26,11 +24,12 @@ public class ReservationMaterielServiceTest {
         reservationMaterielXMLUtils = new ReservationMaterielXMLUtils();
         reservationMaterielService = new ReservationMaterielService(reservationMaterielXMLUtils);
         reservationMaterielsDtos = new ArrayList<>();
+        Date sessionDate = new GregorianCalendar(2024, Calendar.DECEMBER, 10).getTime();
         materielDtos = new ArrayList<>();
         materielDtos.add(new MaterielDto(1, "nom1", "marque1", "modele1", new Date()));
         materielDtos.add(new MaterielDto(2, "nom2", "marque2", "modele2", new Date()));
-        SessionDto session1 = new SessionDto(1, new Date(), "titreSession1", "09:00", "10:00");
-        SessionDto session2 = new SessionDto(2, new Date(), "titreSession2", "12:45", "12:00");
+        SessionDto session1 = new SessionDto(1, sessionDate, "titreSession1", "09:00", "10:00");
+        SessionDto session2 = new SessionDto(2, sessionDate, "titreSession2", "10:45", "12:00");
         reservationMaterielsDtos.add(new ReservationMaterielsDto(1, materielDtos, session1));
         reservationMaterielsDtos.add(new ReservationMaterielsDto(2, materielDtos, session2));
         reservationMaterielXMLUtils.marshaller(reservationMaterielsDtos);
@@ -51,10 +50,11 @@ public class ReservationMaterielServiceTest {
 
     @Test
     public void testEstReservé() {
-        boolean result = reservationMaterielService.estReservé(2, "09:30", "11:30", new Date());
+        Date testDate = new GregorianCalendar(2024, Calendar.DECEMBER, 10).getTime();
+        boolean result = reservationMaterielService.estReservé(2, "09:30", "11:30", testDate);
         assertTrue(result);
     }
-
+/*
     @AfterEach
     public void tearDown() {
         File xmlFile = new File(ReservationMaterielXMLUtils.XML_FILE);
@@ -62,4 +62,6 @@ public class ReservationMaterielServiceTest {
             xmlFile.delete();
         }
     }
+
+ */
 }

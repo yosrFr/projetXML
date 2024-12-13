@@ -1,12 +1,16 @@
 package com.example.projet.projet.modele.Dto;
 
+import jakarta.validation.constraints.NotNull;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class AffectationPersonnelDto {
+    @NotNull
     private long idAffectationPersonnel;
+    @NotNull
     private PersonnelDto personnel;
+    @NotNull
     private SessionDto session;
 
     public AffectationPersonnelDto() {

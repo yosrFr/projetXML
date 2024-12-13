@@ -112,7 +112,7 @@ public class EvenementServiceTest {
             assertEquals(attendu.get(i).getHeureFinSession(), result.get(i).getHeureFinSession());
         }
     }
-
+/*
     @AfterEach
     public void tearDown() {
         File xmlFile = new File(EvenementXMLUtils.XML_FILE);
@@ -120,4 +120,6 @@ public class EvenementServiceTest {
             xmlFile.delete();
         }
     }
+
+ */
 }

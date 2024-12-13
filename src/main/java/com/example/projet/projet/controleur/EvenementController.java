@@ -6,15 +6,18 @@ import com.example.projet.projet.service.EvenementService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/evenements")
+@Validated
 public class EvenementController {
 
     private final EvenementService evenementService;
@@ -58,7 +61,7 @@ public class EvenementController {
             @ApiResponse(code = 201, message = "Event created successfully"),
             @ApiResponse(code = 400, message = "Invalid request data")
     })
-    public ResponseEntity<Void> addEvenement(@RequestBody EvenementDto evenementDto) {
+    public ResponseEntity<Void> addEvenement(@Valid @RequestBody EvenementDto evenementDto) {
         evenementService.ajouterEvenement(evenementDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -69,7 +72,7 @@ public class EvenementController {
             @ApiResponse(code = 204, message = "Event updated successfully"),
             @ApiResponse(code = 404, message = "Event not found")
     })
-    public ResponseEntity<Void> updateEvenement(@PathVariable("id") long id, @RequestBody EvenementDto evenementDto) {
+    public ResponseEntity<Void> updateEvenement(@PathVariable("id") long id, @Valid @RequestBody EvenementDto evenementDto) {
         EvenementDto existingEvenement = evenementService.getEvenementById(id);
         if (existingEvenement == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

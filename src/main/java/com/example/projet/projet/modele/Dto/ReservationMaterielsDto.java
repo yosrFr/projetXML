@@ -1,13 +1,17 @@
 package com.example.projet.projet.modele.Dto;
 
+import jakarta.validation.constraints.NotNull;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlElement;
 import java.util.List;
 
 @XmlRootElement
 public class ReservationMaterielsDto {
+    @NotNull
     private long idReservationMateriel;
+    @NotNull
     private List<MaterielDto> materiel;
+    @NotNull
     private SessionDto session;
 
     public ReservationMaterielsDto() {

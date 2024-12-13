@@ -32,9 +32,6 @@ public class PersonnelServiceTest {
     }
 
     @Test
-    public void testGetAllNomsPersonnelDispoByRole() {}
-
-    @Test
     public void testGetAllPersonel() {
         List<PersonnelDto> result = personnelService.getAllPersonnel();
         assertEquals(personnelDtos.size(), result.size());
@@ -85,7 +82,7 @@ public class PersonnelServiceTest {
         assertEquals(personnelDtos.size() - 1, result.size());
         assertNull(personnelService.getPersonnelById(1));
     }
-
+/*
     @AfterEach
     public void tearDown() {
         File xmlFile = new File(PersonnelXMLUtils.XML_FILE);
@@ -93,4 +90,6 @@ public class PersonnelServiceTest {
             xmlFile.delete();
         }
     }
+
+ */
 }

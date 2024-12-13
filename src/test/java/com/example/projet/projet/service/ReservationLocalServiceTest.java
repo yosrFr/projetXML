@@ -44,7 +44,7 @@ public class ReservationLocalServiceTest {
         boolean exist = result.stream().anyMatch(reservation -> reservation.getIdReservationLocal() == newReservationLocal.getIdReservationLocal());
         assertTrue(exist);
     }
-
+/*
     @AfterEach
     public void tearDown() {
         File xmlFile = new File(ReservationLocalXMLUtils.XML_FILE);
@@ -52,4 +52,6 @@ public class ReservationLocalServiceTest {
             xmlFile.delete();
         }
     }
+
+ */
 }

@@ -75,7 +75,7 @@ public class MaterielServiceTest {
         assertEquals(materielDtos.size() - 1, result.size());
         assertNull(materielService.getMaterielById(1));
     }
-
+/*
     @AfterEach
     public void tearDown() {
         File xmlFile = new File(MaterielXMLUtils.XML_FILE);
@@ -83,4 +83,6 @@ public class MaterielServiceTest {
             xmlFile.delete();
         }
     }
+
+ */
 }

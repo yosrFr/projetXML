@@ -1,15 +1,21 @@
 package com.example.projet.projet.modele.Dto;
 
+import jakarta.validation.constraints.NotNull;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlElement;
 import java.util.Date;
 
 @XmlRootElement
 public class MaterielDto {
+    @NotNull
     private long idMateriel;
+    @NotNull
     private String nomMateriel;
+    @NotNull
     private String marqueMateriel;
+    @NotNull
     private String modeleMateriel;
+    @NotNull
     private Date dateAchatMateriel;
 
     public MaterielDto() {

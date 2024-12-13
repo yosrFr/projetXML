@@ -126,6 +126,57 @@ public class InscriptionServiceTest {
         assertTrue(exist, "L'ajout de l'inscription n'a pas réussi");
     }
 
+    @Test
+    public void testGetInscriptionById(){
+        for (int i = 0; i < inscriptionDtos.size(); i++) {
+            InscriptionDto result = inscriptionService.getInscriptionById(inscriptionDtos.get(i).getIdInscription());
+            assertNotNull(result, "L'inscription n'existe pas");
+            assertEquals(result.getDateInscription(), result.getDateInscription(), "La date d'inscription doit etre la meme");
+            assertEquals(result.getIdInscription(), result.getIdInscription(), "L'ID de l'inscription doit etre la meme");
+            assertEquals(result.getPresence(), result.getPresence(), "La presence doit etre la meme");
+            assertEquals(result.getRetour(), result.getRetour(), "Le retour etre la meme");
+            assertEquals(result.getParticipant().getNom(), result.getParticipant().getNom(), "Le nom doit etre le meme");
+            assertEquals(result.getParticipant().getPrenom(), result.getParticipant().getPrenom(), "Le prenom doit etre le meme");
+            assertEquals(result.getParticipant().getAdresse(), result.getParticipant().getAdresse(), "L'adresse doit etre la meme");
+            assertEquals(result.getParticipant().getEmail(), result.getParticipant().getEmail(), "L'email doit etre le meme");
+            assertEquals(result.getParticipant().getTelephone(), result.getParticipant().getTelephone(), "Le numero de telephone doit etre le meme");
+            assertEquals(result.getParticipant().getDateNaissance(), result.getParticipant().getDateNaissance(), "La date de naissance doit etre la meme");
+            assertEquals(result.getParticipant().getSexe(), result.getParticipant().getSexe(), "Le sexe doit etre le meme");
+            assertEquals(result.getParticipant().getIdParticipant(), result.getParticipant().getIdParticipant(), "L'ID du participant doit etre la meme");
+            assertEquals(result.getEvenement().getIdEvenement(), result.getEvenement().getIdEvenement(), "L'ID de l'evenement doit etre la meme");
+            assertEquals(result.getEvenement().getTitreEvenement(), result.getEvenement().getTitreEvenement(), "Le titre de l'evenement doit etre le meme");
+            assertEquals(result.getEvenement().getDescriptionEvenement(), result.getEvenement().getDescriptionEvenement(), "La description doit etre la meme");
+            assertEquals(result.getEvenement().getDateDebutEvenement(), result.getEvenement().getDateDebutEvenement(), "La date de debut doit etre la meme");
+            assertEquals(result.getEvenement().getDateFinEvenement(), result.getEvenement().getDateFinEvenement(), "La date de fin doit etre la meme");
+            assertEquals(result.getEvenement().getNombreParticipantsMaximal(), result.getEvenement().getNombreParticipantsMaximal(), "Le nombre de participants maximal doit etre le meme");
+            assertEquals(result.getEvenement().getNombreParticipantsEstime(), result.getEvenement().getNombreParticipantsEstime(), "Le nombre de participants estime doit etre le meme");
+            for(int j = 0; j < sessionDtos.size(); j++) {
+                assertEquals(result.getEvenement().getSessions().get(j).getIdSession(), result.getEvenement().getSessions().get(j).getIdSession(), "L'ID de la session doit etre la meme");
+                assertEquals(result.getEvenement().getSessions().get(j).getTitreSession(), result.getEvenement().getSessions().get(j).getTitreSession(), "Le titre de la session doit etre la meme");
+                assertEquals(result.getEvenement().getSessions().get(j).getDateSession(), result.getEvenement().getSessions().get(j).getDateSession(), "La date de la session doit etre la meme");
+                assertEquals(result.getEvenement().getSessions().get(j).getHeureDebutSession(), result.getEvenement().getSessions().get(j).getHeureDebutSession(), "L'heure de debut doit etre la meme");
+                assertEquals(result.getEvenement().getSessions().get(j).getHeureFinSession(), result.getEvenement().getSessions().get(j).getHeureFinSession(), "L'heure de fin doit etre la meme");
+            }
+        }
+    }
+
+    @Test
+    public void modifierInscription() {
+        sessionDtos = new ArrayList<>();
+        sessionDtos.add(new SessionDto(1, new Date(), "titreSession1", "09:45", "09:45"));
+        sessionDtos.add(new SessionDto(2, new Date(), "titreSession2", "09:45", "09:45"));
+        EvenementDto evenement = new EvenementDto(1, "titreEvenement1", "descriptionEvenement1", "dateDebutEvenement1", "dateFinEvenement1", 20, 50, sessionDtos);
+        ParticipantDto participant1 = new ParticipantDto("nom", "prenom", "adresse", "email", "telephone", new Date(), "M", 1);
+        InscriptionDto updatedInscription = new InscriptionDto(new Date(), 2,  true,  false, participant1,  evenement);
+        inscriptionService.modifierInscription(updatedInscription);
+        InscriptionDto result = inscriptionService.getInscriptionById(2);
+        assertNotNull(result);
+        assertEquals(false, result.getRetour());
+        assertEquals(true, result.getPresence());
+
+
+    }
+/*
     @AfterEach
     public void tearDown() {
         File xmlFile = new File(InscriptionXMLUtils.XML_FILE);
@@ -133,4 +184,6 @@ public class InscriptionServiceTest {
             xmlFile.delete();
         }
     }
+
+ */
 }

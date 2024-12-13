@@ -1,16 +1,21 @@
 package com.example.projet.projet.modele.Dto;
 
+import jakarta.validation.constraints.NotNull;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlElement;
 import java.util.Date;
 
 @XmlRootElement
 public class InscriptionDto {
+    @NotNull
     private Date DateInscription;
+    @NotNull
     private long idInscription;
     private Boolean presence;
     private Boolean retour;
+    @NotNull
     private ParticipantDto participant;
+    @NotNull
     private EvenementDto evenement;
 
     public InscriptionDto() {

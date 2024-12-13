@@ -14,7 +14,7 @@ import java.util.List;
 
 @Component
 public class InscriptionXMLUtils {
-    public static final String XML_FILE = "C:/Users/asus/Desktop/Inscription.xml";
+    public static final String XML_FILE = "../donnees/Inscriptions.xml";
 
     public void marshaller(List<InscriptionDto> inscriptions) {
         JAXBContext jaxbContext = null;

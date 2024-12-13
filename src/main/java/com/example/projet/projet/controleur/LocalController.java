@@ -5,15 +5,18 @@ import com.example.projet.projet.service.LocalService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/locaux")
+@Validated
 public class LocalController {
     private final LocalService localService;
 
@@ -49,7 +52,7 @@ public class LocalController {
     @PostMapping
     @ApiOperation(value = "Add a new local", notes = "This endpoint allows to add a new local")
     @ApiResponse(code = 201, message = "Local added successfully")
-    public ResponseEntity<Void> ajouterLocal(@RequestBody LocalDto localDto) {
+    public ResponseEntity<Void> ajouterLocal(@Valid @RequestBody LocalDto localDto) {
         localService.ajouterLocal(localDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -60,7 +63,7 @@ public class LocalController {
             @ApiResponse(code = 200, message = "Local updated successfully"),
             @ApiResponse(code = 404, message = "Local not found")
     })
-    public ResponseEntity<Void> modifierLocal(@PathVariable long id, @RequestBody LocalDto localDto) {
+    public ResponseEntity<Void> modifierLocal(@PathVariable long id, @Valid @RequestBody LocalDto localDto) {
         LocalDto existingLocal = localService.getLocalById(id);
         if (existingLocal != null) {
             localDto.setIdLocal(id);

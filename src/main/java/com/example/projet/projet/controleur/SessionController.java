@@ -6,6 +6,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +21,7 @@ public class SessionController {
 
     private final SessionService sessionService;
 
+    @Autowired
     public SessionController(SessionService sessionService) {
         this.sessionService = sessionService;
     }
@@ -29,7 +32,7 @@ public class SessionController {
             @ApiResponse(responseCode = "400", description = "Invalid session data provided")
     })
     @PostMapping
-    public ResponseEntity<Void> ajouterSession(@RequestBody SessionDto session) {
+    public ResponseEntity<Void> ajouterSession(@Valid @RequestBody SessionDto session) {
         try {
             sessionService.ajouterSession(session);
             return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -59,7 +62,7 @@ public class SessionController {
             @ApiResponse(responseCode = "400", description = "Invalid session data provided")
     })
     @PutMapping
-    public ResponseEntity<Void> modifierSession(@RequestBody SessionDto session) {
+    public ResponseEntity<Void> modifierSession(@Valid @RequestBody SessionDto session) {
         try {
             sessionService.modifierSession(session);
             return ResponseEntity.ok().build();

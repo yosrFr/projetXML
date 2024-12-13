@@ -1,12 +1,17 @@
 package com.example.projet.projet.modele.Dto;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlElement;
 
 @XmlRootElement
 public class TypeInscriptionDto {
+    @Size(min = 10, max = 200)
     private String descriptionTypeInscription;
+    @NotNull
     private long idTypeInscription;
+    @NotNull
     private String nomTypeInscription;
 
     public TypeInscriptionDto() {

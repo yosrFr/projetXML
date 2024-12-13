@@ -6,8 +6,11 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,10 +18,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/roles-personnel")
 @Tag(name = "RolePersonnel", description = "API for managing personnel roles")
+@Validated
 public class RolePersonnelController {
 
     private final RolePersonnelService rolePersonnelService;
 
+    @Autowired
     public RolePersonnelController(RolePersonnelService rolePersonnelService) {
         this.rolePersonnelService = rolePersonnelService;
     }
@@ -73,7 +78,7 @@ public class RolePersonnelController {
             @ApiResponse(responseCode = "400", description = "Invalid request data")
     })
     @PostMapping
-    public ResponseEntity<Void> ajouterRolePersonnel(@RequestBody RolePersonnelDto rolePersonnelDto) {
+    public ResponseEntity<Void> ajouterRolePersonnel(@Valid @RequestBody RolePersonnelDto rolePersonnelDto) {
         try {
             rolePersonnelService.ajouterRolePersonnel(rolePersonnelDto);
             return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -88,7 +93,7 @@ public class RolePersonnelController {
             @ApiResponse(responseCode = "404", description = "Personnel role not found")
     })
     @PutMapping
-    public ResponseEntity<Void> modifierRolePersonnel(@RequestBody RolePersonnelDto rolePersonnelDto) {
+    public ResponseEntity<Void> modifierRolePersonnel(@Valid @RequestBody RolePersonnelDto rolePersonnelDto) {
         try {
             rolePersonnelService.modifierRolePerssonnel(rolePersonnelDto);
             return ResponseEntity.ok().build();

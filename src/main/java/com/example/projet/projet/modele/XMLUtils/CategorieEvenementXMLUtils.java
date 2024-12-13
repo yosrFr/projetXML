@@ -14,7 +14,7 @@ import java.util.List;
 
 @Component
 public class CategorieEvenementXMLUtils {
-    public static final String XML_FILE = "C:/Users/asus/Desktop/CategorieEvenement.xml";
+    public static final String XML_FILE = "../donnees/CategoriesEvenement.xml";
 
     public void marshaller(List<CategorieEvenementDto> categorieEvenement) {
         JAXBContext jaxbContext = null;

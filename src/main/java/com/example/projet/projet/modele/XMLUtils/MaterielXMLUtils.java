@@ -14,7 +14,7 @@ import java.util.List;
 
 @Component
 public class MaterielXMLUtils {
-    public static final String XML_FILE = "C:/Users/asus/Desktop/Materiel.xml";
+    public static final String XML_FILE = "../donnees/Materiaux.xml";
 
     public void marshaller(List<MaterielDto> materiels) {
         JAXBContext jaxbContext = null;

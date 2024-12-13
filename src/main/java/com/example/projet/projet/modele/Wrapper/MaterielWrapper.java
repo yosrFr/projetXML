@@ -6,7 +6,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 import java.util.List;
 
-@XmlRootElement(name = "Materiels")
+@XmlRootElement(name = "Materiaux")
 public class MaterielWrapper {
     private List<MaterielDto> materiels;
 

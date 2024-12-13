@@ -6,7 +6,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 import java.util.List;
 
-@XmlRootElement(name = "ReservationsMateriels")
+@XmlRootElement(name = "ReservationsMateriaux")
 public class ReservationMaterielWrapper {
     private List<ReservationMaterielsDto> reservationMateriels;
 
@@ -18,7 +18,7 @@ public class ReservationMaterielWrapper {
         this.reservationMateriels = reservationMateriels;
     }
 
-    @XmlElement(name = "ReservationMateriels")
+    @XmlElement(name = "ReservationMateriaux")
     public List<ReservationMaterielsDto> getReservationMateriels() {
         return reservationMateriels;
     }

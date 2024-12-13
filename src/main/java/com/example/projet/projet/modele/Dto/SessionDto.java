@@ -1,5 +1,6 @@
 package com.example.projet.projet.modele.Dto;
 
+import jakarta.validation.constraints.NotNull;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlElement;
 
@@ -7,10 +8,15 @@ import java.util.Date;
 
 @XmlRootElement
 public class SessionDto {
+    @NotNull
     private long idSession;
+    @NotNull
     private Date dateSession;
+    @NotNull
     private String titreSession;
+    @NotNull
     private String heureDebutSession;
+    @NotNull
     private String heureFinSession;
 
     public SessionDto() {

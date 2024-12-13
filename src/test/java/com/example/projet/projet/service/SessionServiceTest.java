@@ -64,7 +64,7 @@ public class SessionServiceTest {
         List<SessionDto> result = sessionXMLUtils.unmarshaller();
         assertEquals(sessionDtos.size() - 1, result.size());
     }
-
+/*
     @AfterEach
     public void tearDown() {
         File xmlFile = new File (SessionXMLUtils.XML_FILE);
@@ -72,4 +72,6 @@ public class SessionServiceTest {
             xmlFile.delete();
         }
     }
+
+ */
 }

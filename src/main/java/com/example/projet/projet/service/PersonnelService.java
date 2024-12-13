@@ -1,5 +1,6 @@
 package com.example.projet.projet.service;
 
+import com.example.projet.projet.modele.Dto.RolePersonnelDto;
 import com.example.projet.projet.modele.XMLUtils.PersonnelXMLUtils;
 import com.example.projet.projet.modele.Dto.PersonnelDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +22,12 @@ public class PersonnelService {
         this.personnelXMLUtils = personnelXMLUtils;
     }
 
-    public List<String> getAllNomsPersonnelDispoByRole (String role, Date date, String tempsDeb, String tempsFin){
+    public List<String> getAllNomsPersonnelDispoByRole (String nomRole, Date date, String tempsDeb, String tempsFin){
         List<String> nomsPersonnel = new ArrayList<>();
         List<PersonnelDto> list = personnelXMLUtils.unmarshaller();
-        List<PersonnelDto> persoParRole = list.stream().filter(personnel -> personnel.getRolePersonnel().equals(role)).collect(Collectors.toList());
+        List<PersonnelDto> persoParRole = list.stream()
+                .filter(personnel ->
+                        personnel.getRolePersonnel().equals(nomRole)).collect(Collectors.toList());
         for(PersonnelDto personnelDto : persoParRole){
             if(!affectationPersonnelService.estAffecté(personnelDto.getIdPersonnel(), tempsDeb, tempsFin, date)){
                 nomsPersonnel.add(personnelDto.getNom());

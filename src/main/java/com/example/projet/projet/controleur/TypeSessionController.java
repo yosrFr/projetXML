@@ -6,17 +6,22 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/typesession")
 @Tag(name = "Type Session", description = "API for managing types of sessions")
+@Validated
 public class TypeSessionController {
 
     private final TypeSessionService typeSessionService;
 
+    @Autowired
     public TypeSessionController(TypeSessionService typeSessionService) {
         this.typeSessionService = typeSessionService;
     }
@@ -27,7 +32,7 @@ public class TypeSessionController {
             @ApiResponse(responseCode = "400", description = "Invalid type of session data provided")
     })
     @PostMapping
-    public ResponseEntity<Void> ajouterTypeSession(@RequestBody TypeSessionDto typeSession) {
+    public ResponseEntity<Void> ajouterTypeSession(@Valid @RequestBody TypeSessionDto typeSession) {
         try {
             typeSessionService.ajouterTypeSession(typeSession);
             return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -57,7 +62,7 @@ public class TypeSessionController {
             @ApiResponse(responseCode = "400", description = "Invalid type of session data provided")
     })
     @PutMapping
-    public ResponseEntity<Void> modifierTypeSession(@RequestBody TypeSessionDto typeSession) {
+    public ResponseEntity<Void> modifierTypeSession(@Valid @RequestBody TypeSessionDto typeSession) {
         try {
             typeSessionService.modifierTypeSession(typeSession);
             return ResponseEntity.ok().build();

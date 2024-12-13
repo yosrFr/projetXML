@@ -5,6 +5,7 @@ import com.example.projet.projet.service.ReservationLocalService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ public class ReservationLocalController {
     @PostMapping
     @ApiOperation(value = "Add a new room reservation", notes = "This endpoint allows to add a new room reservation")
     @ApiResponse(code = 201, message = "Reservation added successfully")
-    public ResponseEntity<Void> addReservationLocal(@RequestBody ReservationLocalDto reservationLocalDto) {
+    public ResponseEntity<Void> addReservationLocal(@Valid @RequestBody ReservationLocalDto reservationLocalDto) {
         reservationLocalService.ajouterReservationLocal(reservationLocalDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

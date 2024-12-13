@@ -17,6 +17,7 @@ public class CategorieEvenementServiceTest {
     private CategorieEvenementXMLUtils categorieEvenementXMLUtils;
     private List<CategorieEvenementDto> categorieEvenementDtos;
 
+    /*
     @BeforeEach
     public void setUp() {
         categorieEvenementXMLUtils = new CategorieEvenementXMLUtils();
@@ -26,7 +27,7 @@ public class CategorieEvenementServiceTest {
         categorieEvenementDtos.add(new CategorieEvenementDto(2, "Nom2", "Description2"));
         categorieEvenementXMLUtils.marshaller(categorieEvenementDtos);
     }
-
+*/
     @Test
     public void testGetAllCategorieEvenement() {
         List<CategorieEvenementDto> result = categorieEvenementService.getAllCategoriesEvenement();
@@ -70,7 +71,7 @@ public class CategorieEvenementServiceTest {
         assertEquals("Nom1_updated", result.getNomCategorieEvenement(), "Le nom doit etre le meme");
         assertEquals(1, result.getIdCategorieEvenement(), "L'ID doit etre le meme");
     }
-
+/*
     @AfterEach
     public void tearDown() {
         File xmlFile = new File(CategorieEvenementXMLUtils.XML_FILE);
@@ -78,4 +79,5 @@ public class CategorieEvenementServiceTest {
             xmlFile.delete();
         }
     }
+ */
 }

@@ -6,19 +6,24 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/categorieevenement")
+@Validated
 @Tag(name = "Catégorie Événement", description = "API for managing event categories")
 public class CategorieEvenementController {
 
     private final CategorieEvenementService categorieEvenementService;
 
+    @Autowired
     public CategorieEvenementController(CategorieEvenementService categorieEvenementService) {
         this.categorieEvenementService = categorieEvenementService;
     }
@@ -29,7 +34,7 @@ public class CategorieEvenementController {
             @ApiResponse(responseCode = "400", description = "Invalid event category data provided")
     })
     @PostMapping
-    public ResponseEntity<Void> ajouterCategorieEvenement(@RequestBody CategorieEvenementDto category) {
+    public ResponseEntity<Void> ajouterCategorieEvenement(@Valid @RequestBody CategorieEvenementDto category) {
         try {
             categorieEvenementService.ajouterCategorieEvenement(category);
             return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -59,7 +64,7 @@ public class CategorieEvenementController {
             @ApiResponse(responseCode = "400", description = "Invalid event category data provided")
     })
     @PutMapping
-    public ResponseEntity<Void> modifierCategorieEvenement(@RequestBody CategorieEvenementDto categorieEvenement) {
+    public ResponseEntity<Void> modifierCategorieEvenement(@Valid @RequestBody CategorieEvenementDto categorieEvenement) {
         try {
             categorieEvenementService.modifierCategorieEvenement(categorieEvenement);
             return ResponseEntity.ok().build();

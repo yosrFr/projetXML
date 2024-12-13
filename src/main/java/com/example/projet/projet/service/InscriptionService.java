@@ -33,8 +33,25 @@ public class InscriptionService {
                 .collect(Collectors.toList());
     }
 
+    public InscriptionDto getInscriptionById(long id) {
+        List<InscriptionDto> list = inscriptionXMLUtils.unmarshaller();
+        return list.stream()
+                .filter(inscription ->
+                inscription.getIdInscription() == id)
+                .findFirst().orElse(null);
+    }
+
     public void ajouterInscription(InscriptionDto inscription) {
         List<InscriptionDto> list = inscriptionXMLUtils.unmarshaller();
+        list.add(inscription);
+        inscriptionXMLUtils.marshaller(list);
+    }
+
+    public void modifierInscription(InscriptionDto inscription) {
+        List<InscriptionDto> list = inscriptionXMLUtils.unmarshaller();
+        list.remove(list.stream()
+                .filter(inscriptionDto -> inscriptionDto.getIdInscription() == inscription.getIdInscription())
+                .findFirst().orElse(null));
         list.add(inscription);
         inscriptionXMLUtils.marshaller(list);
     }

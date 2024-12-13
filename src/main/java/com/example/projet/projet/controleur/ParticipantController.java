@@ -5,6 +5,7 @@ import com.example.projet.projet.service.ParticipantService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +27,7 @@ public class ParticipantController {
             @ApiResponse(code = 201, message = "Participant added successfully"),
             @ApiResponse(code = 400, message = "Invalid request data")
     })
-    public ResponseEntity<Void> addParticipant(@RequestBody ParticipantDto participantDto) {
+    public ResponseEntity<Void> addParticipant(@Valid @RequestBody ParticipantDto participantDto) {
         participantService.ajouterParticipant(participantDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

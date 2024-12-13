@@ -36,7 +36,7 @@ public class ParticipantServiceTest {
         boolean exist = result.stream().anyMatch(participant -> participant.getIdParticipant() == newParticipant.getIdParticipant());
         assertTrue(exist, "L'ajout du participant n'a pas réussi");
     }
-
+/*
     @AfterEach
     public void tearDown() {
         File xmlFile = new File(ParticipantXMLUtils.XML_FILE);
@@ -44,4 +44,6 @@ public class ParticipantServiceTest {
             xmlFile.delete();
         }
     }
+
+ */
 }

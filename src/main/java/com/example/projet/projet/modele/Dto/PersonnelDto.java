@@ -1,12 +1,15 @@
 package com.example.projet.projet.modele.Dto;
 
+import jakarta.validation.constraints.NotNull;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlElement;
 import java.util.Date;
 
 @XmlRootElement
 public class PersonnelDto extends PersonneDto {
+    @NotNull
     private long idPersonnel;
+    @NotNull
     private RolePersonnelDto rolePersonnel;
 
     public PersonnelDto() {

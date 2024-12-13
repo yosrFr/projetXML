@@ -1,12 +1,16 @@
 package com.example.projet.projet.modele.Dto;
 
+import jakarta.validation.constraints.NotNull;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlElement;
 
 @XmlRootElement
 public class ReservationLocalDto {
+    @NotNull
     private long idReservationLocal;
+    @NotNull
     private LocalDto local;
+    @NotNull
     private SessionDto session;
 
     public ReservationLocalDto() {}
