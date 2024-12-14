@@ -32,7 +32,7 @@ public class MaterielDto {
 
     }
 
-    @XmlElement (name = "VIdMat")
+    @XmlElement (name = "IdMat")
     public long getIdMateriel() {
         return idMateriel;
     }
