@@ -40,7 +40,7 @@ public class PersonneDto {
         this.sexe = sexe;
     }
 
-    @XmlElement (name = "IdPar")
+    @XmlElement (name = "Nom")
     public String getNom() {
         return nom;
     }
