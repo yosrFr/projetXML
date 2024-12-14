@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlElement;
 import java.util.Date;
+import java.util.Objects;
 
 @XmlRootElement
 public class MaterielDto {
@@ -16,13 +17,13 @@ public class MaterielDto {
     @NotNull
     private String modeleMateriel;
     @NotNull
-    private Date dateAchatMateriel;
+    private String dateAchatMateriel;
 
     public MaterielDto() {
 
     }
 
-    public MaterielDto(long idMateriel, String nomMateriel, String marqueMateriel, String modeleMateriel, Date dateAchatMateriel) {
+    public MaterielDto(long idMateriel, String nomMateriel, String marqueMateriel, String modeleMateriel, String dateAchatMateriel) {
         this.idMateriel = idMateriel;
         this.nomMateriel = nomMateriel;
         this.marqueMateriel = marqueMateriel;
@@ -31,7 +32,7 @@ public class MaterielDto {
 
     }
 
-    @XmlElement
+    @XmlElement (name = "VIdMat")
     public long getIdMateriel() {
         return idMateriel;
     }
@@ -40,7 +41,7 @@ public class MaterielDto {
         this.idMateriel = idMateriel;
     }
 
-    @XmlElement
+    @XmlElement (name = "NomMat")
     public String getNomMateriel() {
         return nomMateriel;
     }
@@ -49,7 +50,7 @@ public class MaterielDto {
         this.nomMateriel = nomMateriel;
     }
 
-    @XmlElement
+    @XmlElement (name = "MarqueMat")
     public String getMarqueMateriel() {
         return marqueMateriel;
     }
@@ -58,7 +59,7 @@ public class MaterielDto {
         this.marqueMateriel = marqueMateriel;
     }
 
-    @XmlElement
+    @XmlElement (name = "ModeleMat")
     public String getModeleMateriel() {
         return modeleMateriel;
     }
@@ -67,13 +68,23 @@ public class MaterielDto {
         this.modeleMateriel = modeleMateriel;
     }
 
-    @XmlElement
-    public Date getDateAchatMateriel() {
+    @XmlElement (name = "DateAchatMat")
+    public String getDateAchatMateriel() {
         return dateAchatMateriel;
     }
 
-    public void setDateAchatMateriel(Date dateAchatMateriel) {
+    public void setDateAchatMateriel(String dateAchatMateriel) {
         this.dateAchatMateriel = dateAchatMateriel;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof MaterielDto that)) return false;
+        return idMateriel == that.idMateriel && Objects.equals(nomMateriel, that.nomMateriel) && Objects.equals(marqueMateriel, that.marqueMateriel) && Objects.equals(modeleMateriel, that.modeleMateriel) && Objects.equals(dateAchatMateriel, that.dateAchatMateriel);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idMateriel, nomMateriel, marqueMateriel, modeleMateriel, dateAchatMateriel);
+    }
 }

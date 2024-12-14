@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,8 +22,8 @@ public class SessionServiceTest {
         sessionXMLUtils = new SessionXMLUtils();
         sessionService = new SessionService(sessionXMLUtils);
         sessionDtos = new ArrayList<>();
-        sessionDtos.add(new SessionDto(1, new Date(), "titreSession1", "09:45", "09:45"));
-        sessionDtos.add(new SessionDto(2, new Date(), "titreSession2", "09:45", "09:45"));
+        sessionDtos.add(new SessionDto(1, "2024-11-12", "titreSession1", "09:45", "09:45"));
+        sessionDtos.add(new SessionDto(2, "2024-11-10", "titreSession2", "09:45", "09:45"));
         sessionXMLUtils.marshaller(sessionDtos);
     }
 
@@ -41,7 +40,7 @@ public class SessionServiceTest {
 
     @Test
     public void testAjouterSession() {
-        SessionDto newSession = new SessionDto(3, new Date(), "titreSession1", "09:45", "09:45");
+        SessionDto newSession = new SessionDto(3, "2024-09-19", "titreSession1", "09:45", "09:45");
         sessionService.ajouterSession(newSession);
         List<SessionDto> result = sessionXMLUtils.unmarshaller();
         boolean exist = result.stream().anyMatch(s -> s.getIdSession() == newSession.getIdSession());
@@ -50,7 +49,7 @@ public class SessionServiceTest {
 
     @Test
     public void testModifierSession() {
-        SessionDto updatedSession = new SessionDto(2, new Date(), "titre", "09:45", "09:45");
+        SessionDto updatedSession = new SessionDto(2, "2024-05-05", "titre", "09:45", "09:45");
         sessionService.modifierSession(updatedSession);
         SessionDto result = sessionService.getSessionById(2);
         assertNotNull(result);
@@ -64,7 +63,7 @@ public class SessionServiceTest {
         List<SessionDto> result = sessionXMLUtils.unmarshaller();
         assertEquals(sessionDtos.size() - 1, result.size());
     }
-/*
+
     @AfterEach
     public void tearDown() {
         File xmlFile = new File (SessionXMLUtils.XML_FILE);
@@ -72,6 +71,4 @@ public class SessionServiceTest {
             xmlFile.delete();
         }
     }
-
- */
 }

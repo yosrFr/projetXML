@@ -13,34 +13,31 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TypeSessionXMLUtilsTest {
-    private TypeSessionXMLUtils typeSessionXMLUtils;
+    private final TypeSessionXMLUtils typeSessionXMLUtils = new TypeSessionXMLUtils();
     private List<TypeSessionDto> typeSessionDtos;
 
     @BeforeEach
     public void setUp() {
-        typeSessionXMLUtils = new TypeSessionXMLUtils();
         typeSessionDtos = new ArrayList<>();
-        typeSessionDtos.add(new TypeSessionDto(1, "Nom1", "Description1"));
-        typeSessionDtos.add(new TypeSessionDto(2, "Nom2", "Description2"));
+        typeSessionDtos.add(new TypeSessionDto(1, "Plénière", "Session plénière pour tous les participants."));
+        typeSessionDtos.add(new TypeSessionDto(2, "Workshop", "Session interactive en petits groupes."));
     }
 
     @Test
     public void testMarshaller() {
         typeSessionXMLUtils.marshaller(typeSessionDtos);
         File xmlFile = new File(TypeSessionXMLUtils.XML_FILE);
-        assertTrue(xmlFile.exists(), "Le fichier XML doit exister");
-        assertTrue(xmlFile.length() > 0, "Le fichier XML ne devrait pas etre vide");
+        assertTrue(xmlFile.exists());
+        assertTrue(xmlFile.length() > 0);
     }
 
     @Test
     public void testUnmarshaller() {
         typeSessionXMLUtils.marshaller(typeSessionDtos);
         List<TypeSessionDto> unmarshalledDtos = typeSessionXMLUtils.unmarshaller();
-        assertEquals(typeSessionDtos.size(), unmarshalledDtos.size(), "Les tailles des listes doivent etre égales");
-        for (int i = 0; i < unmarshalledDtos.size(); i++) {
-            assertEquals(typeSessionDtos.get(i).getDescriptionTypeSession(), unmarshalledDtos.get(i).getDescriptionTypeSession(), "La description doit etre la meme");
-            assertEquals(typeSessionDtos.get(i).getNomTypeSession(), unmarshalledDtos.get(i).getNomTypeSession(), "Le nom doit etre la meme");
-            assertEquals(typeSessionDtos.get(i).getIdTypeSession(), unmarshalledDtos.get(i).getIdTypeSession(), "L'ID doit etre la meme");
+        assertEquals(typeSessionDtos.size(), unmarshalledDtos.size());
+        for (int i = 0; i < typeSessionDtos.size(); i++) {
+            assertTrue(unmarshalledDtos.get(i).equals(typeSessionDtos.get(i)));
         }
     }
 

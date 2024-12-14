@@ -5,6 +5,8 @@ import jakarta.validation.constraints.Size;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlElement;
 
+import java.util.Objects;
+
 @XmlRootElement
 public class TypeSessionDto {
     @NotNull
@@ -24,7 +26,7 @@ public class TypeSessionDto {
         this.descriptionTypeSession = descriptionTypeSession;
     }
 
-    @XmlElement
+    @XmlElement (name = "IdTypeSession")
     public long getIdTypeSession() {
         return idTypeSession;
     }
@@ -33,7 +35,7 @@ public class TypeSessionDto {
         this.idTypeSession = idTypeSession;
     }
 
-    @XmlElement
+    @XmlElement (name = "NomTypeSession")
     public String getNomTypeSession() {
         return nomTypeSession;
     }
@@ -42,7 +44,7 @@ public class TypeSessionDto {
         this.nomTypeSession = nomTypeSession;
     }
 
-    @XmlElement
+    @XmlElement (name = "DescriptionTypeSession")
     public String getDescriptionTypeSession() {
         return descriptionTypeSession;
     }
@@ -51,4 +53,14 @@ public class TypeSessionDto {
         this.descriptionTypeSession = descriptionTypeSession;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof TypeSessionDto that)) return false;
+        return idTypeSession == that.idTypeSession && Objects.equals(nomTypeSession, that.nomTypeSession) && Objects.equals(descriptionTypeSession, that.descriptionTypeSession);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idTypeSession, nomTypeSession, descriptionTypeSession);
+    }
 }

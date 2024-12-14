@@ -14,20 +14,18 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class CategorieEvenementServiceTest {
     private CategorieEvenementService categorieEvenementService;
-    private CategorieEvenementXMLUtils categorieEvenementXMLUtils;
+    private final CategorieEvenementXMLUtils categorieEvenementXMLUtils = new CategorieEvenementXMLUtils();
     private List<CategorieEvenementDto> categorieEvenementDtos;
 
-    /*
     @BeforeEach
     public void setUp() {
-        categorieEvenementXMLUtils = new CategorieEvenementXMLUtils();
         categorieEvenementService = new CategorieEvenementService(categorieEvenementXMLUtils);
         categorieEvenementDtos = new ArrayList<>();
-        categorieEvenementDtos.add(new CategorieEvenementDto(1, "Nom1", "Description1"));
-        categorieEvenementDtos.add(new CategorieEvenementDto(2, "Nom2", "Description2"));
+        categorieEvenementDtos.add(new CategorieEvenementDto(1, "Conférence", "Événements axés sur des conférences."));
+        categorieEvenementDtos.add(new CategorieEvenementDto(2, "Atelier", "Événements interactifs d'apprentissage."));
         categorieEvenementXMLUtils.marshaller(categorieEvenementDtos);
     }
-*/
+
     @Test
     public void testGetAllCategorieEvenement() {
         List<CategorieEvenementDto> result = categorieEvenementService.getAllCategoriesEvenement();
@@ -71,7 +69,7 @@ public class CategorieEvenementServiceTest {
         assertEquals("Nom1_updated", result.getNomCategorieEvenement(), "Le nom doit etre le meme");
         assertEquals(1, result.getIdCategorieEvenement(), "L'ID doit etre le meme");
     }
-/*
+
     @AfterEach
     public void tearDown() {
         File xmlFile = new File(CategorieEvenementXMLUtils.XML_FILE);
@@ -79,5 +77,5 @@ public class CategorieEvenementServiceTest {
             xmlFile.delete();
         }
     }
- */
+
 }

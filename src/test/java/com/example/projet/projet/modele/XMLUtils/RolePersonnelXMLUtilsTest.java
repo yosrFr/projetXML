@@ -13,34 +13,31 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class RolePersonnelXMLUtilsTest {
-    private RolePersonnelXMLUtils rolePersonnelXMLUtils;
+    private final RolePersonnelXMLUtils rolePersonnelXMLUtils = new RolePersonnelXMLUtils();
     private List<RolePersonnelDto> rolePersonnelDtos;
 
     @BeforeEach
     public void setUp() {
-        rolePersonnelXMLUtils = new RolePersonnelXMLUtils();
         rolePersonnelDtos = new ArrayList<>();
-        rolePersonnelDtos.add(new RolePersonnelDto(1, "Nom1", "Description1"));
-        rolePersonnelDtos.add(new RolePersonnelDto(2, "Nom2", "Description2"));
+        rolePersonnelDtos.add(new RolePersonnelDto(1, "Animateur", "Fait l'animation dans l'événement."));
+        rolePersonnelDtos.add(new RolePersonnelDto(2, "Formateur", "Fait la formation dans l'événement"));
     }
 
     @Test
     public void testMarshaller() {
         rolePersonnelXMLUtils.marshaller(rolePersonnelDtos);
         File xmlFile = new File(RolePersonnelXMLUtils.XML_FILE);
-        assertTrue(xmlFile.exists(), "Le fichier XML doit exister");
-        assertTrue(xmlFile.length() > 0, "Le fichier XML ne devrait pas etre vide");
+        assertTrue(xmlFile.exists());
+        assertTrue(xmlFile.length() > 0);
     }
 
     @Test
     public void testUnmarshaller() {
         rolePersonnelXMLUtils.marshaller(rolePersonnelDtos);
         List<RolePersonnelDto> unmarshalledDtos = rolePersonnelXMLUtils.unmarshaller();
-        assertEquals(rolePersonnelDtos.size(), unmarshalledDtos.size(), "Les tailles des listes doivent etre égales");
-        for (int i = 0; i < unmarshalledDtos.size(); i++) {
-            assertEquals(rolePersonnelDtos.get(i).getDescriptionRolePersonnel(), unmarshalledDtos.get(i).getDescriptionRolePersonnel(), "La description doit etre la meme");
-            assertEquals(rolePersonnelDtos.get(i).getNomRolePersonnel(), unmarshalledDtos.get(i).getNomRolePersonnel(), "Le nom doit etre la meme");
-            assertEquals(rolePersonnelDtos.get(i).getIdRolePersonnel(), unmarshalledDtos.get(i).getIdRolePersonnel(), "L'ID doit etre la meme");
+        assertEquals(rolePersonnelDtos.size(), unmarshalledDtos.size());
+        for (int i = 0; i < rolePersonnelDtos.size(); i++) {
+            assertTrue(unmarshalledDtos.get(i).equals(rolePersonnelDtos.get(i)));
         }
     }
 

@@ -25,7 +25,7 @@ public class AffectationPersonnelService {
         affectationPersonnelXMLUtils.marshaller(list);
     }
 
-    public boolean estAffecté (long idPersonnel, String tempsDebut, String tempsFin, Date date){
+    public boolean estAffecté (long idPersonnel, String tempsDebut, String tempsFin, String date){
         List<AffectationPersonnelDto> list = affectationPersonnelXMLUtils.unmarshaller();
         return list.stream()
                 .filter(affectationPersonnel -> affectationPersonnel.getPersonnel().getIdPersonnel() == idPersonnel)

@@ -6,6 +6,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlElement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @XmlRootElement
 public class EvenementDto {
@@ -20,29 +21,32 @@ public class EvenementDto {
     private String dateDebutEvenement;
     @NotNull
     private String dateFinEvenement;
-    private int NombreParticipantsEstime;
+    private int nombreParticipantsEstime;
     @NotNull
-    private int NombreParticipantsMaximal;
+    private int nombreParticipantsMaximal;
     @NotNull
     private List<SessionDto> sessions;
+    @NotNull
+    private CategorieEvenementDto categorieEvenement;
 
     public EvenementDto() {
         super();
         sessions = new ArrayList<SessionDto>();
     }
 
-    public EvenementDto(long idEvenement, String titreEvenement, String descriptionEvenement, String dateDebutEvenement, String dateFinEvenement, int nombreParticipantsEstime, int nombreParticipantsMaximal, List<SessionDto> sessions) {
+    public EvenementDto(long idEvenement, String titreEvenement, String descriptionEvenement, String dateDebutEvenement, String dateFinEvenement, int nombreParticipantsEstime, int nombreParticipantsMaximal, List<SessionDto> sessions, CategorieEvenementDto categorieEvenement) {
         this.idEvenement = idEvenement;
         this.titreEvenement = titreEvenement;
         this.descriptionEvenement = descriptionEvenement;
         this.dateDebutEvenement = dateDebutEvenement;
         this.dateFinEvenement = dateFinEvenement;
-        NombreParticipantsEstime = nombreParticipantsEstime;
-        NombreParticipantsMaximal = nombreParticipantsMaximal;
+        this.nombreParticipantsEstime = nombreParticipantsEstime;
+        this.nombreParticipantsMaximal = nombreParticipantsMaximal;
         this.sessions = sessions;
+        this.categorieEvenement = categorieEvenement;
     }
 
-    @XmlElement
+    @XmlElement (name = "IdEvenet")
     public long getIdEvenement() {
         return idEvenement;
     }
@@ -51,7 +55,7 @@ public class EvenementDto {
         this.idEvenement = idEvenement;
     }
 
-    @XmlElement
+    @XmlElement (name = "TitreEvent")
     public String getTitreEvenement() {
         return titreEvenement;
     }
@@ -60,7 +64,7 @@ public class EvenementDto {
         this.titreEvenement = titreEvenement;
     }
 
-    @XmlElement
+    @XmlElement (name = "DescriptionEvent")
     public String getDescriptionEvenement() {
         return descriptionEvenement;
     }
@@ -69,7 +73,7 @@ public class EvenementDto {
         this.descriptionEvenement = descriptionEvenement;
     }
 
-    @XmlElement
+    @XmlElement (name = "DateDebutEvent")
     public String getDateDebutEvenement() {
         return dateDebutEvenement;
     }
@@ -78,7 +82,7 @@ public class EvenementDto {
         this.dateDebutEvenement = dateDebutEvenement;
     }
 
-    @XmlElement
+    @XmlElement (name = "DateFinEvent")
     public String getDateFinEvenement() {
         return dateFinEvenement;
     }
@@ -87,25 +91,25 @@ public class EvenementDto {
         this.dateFinEvenement = dateFinEvenement;
     }
 
-    @XmlElement
+    @XmlElement (name = "NbParEstim")
     public int getNombreParticipantsEstime() {
-        return NombreParticipantsEstime;
+        return nombreParticipantsEstime;
     }
 
     public void setNombreParticipantsEstime(int nombreParticipantsEstime) {
-        NombreParticipantsEstime = nombreParticipantsEstime;
+        this.nombreParticipantsEstime = nombreParticipantsEstime;
     }
 
-    @XmlElement
+    @XmlElement (name = "NbParMax")
     public int getNombreParticipantsMaximal() {
-        return NombreParticipantsMaximal;
+        return nombreParticipantsMaximal;
     }
 
     public void setNombreParticipantsMaximal(int nombreParticipantsMaximal) {
-        NombreParticipantsMaximal = nombreParticipantsMaximal;
+        this.nombreParticipantsMaximal = nombreParticipantsMaximal;
     }
 
-    @XmlElement
+    @XmlElement (name = "Sessions")
     public List<SessionDto> getSessions() {
         return sessions;
     }
@@ -114,4 +118,23 @@ public class EvenementDto {
         this.sessions = sessions;
     }
 
+    @XmlElement (name = "CategoriesEvenement")
+    public CategorieEvenementDto getCategorieEvenement() {
+        return categorieEvenement;
+    }
+
+    public void setCategorieEvenement(CategorieEvenementDto categorieEvenement) {
+        this.categorieEvenement = categorieEvenement;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof EvenementDto that)) return false;
+        return idEvenement == that.idEvenement && nombreParticipantsEstime == that.nombreParticipantsEstime && nombreParticipantsMaximal == that.nombreParticipantsMaximal && Objects.equals(titreEvenement, that.titreEvenement) && Objects.equals(descriptionEvenement, that.descriptionEvenement) && Objects.equals(dateDebutEvenement, that.dateDebutEvenement) && Objects.equals(dateFinEvenement, that.dateFinEvenement) && Objects.equals(sessions, that.sessions) && Objects.equals(categorieEvenement, that.categorieEvenement);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idEvenement, titreEvenement, descriptionEvenement, dateDebutEvenement, dateFinEvenement, nombreParticipantsEstime, nombreParticipantsMaximal, sessions, categorieEvenement);
+    }
 }

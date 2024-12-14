@@ -1,5 +1,6 @@
 package com.example.projet.projet.modele.XMLUtils;
 
+import com.example.projet.projet.modele.Dto.CategorieEvenementDto;
 import com.example.projet.projet.modele.Dto.EvenementDto;
 import com.example.projet.projet.modele.Dto.SessionDto;
 import org.junit.jupiter.api.AfterEach;
@@ -8,34 +9,35 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class EvenementXMLUtilsTest {
-    private EvenementXMLUtils evenementXMLUtils;
+    private final  EvenementXMLUtils evenementXMLUtils = new EvenementXMLUtils();
     private List<EvenementDto> evenementDtos;
     private List<SessionDto> sessionDtos;
 
     @BeforeEach
     public void setUp() {
-        evenementXMLUtils = new EvenementXMLUtils();
         evenementDtos = new ArrayList<>();
         sessionDtos = new ArrayList<>();
-        sessionDtos.add(new SessionDto(1, new Date(), "titreSession1", "09:45", "09:45"));
-        sessionDtos.add(new SessionDto(2, new Date(), "titreSession2", "09:45", "09:45"));
-        evenementDtos.add(new EvenementDto(1, "titreEvenement1", "descriptionEvenement1", "dateDebutEvenement1", "dateFinEvenement1", 20, 50, sessionDtos));
-        evenementDtos.add(new EvenementDto(2, "titreEvenement2", "descriptionEvenement2", "dateDebutEvenement2", "dateFinEvenement2", 20, 50, sessionDtos));
+        sessionDtos.add(new SessionDto(11, "2024-12-10", "Ouverture", "8:00", "09:00"));
+        sessionDtos.add(new SessionDto(22, "2024-12-11", "Atelier AI", "09:00", "12:00"));
+        sessionDtos.add(new SessionDto(33, "2024-12-13", " Conférence internationale sur les maladies rares et les médicaments orphelins (Rare Diseases 2025)", "09:00", "12:00"));
+        CategorieEvenementDto categorie1 = new CategorieEvenementDto(1, "Conférence", "Événements axés sur des conférences.");
+        CategorieEvenementDto categorie2 = new CategorieEvenementDto(2, "Atelier", "Événements interactifs d'apprentissage.");
+        evenementDtos.add(new EvenementDto(1, "Conférence Tech 2024", "Une conférence dédiée à l'innovation technologique.", "2024-12-10", "2024-12-11", 45, 50, sessionDtos, categorie1));
+        evenementDtos.add(new EvenementDto(2, "Conférence MED 2024", "Une conférence dédiée à l'innovation des médicaments.", "2024-12-13", "2024-12-13", 45, 50, sessionDtos, categorie2));
     }
 
     @Test
     void testMarshaller() {
         evenementXMLUtils.marshaller(evenementDtos);
         File xmlFile = new File(EvenementXMLUtils.XML_FILE);
-        assertTrue(xmlFile.exists(), "Le fichier XML doit exister");
-        assertTrue(xmlFile.length() > 0, "Le fichier XML ne devrait pas etre vide");
+        assertTrue(xmlFile.exists());
+        assertTrue(xmlFile.length() > 0);
     }
 
     @Test
@@ -44,20 +46,7 @@ public class EvenementXMLUtilsTest {
         List<EvenementDto> unmarshalledDtos = evenementXMLUtils.unmarshaller();
         assertEquals(evenementDtos.size(), unmarshalledDtos.size());
         for (int i = 0; i < evenementDtos.size(); i++) {
-            assertEquals(evenementDtos.get(i).getIdEvenement(), unmarshalledDtos.get(i).getIdEvenement(), "L'ID de l'evenement doit etre la meme");
-            assertEquals(evenementDtos.get(i).getTitreEvenement(), unmarshalledDtos.get(i).getTitreEvenement(), "Le titre de l'evenement doit etre le meme");
-            assertEquals(evenementDtos.get(i).getDescriptionEvenement(), unmarshalledDtos.get(i).getDescriptionEvenement(), "La description doit etre la meme");
-            assertEquals(evenementDtos.get(i).getDateDebutEvenement(), unmarshalledDtos.get(i).getDateDebutEvenement(), "La date de debut doit etre la meme");
-            assertEquals(evenementDtos.get(i).getDateFinEvenement(), unmarshalledDtos.get(i).getDateFinEvenement(), "La date de fin doit etre la meme");
-            assertEquals(evenementDtos.get(i).getNombreParticipantsMaximal(), unmarshalledDtos.get(i).getNombreParticipantsMaximal(), "Le nombre de participant maximal doit etre la meme");
-            assertEquals(evenementDtos.get(i).getNombreParticipantsEstime(), unmarshalledDtos.get(i).getNombreParticipantsEstime(), "Le nombre de participant estime doit etre la meme");
-            for(int j = 0; j < sessionDtos.size(); j++) {
-                assertEquals(evenementDtos.get(i).getSessions().get(j).getIdSession(), unmarshalledDtos.get(i).getSessions().get(j).getIdSession(), "L'ID de la session doit etre la meme");
-                assertEquals(evenementDtos.get(i).getSessions().get(j).getTitreSession(), unmarshalledDtos.get(i).getSessions().get(j).getTitreSession(), "Le titre de la session doit etre la meme");
-                assertEquals(evenementDtos.get(i).getSessions().get(j).getDateSession(), unmarshalledDtos.get(i).getSessions().get(j).getDateSession(), "La date de la session doit etre la meme");
-                assertEquals(evenementDtos.get(i).getSessions().get(j).getHeureDebutSession(), unmarshalledDtos.get(i).getSessions().get(j).getHeureDebutSession(), "L'heure de debut doit etre la meme");
-                assertEquals(evenementDtos.get(i).getSessions().get(j).getHeureFinSession(), unmarshalledDtos.get(i).getSessions().get(j).getHeureFinSession(), "L'heure de fin doit etre la meme");
-            }
+            assertTrue(unmarshalledDtos.get(i).equals(evenementDtos.get(i)));
         }
     }
 

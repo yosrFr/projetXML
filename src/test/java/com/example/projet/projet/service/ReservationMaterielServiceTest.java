@@ -24,12 +24,11 @@ public class ReservationMaterielServiceTest {
         reservationMaterielXMLUtils = new ReservationMaterielXMLUtils();
         reservationMaterielService = new ReservationMaterielService(reservationMaterielXMLUtils);
         reservationMaterielsDtos = new ArrayList<>();
-        Date sessionDate = new GregorianCalendar(2024, Calendar.DECEMBER, 10).getTime();
         materielDtos = new ArrayList<>();
-        materielDtos.add(new MaterielDto(1, "nom1", "marque1", "modele1", new Date()));
-        materielDtos.add(new MaterielDto(2, "nom2", "marque2", "modele2", new Date()));
-        SessionDto session1 = new SessionDto(1, sessionDate, "titreSession1", "09:00", "10:00");
-        SessionDto session2 = new SessionDto(2, sessionDate, "titreSession2", "10:45", "12:00");
+        materielDtos.add(new MaterielDto(101, "datashow", "BenQ", "BenQ W1800i", "2022-12-12"));
+        materielDtos.add(new MaterielDto(102, "TV", "LG", "OLED55B4PUA", "2022-12-23"));
+        SessionDto session1 = new SessionDto(11, "2024-12-10", "Ouverture", "8:00", "09:00");
+        SessionDto session2 = new SessionDto(22, "2024-12-11", "Atelier AI", "09:00", "12:00");
         reservationMaterielsDtos.add(new ReservationMaterielsDto(1, materielDtos, session1));
         reservationMaterielsDtos.add(new ReservationMaterielsDto(2, materielDtos, session2));
         reservationMaterielXMLUtils.marshaller(reservationMaterielsDtos);
@@ -38,9 +37,9 @@ public class ReservationMaterielServiceTest {
     @Test
     public void testAjouterReservationMateriel() {
         reservationMaterielsDtos = new ArrayList<>();
-        materielDtos.add(new MaterielDto(1, "nom1", "marque1", "modele1", new Date()));
-        materielDtos.add(new MaterielDto(2, "nom2", "marque2", "modele2", new Date()));
-        SessionDto session1 = new SessionDto(1, new Date(), "titreSession1", "09:45", "09:45");
+        materielDtos.add(new MaterielDto(1, "nom1", "marque1", "modele1", "2024-11-10"));
+        materielDtos.add(new MaterielDto(2, "nom2", "marque2", "modele2", "2024-11-10"));
+        SessionDto session1 = new SessionDto(1, "2024-11-11", "titreSession1", "09:45", "09:45");
         ReservationMaterielsDto reservationMaterielDto = new ReservationMaterielsDto(3, materielDtos, session1);
         reservationMaterielService.ajouterReservationMateriel(reservationMaterielDto);
         List<ReservationMaterielsDto> result = reservationMaterielXMLUtils.unmarshaller();
@@ -50,11 +49,10 @@ public class ReservationMaterielServiceTest {
 
     @Test
     public void testEstReservé() {
-        Date testDate = new GregorianCalendar(2024, Calendar.DECEMBER, 10).getTime();
-        boolean result = reservationMaterielService.estReservé(2, "09:30", "11:30", testDate);
+        boolean result = reservationMaterielService.estReservé(102, "09:30", "11:30", "2024-12-11");
         assertTrue(result);
     }
-/*
+
     @AfterEach
     public void tearDown() {
         File xmlFile = new File(ReservationMaterielXMLUtils.XML_FILE);
@@ -62,6 +60,4 @@ public class ReservationMaterielServiceTest {
             xmlFile.delete();
         }
     }
-
- */
 }

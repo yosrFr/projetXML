@@ -76,7 +76,7 @@ public class RolePersonnelServiceTest {
         assertEquals(rolePersonnelDtos.size() - 1, result.size());
         assertNull(rolePersonnelService.getRolePersonnelById(1));
     }
-/*
+
     @AfterEach
     public void tearDown() {
         File xmlFile = new File(RolePersonnelXMLUtils.XML_FILE);
@@ -84,6 +84,4 @@ public class RolePersonnelServiceTest {
             xmlFile.delete();
         }
     }
-
- */
 }

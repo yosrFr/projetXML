@@ -4,11 +4,12 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlElement;
 import java.util.Date;
+import java.util.Objects;
 
 @XmlRootElement
 public class InscriptionDto {
     @NotNull
-    private Date DateInscription;
+    private String DateInscription;
     @NotNull
     private long idInscription;
     private Boolean presence;
@@ -17,30 +18,33 @@ public class InscriptionDto {
     private ParticipantDto participant;
     @NotNull
     private EvenementDto evenement;
+    @NotNull
+    private TypeInscriptionDto typeInscription;
 
     public InscriptionDto() {
 
     }
 
-    public InscriptionDto(Date dateInscription, long idInscription, Boolean presence, Boolean retour, ParticipantDto participant, EvenementDto evenement) {
+    public InscriptionDto(String dateInscription, long idInscription, Boolean presence, Boolean retour, ParticipantDto participant, EvenementDto evenement, TypeInscriptionDto typeInscription) {
         DateInscription = dateInscription;
         this.idInscription = idInscription;
         this.presence = presence;
         this.retour = retour;
         this.participant = participant;
         this.evenement = evenement;
+        this.typeInscription = typeInscription;
     }
 
-    @XmlElement
-    public Date getDateInscription() {
+    @XmlElement (name = "DateInscri")
+    public String getDateInscription() {
         return DateInscription;
     }
 
-    public void setDateInscription(Date dateInscription) {
+    public void setDateInscription(String dateInscription) {
         DateInscription = dateInscription;
     }
 
-    @XmlElement
+    @XmlElement (name = "IdInscri")
     public long getIdInscription() {
         return idInscription;
     }
@@ -49,7 +53,7 @@ public class InscriptionDto {
         this.idInscription = idInscription;
     }
 
-    @XmlElement
+    @XmlElement (name = "Presence")
     public Boolean getPresence() {
         return presence;
     }
@@ -58,7 +62,7 @@ public class InscriptionDto {
         this.presence = presence;
     }
 
-    @XmlElement
+    @XmlElement (name = "Retour")
     public Boolean getRetour() {
         return retour;
     }
@@ -67,7 +71,7 @@ public class InscriptionDto {
         this.retour = retour;
     }
 
-    @XmlElement
+    @XmlElement (name = "Participant")
     public ParticipantDto getParticipant() {
         return participant;
     }
@@ -76,7 +80,7 @@ public class InscriptionDto {
         this.participant = participant;
     }
 
-    @XmlElement
+    @XmlElement (name = "Evenement")
     public EvenementDto getEvenement() {
         return evenement;
     }
@@ -85,4 +89,23 @@ public class InscriptionDto {
         this.evenement = evenement;
     }
 
+    @XmlElement (name = "TypeInscription")
+    public TypeInscriptionDto getTypeInscription() {
+        return typeInscription;
+    }
+
+    public void setTypeInscription(TypeInscriptionDto typeInscription) {
+        this.typeInscription = typeInscription;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof InscriptionDto that)) return false;
+        return idInscription == that.idInscription && Objects.equals(DateInscription, that.DateInscription) && Objects.equals(presence, that.presence) && Objects.equals(retour, that.retour) && Objects.equals(participant, that.participant) && Objects.equals(evenement, that.evenement) && Objects.equals(typeInscription, that.typeInscription);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(DateInscription, idInscription, presence, retour, participant, evenement, typeInscription);
+    }
 }

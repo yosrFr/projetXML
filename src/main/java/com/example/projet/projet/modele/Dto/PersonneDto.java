@@ -7,6 +7,7 @@ import jakarta.xml.bind.annotation.XmlElement;
 import org.hibernate.validator.constraints.Length;
 
 import java.util.Date;
+import java.util.Objects;
 
 @XmlRootElement
 public class PersonneDto {
@@ -15,20 +16,21 @@ public class PersonneDto {
     @NotNull
     private String prenom;
     private String adresse;
+    @NotNull
     @Email
     private String email;
     @NotNull
     @Length(min =12, max = 12)
     private String telephone;
     @NotNull
-    private Date dateNaissance;
+    private String dateNaissance;
     private String sexe;
 
     public PersonneDto() {
 
     }
 
-    public PersonneDto(String nom, String prenom, String adresse, String email, String telephone, Date dateNaissance, String sexe) {
+    public PersonneDto(String nom, String prenom, String adresse, String email, String telephone, String dateNaissance, String sexe) {
         this.nom = nom;
         this.prenom = prenom;
         this.adresse = adresse;
@@ -38,7 +40,7 @@ public class PersonneDto {
         this.sexe = sexe;
     }
 
-    @XmlElement
+    @XmlElement (name = "IdPar")
     public String getNom() {
         return nom;
     }
@@ -47,7 +49,7 @@ public class PersonneDto {
         this.nom = nom;
     }
 
-    @XmlElement
+    @XmlElement (name = "Prenom")
     public String getPrenom() {
         return prenom;
     }
@@ -56,7 +58,7 @@ public class PersonneDto {
         this.prenom = prenom;
     }
 
-    @XmlElement
+    @XmlElement (name = "Adresse")
     public String getAdresse() {
         return adresse;
     }
@@ -65,7 +67,7 @@ public class PersonneDto {
         this.adresse = adresse;
     }
 
-    @XmlElement
+    @XmlElement (name = "Mail")
     public String getEmail() {
         return email;
     }
@@ -74,7 +76,7 @@ public class PersonneDto {
         this.email = email;
     }
 
-    @XmlElement
+    @XmlElement (name = "NumTel")
     public String getTelephone() {
         return telephone;
     }
@@ -83,16 +85,16 @@ public class PersonneDto {
         this.telephone = telephone;
     }
 
-    @XmlElement
-    public Date getDateNaissance() {
+    @XmlElement (name = "DateNais")
+    public String getDateNaissance() {
         return dateNaissance;
     }
 
-    public void setDateNaissance(Date dateNaissance) {
+    public void setDateNaissance(String dateNaissance) {
         this.dateNaissance = dateNaissance;
     }
 
-    @XmlElement
+    @XmlElement (name = "Sexe")
     public String getSexe() {
         return sexe;
     }
@@ -101,4 +103,15 @@ public class PersonneDto {
         this.sexe = sexe;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof PersonneDto that)) return false;
+        return Objects.equals(nom, that.nom) && Objects.equals(prenom, that.prenom) && Objects.equals(adresse, that.adresse) && Objects.equals(email, that.email) && Objects.equals(telephone, that.telephone) && Objects.equals(dateNaissance, that.dateNaissance) && Objects.equals(sexe, that.sexe);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nom, prenom, adresse, email, telephone, dateNaissance, sexe);
+    }
 }
+

@@ -4,14 +4,14 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlElement;
 
-import java.util.Date;
+import java.util.Objects;
 
 @XmlRootElement
 public class SessionDto {
     @NotNull
     private long idSession;
     @NotNull
-    private Date dateSession;
+    private String dateSession;
     @NotNull
     private String titreSession;
     @NotNull
@@ -23,7 +23,7 @@ public class SessionDto {
 
     }
 
-    public SessionDto(long idSession, Date dateSession, String titreSession, String heureDebutSession, String heureFinSession) {
+    public SessionDto(long idSession, String dateSession, String titreSession, String heureDebutSession, String heureFinSession) {
         this.idSession = idSession;
         this.dateSession = dateSession;
         this.titreSession = titreSession;
@@ -40,11 +40,11 @@ public class SessionDto {
     }
 
     @XmlElement
-    public Date getDateSession() {
+    public String getDateSession() {
         return dateSession;
     }
 
-    public void setDateSession(Date dateSession) {
+    public void setDateSession(String dateSession) {
         this.dateSession = dateSession;
     }
 
@@ -75,4 +75,14 @@ public class SessionDto {
         this.heureFinSession = heureFinSession;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof SessionDto that)) return false;
+        return idSession == that.idSession && Objects.equals(dateSession, that.dateSession) && Objects.equals(titreSession, that.titreSession) && Objects.equals(heureDebutSession, that.heureDebutSession) && Objects.equals(heureFinSession, that.heureFinSession);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idSession, dateSession, titreSession, heureDebutSession, heureFinSession);
+    }
 }

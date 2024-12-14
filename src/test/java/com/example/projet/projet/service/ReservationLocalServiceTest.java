@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -25,10 +24,10 @@ public class ReservationLocalServiceTest {
         reservationLocalXMLUtils = new ReservationLocalXMLUtils();
         reservationLocalService = new ReservationLocalService(reservationLocalXMLUtils);
         reservationLocalDtos = new ArrayList<>();
-        LocalDto local1 = new LocalDto("adresseLocal1", 20, 1, "nomLocal1", "numTelLocal1");
-        LocalDto local2 = new LocalDto("adresseLocal2", 30, 2, "nomLocal2", "numTelLocal2");
-        SessionDto session1 = new SessionDto(1, new Date(), "titreSession1", "09:45", "09:45");
-        SessionDto session2 = new SessionDto(2, new Date(), "titreSession2", "09:45", "09:45");
+        LocalDto local1 = new LocalDto("1 Rue Centrale", 50, 101, "Salle A", "+21612345678");
+        LocalDto local2 = new LocalDto("2 Rue Centrale", 30, 102, "Salle B", "+21687654321");
+        SessionDto session1 = new SessionDto(11, "2024-12-10", "Ouverture", "8:00", "09:00");
+        SessionDto session2 = new SessionDto(22, "2024-12-11", "Atelier AI", "09:00", "12:00");
         reservationLocalDtos.add(new ReservationLocalDto(1, local1, session1));
         reservationLocalDtos.add(new ReservationLocalDto(2, local2, session2));
         reservationLocalXMLUtils.marshaller(reservationLocalDtos);
@@ -37,14 +36,14 @@ public class ReservationLocalServiceTest {
     @Test
     public void testAjouterReservation() {
         LocalDto local1 = new LocalDto("adresseLocal2", 30, 2, "nomLocal2", "numTelLocal2");
-        SessionDto session1 = new SessionDto(2, new Date(), "titreSession2", "09:45", "09:45");
+        SessionDto session1 = new SessionDto(2, "2023-12-31", "titreSession2", "09:45", "09:45");
         ReservationLocalDto newReservationLocal = new ReservationLocalDto(3, local1, session1);
         reservationLocalService.ajouterReservationLocal(newReservationLocal);
         List<ReservationLocalDto> result = reservationLocalXMLUtils.unmarshaller();
         boolean exist = result.stream().anyMatch(reservation -> reservation.getIdReservationLocal() == newReservationLocal.getIdReservationLocal());
         assertTrue(exist);
     }
-/*
+
     @AfterEach
     public void tearDown() {
         File xmlFile = new File(ReservationLocalXMLUtils.XML_FILE);
@@ -52,6 +51,4 @@ public class ReservationLocalServiceTest {
             xmlFile.delete();
         }
     }
-
- */
 }

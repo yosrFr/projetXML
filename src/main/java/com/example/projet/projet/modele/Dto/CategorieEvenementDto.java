@@ -5,6 +5,8 @@ import jakarta.validation.constraints.Size;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlElement;
 
+import java.util.Objects;
+
 @XmlRootElement
 public class CategorieEvenementDto {
     @NotNull
@@ -24,7 +26,7 @@ public class CategorieEvenementDto {
         this.descriptionCategorieEvenement = descriptionCategorieEvenement;
     }
 
-    @XmlElement
+    @XmlElement (name = "IdCategorie")
     public long getIdCategorieEvenement() {
         return idCategorieEvenement;
     }
@@ -33,7 +35,7 @@ public class CategorieEvenementDto {
         this.idCategorieEvenement = idCategorieEvenement;
     }
 
-    @XmlElement
+    @XmlElement (name = "NomCategorie")
     public String getNomCategorieEvenement() {
         return nomCategorieEvenement;
     }
@@ -42,7 +44,7 @@ public class CategorieEvenementDto {
         this.nomCategorieEvenement = nomCategorieEvenement;
     }
 
-    @XmlElement
+    @XmlElement (name = "DescriptionCategorie")
     public String getDescriptionCategorieEvenement() {
         return descriptionCategorieEvenement;
     }
@@ -51,4 +53,14 @@ public class CategorieEvenementDto {
         this.descriptionCategorieEvenement = descriptionCategorieEvenement;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof CategorieEvenementDto that)) return false;
+        return idCategorieEvenement == that.idCategorieEvenement && Objects.equals(nomCategorieEvenement, that.nomCategorieEvenement) && Objects.equals(descriptionCategorieEvenement, that.descriptionCategorieEvenement);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idCategorieEvenement, nomCategorieEvenement, descriptionCategorieEvenement);
+    }
 }

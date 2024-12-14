@@ -1,9 +1,6 @@
 package com.example.projet.projet.service;
 
-import com.example.projet.projet.modele.Dto.EvenementDto;
-import com.example.projet.projet.modele.Dto.InscriptionDto;
-import com.example.projet.projet.modele.Dto.ParticipantDto;
-import com.example.projet.projet.modele.Dto.SessionDto;
+import com.example.projet.projet.modele.Dto.*;
 import com.example.projet.projet.modele.XMLUtils.InscriptionXMLUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,23 +16,27 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class InscriptionServiceTest {
     private InscriptionService inscriptionService;
-    private InscriptionXMLUtils inscriptionXMLUtils;
+    private final InscriptionXMLUtils inscriptionXMLUtils = new InscriptionXMLUtils();
     private List<InscriptionDto> inscriptionDtos;
     private List<SessionDto> sessionDtos;
 
     @BeforeEach
     public void setUp() {
-        inscriptionXMLUtils = new InscriptionXMLUtils();
         inscriptionService = new InscriptionService(inscriptionXMLUtils);
         inscriptionDtos = new ArrayList<>();
         sessionDtos = new ArrayList<>();
-        sessionDtos.add(new SessionDto(1, new Date(), "titreSession1", "09:45", "09:45"));
-        sessionDtos.add(new SessionDto(2, new Date(), "titreSession2", "09:45", "09:45"));
-        EvenementDto evenement = new EvenementDto(1, "titreEvenement1", "descriptionEvenement1", "dateDebutEvenement1", "dateFinEvenement1", 20, 50, sessionDtos);
-        ParticipantDto participant1 = new ParticipantDto("nom", "prenom", "adresse", "email", "telephone", new Date(), "M", 1);
-        ParticipantDto participant2 = new ParticipantDto("nom", "prenom", "adresse", "email", "telephone", new Date(), "F", 2);
-        inscriptionDtos.add(new InscriptionDto(new Date(), 1,  null,  null, participant1,  evenement));
-        inscriptionDtos.add(new InscriptionDto(new Date(), 2,  null,  null, participant2,  evenement));
+        sessionDtos.add(new SessionDto(11, "2024-12-10", "Ouverture", "8:00", "09:00"));
+        sessionDtos.add(new SessionDto(22, "2024-12-11", "Atelier AI", "09:00", "12:00"));
+        sessionDtos.add(new SessionDto(33, "2024-12-13", " Conférence internationale sur les maladies rares et les médicaments orphelins (Rare Diseases 2025)", "09:00", "12:00"));
+        CategorieEvenementDto categorie1 = new CategorieEvenementDto(1, "Conférence", "Événements axés sur des conférences.");
+        CategorieEvenementDto categorie2 = new CategorieEvenementDto(2, "Atelier", "Événements interactifs d'apprentissage.");
+        EvenementDto evenement = new EvenementDto(1, "Conférence Tech 2024", "Une conférence dédiée à l'innovation technologique.", "2024-12-10", "2024-12-11", 45, 50, sessionDtos, categorie1);
+        ParticipantDto participant1 = new ParticipantDto("Doe", "John", "Sousse", "john.doe@example.com", "+21612345678", "2000-11-13", "homme", 1);
+        ParticipantDto participant2 = new ParticipantDto("Smith", "Jane", "Sfax", "jane.smith@gmail.com", "+21687654321", "2000-11-01", "femme", 2);
+        TypeInscriptionDto type1 = new TypeInscriptionDto("Inscription générale pour assister à l'événement sans conditions particulières", "Standard", 1);
+        TypeInscriptionDto type2 = new TypeInscriptionDto("Inscription offrant des avantages exclusifs comme des sièges privilégiés et un accès à des événements privés", "VIP", 2);
+        inscriptionDtos.add(new InscriptionDto("2024-12-01", 1,  null,  null, participant1,  evenement, type1));
+        inscriptionDtos.add(new InscriptionDto("2024-12-02", 2,  true,  true, participant2,  evenement, type2));
         inscriptionXMLUtils.marshaller(inscriptionDtos);
     }
 
@@ -115,11 +115,13 @@ public class InscriptionServiceTest {
     @Test
     public void testAjouterInscription() {
         sessionDtos = new ArrayList<>();
-        sessionDtos.add(new SessionDto(1, new Date(), "titreSession1", "09:45", "09:45"));
-        sessionDtos.add(new SessionDto(2, new Date(), "titreSession2", "09:45", "09:45"));
-        EvenementDto evenement = new EvenementDto(1, "titreEvenement1", "descriptionEvenement1", "dateDebutEvenement1", "dateFinEvenement1", 20, 50, sessionDtos);
-        ParticipantDto participant1 = new ParticipantDto("nom", "prenom", "adresse", "email", "telephone", new Date(), "M", 1);
-        InscriptionDto newInscription = new InscriptionDto(new Date(), 3,  null,  null, participant1,  evenement);
+        sessionDtos.add(new SessionDto(1, "2024-11-15", "titreSession1", "09:45", "09:45"));
+        sessionDtos.add(new SessionDto(2, "2024-11-16", "titreSession2", "09:45", "09:45"));
+        CategorieEvenementDto categorie1 = new CategorieEvenementDto(1, "Conférence", "Événements axés sur des conférences.");
+        EvenementDto evenement = new EvenementDto(1, "titreEvenement1", "descriptionEvenement1", "dateDebutEvenement1", "dateFinEvenement1", 20, 50, sessionDtos, categorie1);
+        ParticipantDto participant1 = new ParticipantDto("nom", "prenom", "adresse", "email", "telephone", "2000-02-02", "M", 1);
+        TypeInscriptionDto type1 = new TypeInscriptionDto("Inscription générale pour assister à l'événement sans conditions particulières", "Standard", 1);
+        InscriptionDto newInscription = new InscriptionDto("2024-10-10", 3,  null,  null, participant1,  evenement, type1);
         inscriptionService.ajouterInscription(newInscription);
         List<InscriptionDto> result = inscriptionXMLUtils.unmarshaller();
         boolean exist = result.stream().anyMatch(inscription -> inscription.getIdInscription() == newInscription.getIdInscription());
@@ -163,11 +165,13 @@ public class InscriptionServiceTest {
     @Test
     public void modifierInscription() {
         sessionDtos = new ArrayList<>();
-        sessionDtos.add(new SessionDto(1, new Date(), "titreSession1", "09:45", "09:45"));
-        sessionDtos.add(new SessionDto(2, new Date(), "titreSession2", "09:45", "09:45"));
-        EvenementDto evenement = new EvenementDto(1, "titreEvenement1", "descriptionEvenement1", "dateDebutEvenement1", "dateFinEvenement1", 20, 50, sessionDtos);
-        ParticipantDto participant1 = new ParticipantDto("nom", "prenom", "adresse", "email", "telephone", new Date(), "M", 1);
-        InscriptionDto updatedInscription = new InscriptionDto(new Date(), 2,  true,  false, participant1,  evenement);
+        sessionDtos.add(new SessionDto(1, "2024-11-11", "titreSession1", "09:45", "09:45"));
+        sessionDtos.add(new SessionDto(2, "2024-11-11", "titreSession2", "09:45", "09:45"));
+        CategorieEvenementDto categorie1 = new CategorieEvenementDto(1, "Conférence", "Événements axés sur des conférences.");
+        EvenementDto evenement = new EvenementDto(1, "titreEvenement1", "descriptionEvenement1", "dateDebutEvenement1", "dateFinEvenement1", 20, 50, sessionDtos, categorie1);
+        ParticipantDto participant1 = new ParticipantDto("nom", "prenom", "adresse", "email", "telephone", "2009-11-01", "M", 1);
+        TypeInscriptionDto type1 = new TypeInscriptionDto("Inscription générale pour assister à l'événement sans conditions particulières", "Standard", 1);
+        InscriptionDto updatedInscription = new InscriptionDto("2024-11-01", 2,  true,  false, participant1,  evenement, type1);
         inscriptionService.modifierInscription(updatedInscription);
         InscriptionDto result = inscriptionService.getInscriptionById(2);
         assertNotNull(result);
@@ -176,7 +180,7 @@ public class InscriptionServiceTest {
 
 
     }
-/*
+
     @AfterEach
     public void tearDown() {
         File xmlFile = new File(InscriptionXMLUtils.XML_FILE);
@@ -184,6 +188,4 @@ public class InscriptionServiceTest {
             xmlFile.delete();
         }
     }
-
- */
 }

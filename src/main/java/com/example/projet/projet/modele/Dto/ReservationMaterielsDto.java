@@ -4,13 +4,14 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlElement;
 import java.util.List;
+import java.util.Objects;
 
 @XmlRootElement
 public class ReservationMaterielsDto {
     @NotNull
     private long idReservationMateriel;
     @NotNull
-    private List<MaterielDto> materiel;
+    private List<MaterielDto> materiaux;
     @NotNull
     private SessionDto session;
 
@@ -18,13 +19,13 @@ public class ReservationMaterielsDto {
 
     }
 
-    public ReservationMaterielsDto(long idReservationMateriel, List<MaterielDto> materiel, SessionDto session) {
+    public ReservationMaterielsDto(long idReservationMateriel, List<MaterielDto> materiaux, SessionDto session) {
         this.idReservationMateriel = idReservationMateriel;
-        this.materiel = materiel;
+        this.materiaux = materiaux;
         this.session = session;
     }
 
-    @XmlElement
+    @XmlElement (name = "IdReservMat")
     public long getIdReservationMateriel() {
         return idReservationMateriel;
     }
@@ -33,16 +34,16 @@ public class ReservationMaterielsDto {
         this.idReservationMateriel = idReservationMateriel;
     }
 
-    @XmlElement
-    public List<MaterielDto> getMateriel() {
-        return materiel;
+    @XmlElement (name = "Materiaux")
+    public List<MaterielDto> getMateriaux() {
+        return materiaux;
     }
 
-    public void setMateriel(List<MaterielDto> materiel) {
-        this.materiel = materiel;
+    public void setMateriaux(List<MaterielDto> materiaux) {
+        this.materiaux = materiaux;
     }
 
-    @XmlElement
+    @XmlElement (name = "Session")
     public SessionDto getSession() {
         return session;
     }
@@ -51,4 +52,14 @@ public class ReservationMaterielsDto {
         this.session = session;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof ReservationMaterielsDto that)) return false;
+        return idReservationMateriel == that.idReservationMateriel && Objects.equals(materiaux, that.materiaux) && Objects.equals(session, that.session);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idReservationMateriel, materiaux, session);
+    }
 }

@@ -4,6 +4,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
+import java.util.Objects;
+
 @XmlRootElement
 public class AffectationPersonnelDto {
     @NotNull
@@ -48,5 +50,16 @@ public class AffectationPersonnelDto {
 
     public void setSession(SessionDto session) {
         this.session = session;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof AffectationPersonnelDto that)) return false;
+        return idAffectationPersonnel == that.idAffectationPersonnel && Objects.equals(personnel, that.personnel) && Objects.equals(session, that.session);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idAffectationPersonnel, personnel, session);
     }
 }

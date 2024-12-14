@@ -76,7 +76,7 @@ public class TypeSessionServiceTest {
         assertEquals(typeSessionDtos.size() - 1, result.size());
         assertNull(typeSessionService.getTypeSessionById(1));
     }
-/*
+
     @AfterEach
     public void tearDown() {
         File xmlFile  = new File(TypeSessionXMLUtils.XML_FILE);
@@ -84,6 +84,4 @@ public class TypeSessionServiceTest {
             xmlFile.delete();
         }
     }
-
- */
 }

@@ -15,6 +15,8 @@ public class ReservationMaterielService {
     @Autowired
     private ReservationMaterielXMLUtils reservationMaterielXMLUtils;
 
+    public ReservationMaterielService(){}
+
     public ReservationMaterielService(ReservationMaterielXMLUtils reservationMaterielXMLUtils) {
         this.reservationMaterielXMLUtils = reservationMaterielXMLUtils;
     }
@@ -25,12 +27,12 @@ public class ReservationMaterielService {
         reservationMaterielXMLUtils.marshaller(list);
     }
 
-    public boolean estReservé (long idMateriel, String tempsDebut, String tempsFin, Date date){
+    public boolean estReservé (long idMateriel, String tempsDebut, String tempsFin, String date){
         LocalTime debut = LocalTime.parse(tempsDebut, DateTimeFormatter.ofPattern("HH:mm"));
         LocalTime fin = LocalTime.parse(tempsFin, DateTimeFormatter.ofPattern("HH:mm"));
         List<ReservationMaterielsDto> list = reservationMaterielXMLUtils.unmarshaller();
         return list.stream()
-                .filter(reservationMateriels -> reservationMateriels.getMateriel().stream()
+                .filter(reservationMateriels -> reservationMateriels.getMateriaux().stream()
                         .anyMatch(materielDto -> materielDto.getIdMateriel() == idMateriel))
                 .anyMatch(reservation ->
                         reservation.getSession().getDateSession().equals(date) &&

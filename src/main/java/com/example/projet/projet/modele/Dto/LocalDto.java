@@ -6,8 +6,11 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlElement;
 import org.hibernate.validator.constraints.Length;
 
+import java.util.Objects;
+
 @XmlRootElement
 public class LocalDto {
+    @NotNull
     @Size(min = 4, max = 30)
     private String adresseLocal;
     @NotNull
@@ -32,7 +35,7 @@ public class LocalDto {
         this.numTelLocal = numTelLocal;
     }
 
-    @XmlElement
+    @XmlElement (name = "AdresseLocal")
     public String getAdresseLocal() {
         return adresseLocal;
     }
@@ -41,7 +44,7 @@ public class LocalDto {
         this.adresseLocal = adresseLocal;
     }
 
-    @XmlElement
+    @XmlElement (name = "CapaciteLocal")
     public int getCapaciteLocal() {
         return capaciteLocal;
     }
@@ -50,7 +53,7 @@ public class LocalDto {
         this.capaciteLocal = capaciteLocal;
     }
 
-    @XmlElement
+    @XmlElement (name = "IdLocal")
     public long getIdLocal() {
         return idLocal;
     }
@@ -59,7 +62,7 @@ public class LocalDto {
         this.idLocal = idLocal;
     }
 
-    @XmlElement
+    @XmlElement (name = "NomLocal")
     public String getNomLocal() {
         return nomLocal;
     }
@@ -68,7 +71,7 @@ public class LocalDto {
         this.nomLocal = nomLocal;
     }
 
-    @XmlElement
+    @XmlElement (name = "NumTelLocal")
     public String getNumTelLocal() {
         return numTelLocal;
     }
@@ -77,4 +80,14 @@ public class LocalDto {
         this.numTelLocal = numTelLocal;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof LocalDto localDto)) return false;
+        return capaciteLocal == localDto.capaciteLocal && idLocal == localDto.idLocal && Objects.equals(adresseLocal, localDto.adresseLocal) && Objects.equals(nomLocal, localDto.nomLocal) && Objects.equals(numTelLocal, localDto.numTelLocal);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(adresseLocal, capaciteLocal, idLocal, nomLocal, numTelLocal);
+    }
 }

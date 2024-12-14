@@ -112,7 +112,7 @@ public class PersonnelController {
     @GetMapping("/disponible")
     public ResponseEntity<List<String>> getAllNomsPersonnelDispoByRole(
             @RequestParam String role,
-            @RequestParam Date date,
+            @RequestParam String date,
             @RequestParam String tempsDeb,
             @RequestParam String tempsFin) {
         try {

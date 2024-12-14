@@ -5,6 +5,8 @@ import jakarta.validation.constraints.Size;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlElement;
 
+import java.util.Objects;
+
 @XmlRootElement
 public class RolePersonnelDto {
     @NotNull
@@ -24,7 +26,7 @@ public class RolePersonnelDto {
         this.descriptionRolePersonnel = descriptionRolePersonnel;
     }
 
-    @XmlElement
+    @XmlElement (name = "IdRolePerso")
     public long getIdRolePersonnel() {
         return idRolePersonnel;
     }
@@ -33,7 +35,7 @@ public class RolePersonnelDto {
         this.idRolePersonnel = idRolePersonnel;
     }
 
-    @XmlElement
+    @XmlElement (name= "NomRolePerso")
     public String getNomRolePersonnel() {
         return nomRolePersonnel;
     }
@@ -42,7 +44,7 @@ public class RolePersonnelDto {
         this.nomRolePersonnel = nomRolePersonnel;
     }
 
-    @XmlElement
+    @XmlElement (name = "DescriptionRolePerso")
     public String getDescriptionRolePersonnel() {
         return descriptionRolePersonnel;
     }
@@ -51,4 +53,14 @@ public class RolePersonnelDto {
         this.descriptionRolePersonnel = descriptionRolePersonnel;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof RolePersonnelDto that)) return false;
+        return idRolePersonnel == that.idRolePersonnel && Objects.equals(nomRolePersonnel, that.nomRolePersonnel) && Objects.equals(descriptionRolePersonnel, that.descriptionRolePersonnel);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idRolePersonnel, nomRolePersonnel, descriptionRolePersonnel);
+    }
 }

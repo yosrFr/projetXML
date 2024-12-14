@@ -22,7 +22,7 @@ public class PersonnelService {
         this.personnelXMLUtils = personnelXMLUtils;
     }
 
-    public List<String> getAllNomsPersonnelDispoByRole (String nomRole, Date date, String tempsDeb, String tempsFin){
+    public List<String> getAllNomsPersonnelDispoByRole (String nomRole, String date, String tempsDeb, String tempsFin){
         List<String> nomsPersonnel = new ArrayList<>();
         List<PersonnelDto> list = personnelXMLUtils.unmarshaller();
         List<PersonnelDto> persoParRole = list.stream()

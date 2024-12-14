@@ -70,7 +70,7 @@ public class TypeInscriptionServiceTest {
         assertEquals("Nom1_updated", result.getNomTypeInscription(), "Le nom doit etre le meme");
         assertEquals(1, result.getIdTypeInscription(), "L'ID doit etre le meme");
     }
-/*
+
     @AfterEach
     public void tearDown() {
         File xmlFile = new File(TypeInscriptionXMLUtils.XML_FILE);
@@ -78,6 +78,4 @@ public class TypeInscriptionServiceTest {
             xmlFile.delete();
         }
     }
-
- */
 }

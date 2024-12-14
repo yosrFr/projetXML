@@ -18,10 +18,9 @@ public class MaterielService {
 
     public MaterielService(MaterielXMLUtils materielXMLUtils) {
         this.materielXMLUtils = materielXMLUtils;
-        this.reservationMaterielService = reservationMaterielService;
     }
 
-    public List<String> getAllNomsMaterielsDispo(String tempsDebut, String tempsFin, Date date){
+    public List<String> getAllNomsMaterielsDispo(String tempsDebut, String tempsFin, String date){
         List<String> nomsMaterielsDispo = new ArrayList<String>();
         List<MaterielDto> list = materielXMLUtils.unmarshaller();
         for (MaterielDto materiel: list){

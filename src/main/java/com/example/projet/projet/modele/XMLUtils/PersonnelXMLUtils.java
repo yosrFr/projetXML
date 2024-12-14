@@ -16,13 +16,13 @@ import java.util.List;
 public class PersonnelXMLUtils {
     public static final String XML_FILE = "../donnees/Personnel.xml";
 
-    public void marshaller(List<PersonnelDto> affectationPersonnel) {
+    public void marshaller(List<PersonnelDto> personnel) {
         JAXBContext jaxbContext = null;
         try {
             jaxbContext = JAXBContext.newInstance(PersonnelWrapper.class);
             Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
             jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-            PersonnelWrapper wrapper = new PersonnelWrapper(affectationPersonnel);
+            PersonnelWrapper wrapper = new PersonnelWrapper(personnel);
             jaxbMarshaller.marshal(wrapper, new File(XML_FILE));
         } catch (JAXBException e) {
             throw new RuntimeException(e);

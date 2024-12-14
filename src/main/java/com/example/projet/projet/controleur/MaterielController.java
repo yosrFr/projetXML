@@ -93,7 +93,7 @@ public class MaterielController {
             @ApiResponse(code = 200, message = "List of available materials retrieved successfully"),
             @ApiResponse(code = 400, message = "Invalid request parameters")
     })
-    public ResponseEntity<List<String>> getAvailableMateriels(@RequestParam String tempsDebut, @RequestParam String tempsFin, @RequestParam Date date) {
+    public ResponseEntity<List<String>> getAvailableMateriels(@RequestParam String tempsDebut, @RequestParam String tempsFin, @RequestParam String date) {
         if (tempsDebut == null || tempsFin == null || date == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }

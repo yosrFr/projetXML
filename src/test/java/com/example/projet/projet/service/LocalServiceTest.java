@@ -15,16 +15,15 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class LocalServiceTest {
     private LocalService localService;
-    private LocalXMLUtils localXMLUtils;
+    private final LocalXMLUtils localXMLUtils = new LocalXMLUtils();
     private List<LocalDto> localDtos;
 
     @BeforeEach
     public void setUp() {
-        localXMLUtils = new LocalXMLUtils();
         localService = new LocalService(localXMLUtils);
         localDtos = new ArrayList<>();
-        localDtos.add(new LocalDto("adresseLocal1", 20, 1, "nomLocal1", "numTelLocal1"));
-        localDtos.add(new LocalDto("adresseLocal2", 30, 2, "nomLocal2", "numTelLocal2"));
+        localDtos.add(new LocalDto("1 Rue Centrale", 50, 101, "Salle A", "+21612345678"));
+        localDtos.add(new LocalDto("2 Rue Centrale", 30, 102, "Salle B", "+21687654321"));
         localXMLUtils.marshaller(localDtos);
     }
 
@@ -64,21 +63,21 @@ public class LocalServiceTest {
 
     @Test
     public void testModifierLocal() {
-        LocalDto updatedLocal = new LocalDto("adresseLocal2_updated", 20, 2, "nomLocal2", "numTelLocal2");
+        LocalDto updatedLocal = new LocalDto("adresseLocal2_updated", 20, 102, "nomLocal2", "numTelLocal2");
         localService.modifierLocal(updatedLocal);
-        LocalDto result = localService.getLocalById(2);
+        LocalDto result = localService.getLocalById(102);
         assertNotNull(result, "Le local doit exister");
         assertEquals("adresseLocal2_updated", result.getAdresseLocal(), "L'adresse doit etre la meme");
     }
 
     @Test
     public void testSupprimerLocal() {
-        localService.supprimerLocal(1);
+        localService.supprimerLocal(101);
         List<LocalDto> result = localService.getAllLocals();
         assertEquals(localDtos.size() - 1, result.size(), "Le nombre de locaux doit diminuer");
-        assertNull(localService.getLocalById(1), "Le local supprimé ne doit pas exister");
+        assertNull(localService.getLocalById(101), "Le local supprimé ne doit pas exister");
     }
-/*
+
     @AfterEach
     public void tearDown() {
         File xmlFile = new File(LocalXMLUtils.XML_FILE);
@@ -86,6 +85,4 @@ public class LocalServiceTest {
             xmlFile.delete();
         }
     }
-
- */
 }

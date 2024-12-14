@@ -4,6 +4,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlElement;
 
+import java.util.Objects;
+
 @XmlRootElement
 public class ReservationLocalDto {
     @NotNull
@@ -21,7 +23,7 @@ public class ReservationLocalDto {
         this.session = session;
     }
 
-    @XmlElement
+    @XmlElement (name = "IdReservLocal")
     public long getIdReservationLocal() {
         return idReservationLocal;
     }
@@ -30,7 +32,7 @@ public class ReservationLocalDto {
         this.idReservationLocal = idReservationLocal;
     }
 
-    @XmlElement
+    @XmlElement (name = "local")
     public LocalDto getLocal() {
         return local;
     }
@@ -39,7 +41,7 @@ public class ReservationLocalDto {
         this.local = local;
     }
 
-    @XmlElement
+    @XmlElement (name = "session")
     public SessionDto getSession() {
         return session;
     }
@@ -48,4 +50,14 @@ public class ReservationLocalDto {
         this.session = session;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof ReservationLocalDto that)) return false;
+        return idReservationLocal == that.idReservationLocal && Objects.equals(local, that.local) && Objects.equals(session, that.session);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idReservationLocal, local, session);
+    }
 }

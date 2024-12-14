@@ -6,44 +6,38 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class SessionXMLUtilsTest {
-    private SessionXMLUtils sessionXMLUtils;
-    private List<SessionDto> SessionDtos;
+    private final SessionXMLUtils sessionXMLUtils = new SessionXMLUtils();
+    private List<SessionDto> sessionDtos;
 
     @BeforeEach
     public void setUp() {
-        sessionXMLUtils = new SessionXMLUtils();
-        SessionDtos = new ArrayList<>();
-        SessionDtos.add(new SessionDto(1, new Date(), "titreSession1", "09:45", "09:45"));
-        SessionDtos.add(new SessionDto(2, new Date(), "titreSession2", "09:45", "09:45"));
+        sessionDtos = new ArrayList<>();
+        sessionDtos.add(new SessionDto(11, "2024-12-10", "Ouverture", "8:00", "09:00"));
+        sessionDtos.add(new SessionDto(22, "2024-12-11", "Atelier AI", "09:00", "12:00"));
+        sessionDtos.add(new SessionDto(33, "2024-12-13", " Conférence internationale sur les maladies rares et les médicaments orphelins (Rare Diseases 2025)", "09:00", "12:00"));
     }
 
     @Test
     public void testMarshaller() {
-        sessionXMLUtils.marshaller(SessionDtos);
+        sessionXMLUtils.marshaller(sessionDtos);
         File xmlFile = new File(SessionXMLUtils.XML_FILE);
-        assertTrue(xmlFile.exists(), "Le fichier XML doit exister");
-        assertTrue(xmlFile.length() > 0, "Le fichier XML ne devrait pas etre vide");
+        assertTrue(xmlFile.exists());
+        assertTrue(xmlFile.length() > 0);
     }
 
     @Test
     public void testUnmarshaller() {
-        sessionXMLUtils.marshaller(SessionDtos);
+        sessionXMLUtils.marshaller(sessionDtos);
         List<SessionDto> unmarshalledDtos = sessionXMLUtils.unmarshaller();
-        assertEquals(SessionDtos.size(), unmarshalledDtos.size(), "Les tailles des listes doivent etre égales");
-        for (int i = 0; i < SessionDtos.size(); i++) {
-            assertEquals(SessionDtos.get(i).getIdSession(), unmarshalledDtos.get(i).getIdSession(), "L'ID doit etre la meme");
-            assertEquals(SessionDtos.get(i).getTitreSession(), unmarshalledDtos.get(i).getTitreSession(), "Le titre doit etre la meme");
-            assertEquals(SessionDtos.get(i).getDateSession(), unmarshalledDtos.get(i).getDateSession(), "La date doit etre la meme");
-            assertEquals(SessionDtos.get(i).getHeureDebutSession(), unmarshalledDtos.get(i).getHeureDebutSession(), "L'heure de debut doit etre la meme");
-            assertEquals(SessionDtos.get(i).getHeureFinSession(), unmarshalledDtos.get(i).getHeureFinSession(), "L'heure de fin doit etre la meme");
+        assertEquals(sessionDtos.size(), unmarshalledDtos.size());
+        for (int i = 0; i < sessionDtos.size(); i++) {
+            assertTrue(sessionDtos.get(i).equals(unmarshalledDtos.get(i)));
         }
     }
 
@@ -54,5 +48,4 @@ public class SessionXMLUtilsTest {
             xmlFile.delete();
         }
     }
-
 }

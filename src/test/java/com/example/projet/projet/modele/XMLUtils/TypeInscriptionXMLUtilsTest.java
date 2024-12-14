@@ -13,34 +13,33 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TypeInscriptionXMLUtilsTest {
-    private TypeInscriptionXMLUtils typeInscriptionXMLUtils;
+    private final TypeInscriptionXMLUtils typeInscriptionXMLUtils = new TypeInscriptionXMLUtils();
     private List<TypeInscriptionDto> typeInscriptionDtos;
 
     @BeforeEach
     public void setUp() {
-        typeInscriptionXMLUtils = new TypeInscriptionXMLUtils();
         typeInscriptionDtos = new ArrayList<>();
-        typeInscriptionDtos.add(new TypeInscriptionDto("Description1", "Nom1", 1L));
-        typeInscriptionDtos.add(new TypeInscriptionDto("Description2", "Nom2", 2L));
+        typeInscriptionDtos.add(new TypeInscriptionDto("Inscription générale pour assister à l'événement sans conditions particulières", "Standard", 1));
+        typeInscriptionDtos.add(new TypeInscriptionDto("Inscription offrant des avantages exclusifs comme des sièges privilégiés et un accès à des événements privés", "VIP", 2));
+        typeInscriptionDtos.add(new TypeInscriptionDto("Inscription avec tarif réduit pour les étudiants, sur présentation de la carte étudiante", "Étudiant", 3));
+        typeInscriptionDtos.add(new TypeInscriptionDto("Inscription destinée aux enseignants, avec des avantages comme des tarifs réduits ou une inscription gratuite.", "Enseignant", 4));
     }
 
     @Test
     public void testMarshaller() {
         typeInscriptionXMLUtils.marshaller(typeInscriptionDtos);
         File xmlFile = new File(TypeInscriptionXMLUtils.XML_FILE);
-        assertTrue(xmlFile.exists(), "Le fichier XML doit exister");
-        assertTrue(xmlFile.length() > 0, "Le fichier XML ne devrait pas etre vide");
+        assertTrue(xmlFile.exists());
+        assertTrue(xmlFile.length() > 0);
     }
 
     @Test
     public void testUnmarshaller() {
         typeInscriptionXMLUtils.marshaller(typeInscriptionDtos);
         List<TypeInscriptionDto> unmarshalledDtos = typeInscriptionXMLUtils.unmarshaller();
-        assertEquals(typeInscriptionDtos.size(), unmarshalledDtos.size(), "Les tailles des listes doivent etre égales");
-        for (int i = 0; i < unmarshalledDtos.size(); i++) {
-            assertEquals(typeInscriptionDtos.get(i).getDescriptionTypeInscription(), unmarshalledDtos.get(i).getDescriptionTypeInscription(), "La description doit etre la meme");
-            assertEquals(typeInscriptionDtos.get(i).getNomTypeInscription(), unmarshalledDtos.get(i).getNomTypeInscription(), "Le nom doit etre la meme");
-            assertEquals(typeInscriptionDtos.get(i).getIdTypeInscription(), unmarshalledDtos.get(i).getIdTypeInscription(), "L'ID doit etre la meme");
+        assertEquals(typeInscriptionDtos.size(), unmarshalledDtos.size());
+        for (int i = 0; i < typeInscriptionDtos.size(); i++) {
+            assertTrue(unmarshalledDtos.get(i).equals(typeInscriptionDtos.get(i)));
         }
     }
 

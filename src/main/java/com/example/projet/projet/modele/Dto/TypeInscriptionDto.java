@@ -5,6 +5,8 @@ import jakarta.validation.constraints.Size;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlElement;
 
+import java.util.Objects;
+
 @XmlRootElement
 public class TypeInscriptionDto {
     @Size(min = 10, max = 200)
@@ -24,7 +26,7 @@ public class TypeInscriptionDto {
         this.idTypeInscription = idTypeInscription;
     }
 
-    @XmlElement
+    @XmlElement (name = "DescriptionTypeInscri")
     public String getDescriptionTypeInscription() {
         return descriptionTypeInscription;
     }
@@ -33,7 +35,7 @@ public class TypeInscriptionDto {
         this.descriptionTypeInscription = descriptionTypeInscription;
     }
 
-    @XmlElement
+    @XmlElement (name = "IdTypeInscri")
     public long getIdTypeInscription() {
         return idTypeInscription;
     }
@@ -42,7 +44,7 @@ public class TypeInscriptionDto {
         this.idTypeInscription = idTypeInscription;
     }
 
-    @XmlElement
+    @XmlElement (name = "NomTypeInscri")
     public String getNomTypeInscription() {
         return nomTypeInscription;
     }
@@ -51,4 +53,14 @@ public class TypeInscriptionDto {
         this.nomTypeInscription = nomTypeInscription;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof TypeInscriptionDto that)) return false;
+        return idTypeInscription == that.idTypeInscription && Objects.equals(descriptionTypeInscription, that.descriptionTypeInscription) && Objects.equals(nomTypeInscription, that.nomTypeInscription);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(descriptionTypeInscription, idTypeInscription, nomTypeInscription);
+    }
 }
