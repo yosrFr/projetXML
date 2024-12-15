@@ -22,7 +22,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/categorieevenement")
-@Validated
 @Tag(name = "Catégorie Événement", description = "API for managing event categories")
 public class CategorieEvenementController {
 
@@ -40,7 +39,7 @@ public class CategorieEvenementController {
             @ApiResponse(responseCode = "400", description = "Invalid event category data provided")
     })
     @PostMapping
-    public ResponseEntity<Void> ajouterCategorieEvenement(@Valid @RequestBody CategorieEvenementDto category) {
+    public ResponseEntity<Void> ajouterCategorieEvenement(@RequestBody CategorieEvenementDto category) {
         try {
             // Log des données reçues
             logger.info("Requête reçue pour ajouter une catégorie : {}", category);
@@ -80,7 +79,7 @@ public class CategorieEvenementController {
             @ApiResponse(responseCode = "400", description = "Invalid event category data provided")
     })
     @PutMapping
-    public ResponseEntity<Void> modifierCategorieEvenement(@Valid @RequestBody CategorieEvenementDto categorieEvenement) {
+    public ResponseEntity<Void> modifierCategorieEvenement(@RequestBody CategorieEvenementDto categorieEvenement) {
         try {
             categorieEvenementService.modifierCategorieEvenement(categorieEvenement);
             return ResponseEntity.ok().build();
