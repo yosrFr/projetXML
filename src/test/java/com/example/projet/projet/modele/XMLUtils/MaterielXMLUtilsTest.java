@@ -40,12 +40,12 @@ public class MaterielXMLUtilsTest {
             assertTrue(unmarshalledDtos.get(i).equals(materielDtos.get(i)));
         }
     }
-
+/*
     @AfterEach
     public void tearDown() {
         File xmlFile = new File(MaterielXMLUtils.XML_FILE);
         if (xmlFile.exists()) {
             xmlFile.delete();
         }
-    }
+    }*/
 }

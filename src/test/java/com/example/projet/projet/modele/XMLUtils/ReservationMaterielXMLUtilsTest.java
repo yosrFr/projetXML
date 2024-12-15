@@ -48,12 +48,12 @@ public class ReservationMaterielXMLUtilsTest {
             assertTrue(unmarshalledDtos.get(i).equals(reservationMaterielsDtos.get(i)));
         }
     }
-
+/*
     @AfterEach
     void tearDown() {
         File file = new File(ReservationMaterielXMLUtils.XML_FILE);
         if (file.exists()) {
             file.delete();
         }
-    }
+    }*/
 }

@@ -40,12 +40,12 @@ public class LocalXMLUtilsTest {
             assertTrue(unmarshalledDtos.get(i).equals(localDtos.get(i)));
         }
     }
-
+/*
     @AfterEach
     public void tearDown() {
         File xmlFile = new File(LocalXMLUtils.XML_FILE);
         if (xmlFile.exists()) {
             xmlFile.delete();
         }
-    }
+    }*/
 }

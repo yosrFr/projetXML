@@ -42,13 +42,13 @@ public class TypeInscriptionXMLUtilsTest {
             assertTrue(unmarshalledDtos.get(i).equals(typeInscriptionDtos.get(i)));
         }
     }
-
+/*
     @AfterEach
     public void tearDown() {
         File xmlFile = new File(TypeInscriptionXMLUtils.XML_FILE);
         if (xmlFile.exists()) {
             xmlFile.delete();
         }
-    }
+    }*/
 }
 

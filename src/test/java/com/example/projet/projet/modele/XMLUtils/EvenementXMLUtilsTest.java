@@ -49,12 +49,12 @@ public class EvenementXMLUtilsTest {
             assertTrue(unmarshalledDtos.get(i).equals(evenementDtos.get(i)));
         }
     }
-
+/*
     @AfterEach
     void tearDown() {
         File file = new File(EvenementXMLUtils.XML_FILE);
         if (file.exists()) {
             file.delete();
         }
-    }
+    }*/
 }

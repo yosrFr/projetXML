@@ -40,12 +40,12 @@ public class TypeSessionXMLUtilsTest {
             assertTrue(unmarshalledDtos.get(i).equals(typeSessionDtos.get(i)));
         }
     }
-
+/*
     @AfterEach
     public void tearDown() {
         File xmlFile = new File(TypeSessionXMLUtils.XML_FILE);
         if (xmlFile.exists()) {
             xmlFile.delete();
         }
-    }
+    }*/
 }

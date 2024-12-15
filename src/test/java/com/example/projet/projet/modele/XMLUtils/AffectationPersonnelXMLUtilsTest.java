@@ -48,12 +48,12 @@ class AffectationPersonnelXMLUtilsTest {
             assertTrue(unmarshalledDtos.get(i).equals(affectationPersonnelDtos.get(i)));
         }
     }
-
+/*
     @AfterEach
     void tearDown() {
         File file = new File(AffectationPersonnelXMLUtils.XML_FILE);
         if (file.exists()) {
             file.delete();
         }
-    }
+    }*/
 }

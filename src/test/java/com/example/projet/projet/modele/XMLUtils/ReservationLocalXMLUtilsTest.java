@@ -46,12 +46,12 @@ public class ReservationLocalXMLUtilsTest {
             assertTrue(unmarshalledDtos.get(i).equals(reservationLocalDtos.get(i)));
         }
     }
-
+/*
     @AfterEach
     void tearDown() {
         File file = new File(ReservationLocalXMLUtils.XML_FILE);
         if (file.exists()) {
             file.delete();
         }
-    }
+    }*/
 }

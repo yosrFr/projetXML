@@ -40,12 +40,12 @@ public class CategorieEvenementXMLUtilsTest {
             assertTrue(unmarshalledDtos.get(i).equals(categorieEvenementDtos.get(i)));
         }
     }
-
+/*
     @AfterEach
     public void tearDown() {
         File xmlFile = new File(CategorieEvenementXMLUtils.XML_FILE);
         if (xmlFile.exists()) {
             xmlFile.delete();
         }
-    }
+    }*/
 }
