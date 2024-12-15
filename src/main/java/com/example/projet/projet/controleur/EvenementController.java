@@ -1,4 +1,4 @@
-package com.example.projet.projet.controller;
+package com.example.projet.projet.controleur;
 
 import com.example.projet.projet.modele.Dto.EvenementDto;
 import com.example.projet.projet.modele.Dto.SessionDto;
