@@ -27,7 +27,7 @@ public class ReservationMaterielController {
             @ApiResponse(code = 201, message = "Reservation added successfully"),
             @ApiResponse(code = 400, message = "Invalid request data")
     })
-    public ResponseEntity<Void> addReservationMateriel(@Valid @RequestBody ReservationMaterielsDto reservationMaterielDto) {
+    public ResponseEntity<Void> ajouterReservationMateriel(@Valid @RequestBody ReservationMaterielsDto reservationMaterielDto) {
         reservationMaterielService.ajouterReservationMateriel(reservationMaterielDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

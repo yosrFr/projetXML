@@ -26,7 +26,7 @@ public class ReservationLocalController {
     @PostMapping
     @ApiOperation(value = "Add a new room reservation", notes = "This endpoint allows to add a new room reservation")
     @ApiResponse(code = 201, message = "Reservation added successfully")
-    public ResponseEntity<Void> addReservationLocal(@Valid @RequestBody ReservationLocalDto reservationLocalDto) {
+    public ResponseEntity<Void> ajouterReservationLocal(@Valid @RequestBody ReservationLocalDto reservationLocalDto) {
         reservationLocalService.ajouterReservationLocal(reservationLocalDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

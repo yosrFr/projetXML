@@ -60,7 +60,7 @@ public class InscriptionController {
             @ApiResponse(code = 201, message = "Inscription created successfully"),
             @ApiResponse(code = 400, message = "Invalid request data")
     })
-    public ResponseEntity<Void> addInscription(@Valid @RequestBody InscriptionDto inscriptionDto) {
+    public ResponseEntity<Void> ajouterInscription(@Valid @RequestBody InscriptionDto inscriptionDto) {
         inscriptionService.ajouterInscription(inscriptionDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

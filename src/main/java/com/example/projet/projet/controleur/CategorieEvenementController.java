@@ -7,25 +7,20 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/categorieevenement")
+@Validated
 @Tag(name = "Catégorie Événement", description = "API for managing event categories")
 public class CategorieEvenementController {
 
-    private static final Logger logger = LoggerFactory.getLogger(CategorieEvenementController.class);
     private final CategorieEvenementService categorieEvenementService;
 
     @Autowired
@@ -39,24 +34,14 @@ public class CategorieEvenementController {
             @ApiResponse(responseCode = "400", description = "Invalid event category data provided")
     })
     @PostMapping
-    public ResponseEntity<Void> ajouterCategorieEvenement(@RequestBody CategorieEvenementDto category) {
+    public ResponseEntity<Void> ajouterCategorieEvenement(@Valid @RequestBody CategorieEvenementDto category) {
         try {
-            // Log des données reçues
-            logger.info("Requête reçue pour ajouter une catégorie : {}", category);
-
-            // Appel du service pour ajouter la catégorie
             categorieEvenementService.ajouterCategorieEvenement(category);
-
-            // Log du succès de l'ajout
-            logger.info("Catégorie ajoutée avec succès : {}", category);
             return ResponseEntity.status(HttpStatus.CREATED).build();
         } catch (Exception e) {
-            // Log des erreurs générales
-            logger.error("Erreur lors de l'ajout de la catégorie : ", e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
-
 
     @Operation(summary = "Get an event category by ID")
     @ApiResponses({
@@ -79,7 +64,7 @@ public class CategorieEvenementController {
             @ApiResponse(responseCode = "400", description = "Invalid event category data provided")
     })
     @PutMapping
-    public ResponseEntity<Void> modifierCategorieEvenement(@RequestBody CategorieEvenementDto categorieEvenement) {
+    public ResponseEntity<Void> modifierCategorieEvenement(@Valid @RequestBody CategorieEvenementDto categorieEvenement) {
         try {
             categorieEvenementService.modifierCategorieEvenement(categorieEvenement);
             return ResponseEntity.ok().build();

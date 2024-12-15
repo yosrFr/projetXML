@@ -27,7 +27,7 @@ public class ParticipantController {
             @ApiResponse(code = 201, message = "Participant added successfully"),
             @ApiResponse(code = 400, message = "Invalid request data")
     })
-    public ResponseEntity<Void> addParticipant(@Valid @RequestBody ParticipantDto participantDto) {
+    public ResponseEntity<Void> ajouterParticipant(@Valid @RequestBody ParticipantDto participantDto) {
         participantService.ajouterParticipant(participantDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

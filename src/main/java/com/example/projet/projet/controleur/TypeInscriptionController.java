@@ -60,7 +60,7 @@ public class TypeInscriptionController {
             @ApiResponse(code = 201, message = "Type of inscription created successfully"),
             @ApiResponse(code = 400, message = "Invalid request data")
     })
-    public ResponseEntity<Void> addTypeInscription(@Valid @RequestBody TypeInscriptionDto typeInscriptionDto) {
+    public ResponseEntity<Void> ajouterTypeInscription(@Valid @RequestBody TypeInscriptionDto typeInscriptionDto) {
         typeInscriptionService.ajouterTypeInscription(typeInscriptionDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -71,7 +71,7 @@ public class TypeInscriptionController {
             @ApiResponse(code = 200, message = "Type of inscription updated successfully"),
             @ApiResponse(code = 404, message = "Type of inscription not found")
     })
-    public ResponseEntity<Void> updateTypeInscription(@PathVariable long id, @Valid @RequestBody TypeInscriptionDto typeInscriptionDto) {
+    public ResponseEntity<Void> modifierTypeInscription(@PathVariable long id, @Valid @RequestBody TypeInscriptionDto typeInscriptionDto) {
         if (typeInscriptionService.getTypeInscriptionById(id) == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
@@ -86,7 +86,7 @@ public class TypeInscriptionController {
             @ApiResponse(code = 200, message = "Type of inscription deleted successfully"),
             @ApiResponse(code = 404, message = "Type of inscription not found")
     })
-    public ResponseEntity<Void> deleteTypeInscription(@PathVariable long id) {
+    public ResponseEntity<Void> supprimerTypeInscription(@PathVariable long id) {
         if (typeInscriptionService.getTypeInscriptionById(id) == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }

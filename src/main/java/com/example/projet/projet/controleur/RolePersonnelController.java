@@ -49,7 +49,7 @@ public class RolePersonnelController {
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     @GetMapping("/names")
-    public ResponseEntity<List<String>> getAllRoleNames() {
+    public ResponseEntity<List<String>> getAllNomsRolePersonnel() {
         try {
             List<String> roleNames = rolePersonnelService.getALLNomsRolesPersonnel();
             return ResponseEntity.ok(roleNames);

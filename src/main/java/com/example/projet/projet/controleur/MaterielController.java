@@ -50,7 +50,7 @@ public class MaterielController {
     @PostMapping
     @ApiOperation(value = "Add a new material", notes = "This endpoint allows to add a new material")
     @ApiResponse(code = 201, message = "Material added successfully")
-    public ResponseEntity<Void> addMateriel(@Valid @RequestBody MaterielDto materielDto) {
+    public ResponseEntity<Void> ajouterMateriel(@Valid @RequestBody MaterielDto materielDto) {
         materielService.ajouterMateriel(materielDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -61,7 +61,7 @@ public class MaterielController {
             @ApiResponse(code = 200, message = "Material updated successfully"),
             @ApiResponse(code = 404, message = "Material not found")
     })
-    public ResponseEntity<Void> updateMateriel(@PathVariable long id, @Valid @RequestBody MaterielDto materielDto) {
+    public ResponseEntity<Void> modifierMateriel(@PathVariable long id, @Valid @RequestBody MaterielDto materielDto) {
         MaterielDto existingMateriel = materielService.getMaterielById(id);
         if (existingMateriel == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -77,7 +77,7 @@ public class MaterielController {
             @ApiResponse(code = 200, message = "Material deleted successfully"),
             @ApiResponse(code = 404, message = "Material not found")
     })
-    public ResponseEntity<Void> deleteMateriel(@PathVariable long id) {
+    public ResponseEntity<Void> supprimerMateriel(@PathVariable long id) {
         MaterielDto materiel = materielService.getMaterielById(id);
         if (materiel == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -92,7 +92,7 @@ public class MaterielController {
             @ApiResponse(code = 200, message = "List of available materials retrieved successfully"),
             @ApiResponse(code = 400, message = "Invalid request parameters")
     })
-    public ResponseEntity<List<String>> getAvailableMateriels(@RequestParam String tempsDebut, @RequestParam String tempsFin, @RequestParam String date) {
+    public ResponseEntity<List<String>> getNomMaterielsDispo(@RequestParam String tempsDebut, @RequestParam String tempsFin, @RequestParam String date) {
         if (tempsDebut == null || tempsFin == null || date == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
