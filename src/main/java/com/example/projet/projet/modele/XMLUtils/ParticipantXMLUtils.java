@@ -22,6 +22,7 @@ public class ParticipantXMLUtils {
             jaxbContext = JAXBContext.newInstance(ParticipantWrapper.class);
             Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
             jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+            jaxbMarshaller.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, "http://www.example.com/Participants Participants.xsd");
             ParticipantWrapper wrapper = new ParticipantWrapper(participants);
             jaxbMarshaller.marshal(wrapper, new File(XML_FILE));
         } catch (JAXBException e) {

@@ -1,6 +1,7 @@
 package com.example.projet.projet.controleur;
 
 import com.example.projet.projet.modele.Dto.InscriptionDto;
+import com.example.projet.projet.service.EmailService;
 import com.example.projet.projet.service.InscriptionService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -20,10 +21,12 @@ import java.util.List;
 public class InscriptionController {
 
     private final InscriptionService inscriptionService;
+    private final EmailService emailService;
 
     @Autowired
-    public InscriptionController(InscriptionService inscriptionService) {
+    public InscriptionController(InscriptionService inscriptionService, EmailService emailService) {
         this.inscriptionService = inscriptionService;
+        this.emailService = emailService;
     }
 
     @GetMapping
@@ -62,6 +65,11 @@ public class InscriptionController {
     })
     public ResponseEntity<Void> ajouterInscription(@Valid @RequestBody InscriptionDto inscriptionDto) {
         inscriptionService.ajouterInscription(inscriptionDto);
+        String mailParticipant = inscriptionDto.getParticipant().getEmail();
+        String nomParticiapnt = inscriptionDto.getParticipant().getNom();
+        String sujet = "Confirmaion d'inscription";
+        String text = String.format("Bonjour %s, \n\nVotre inscription à l'événement %s a été enregistrer avec succès.\nMerci pour votre participation.\nBonne journée.", nomParticiapnt, inscriptionDto.getEvenement().getTitreEvenement());
+        emailService.envoyerMailConfirmation(mailParticipant, sujet, text);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }

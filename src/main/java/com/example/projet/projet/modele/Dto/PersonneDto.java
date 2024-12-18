@@ -6,7 +6,6 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlElement;
 import org.hibernate.validator.constraints.Length;
 
-import java.util.Date;
 import java.util.Objects;
 
 @XmlRootElement

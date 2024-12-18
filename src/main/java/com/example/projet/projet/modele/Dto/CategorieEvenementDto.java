@@ -7,7 +7,7 @@ import jakarta.xml.bind.annotation.XmlElement;
 
 import java.util.Objects;
 
-@XmlRootElement
+@XmlRootElement(name = "CategoriesEvenement", namespace = "http://www.example.com/CategoriesEvenement")
 public class CategorieEvenementDto {
     @NotNull
     private long idCategorieEvenement;

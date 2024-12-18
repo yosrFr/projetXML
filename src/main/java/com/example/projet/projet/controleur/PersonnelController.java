@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -110,11 +109,7 @@ public class PersonnelController {
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     @GetMapping("/disponible")
-    public ResponseEntity<List<String>> getAllNomsPersonnelDispoByRole(
-            @RequestParam String role,
-            @RequestParam String date,
-            @RequestParam String tempsDeb,
-            @RequestParam String tempsFin) {
+    public ResponseEntity<List<String>> getAllNomsPersonnelDispoByRole(@RequestParam String role, @RequestParam String date, @RequestParam String tempsDeb, @RequestParam String tempsFin) {
         try {
             List<String> availablePersonnel = personnelService.getAllNomsPersonnelDispoByRole(role, date, tempsDeb, tempsFin);
             return ResponseEntity.ok(availablePersonnel);

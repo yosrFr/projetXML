@@ -22,6 +22,7 @@ public class CategorieEvenementXMLUtils {
             jaxbContext = JAXBContext.newInstance(CategorieEvenementWrapper.class);
             Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
             jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+            jaxbMarshaller.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, "http://www.example.com/CategoriesEvenement CategoriesEvenement.xsd");
             CategorieEvenementWrapper wrapper = new CategorieEvenementWrapper(categorieEvenement);
             jaxbMarshaller.marshal(wrapper, new File(XML_FILE));
         } catch (JAXBException e) {

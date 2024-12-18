@@ -7,7 +7,7 @@ import jakarta.xml.bind.annotation.XmlElement;
 
 import java.util.Objects;
 
-@XmlRootElement
+@XmlRootElement(name = "TypesInscription", namespace = "http://www.example.com/TypesInscription")
 public class TypeInscriptionDto {
     @Size(min = 10, max = 200)
     private String descriptionTypeInscription;

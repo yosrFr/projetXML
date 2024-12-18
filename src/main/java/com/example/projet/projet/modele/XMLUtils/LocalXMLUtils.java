@@ -22,6 +22,7 @@ public class LocalXMLUtils {
             jaxbContext = JAXBContext.newInstance(LocalWrapper.class);
             Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
             jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+            jaxbMarshaller.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, "http://www.example.com/Locaux Locaux.xsd");
             LocalWrapper wrapper = new LocalWrapper(local);
             jaxbMarshaller.marshal(wrapper, new File(XML_FILE));
         } catch (JAXBException e) {

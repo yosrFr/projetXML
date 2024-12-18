@@ -6,7 +6,7 @@ import jakarta.xml.bind.annotation.XmlElement;
 
 import java.util.Objects;
 
-@XmlRootElement
+@XmlRootElement(name = "Sessions", namespace = "http://www.example.com/Sessions")
 public class SessionDto {
     @NotNull
     private long idSession;
@@ -30,7 +30,7 @@ public class SessionDto {
         this.heureDebutSession = heureDebutSession;
         this.heureFinSession = heureFinSession;
     }
-    @XmlElement
+    @XmlElement(name = "IdSession")
     public long getIdSession() {
         return idSession;
     }
@@ -39,7 +39,7 @@ public class SessionDto {
         this.idSession = idSession;
     }
 
-    @XmlElement
+    @XmlElement(name = "DateSession")
     public String getDateSession() {
         return dateSession;
     }
@@ -48,7 +48,7 @@ public class SessionDto {
         this.dateSession = dateSession;
     }
 
-    @XmlElement
+    @XmlElement(name = "TitreSession")
     public String getTitreSession() {
         return titreSession;
     }
@@ -57,7 +57,7 @@ public class SessionDto {
         this.titreSession = titreSession;
     }
 
-    @XmlElement
+    @XmlElement(name = "HeureDebutSession")
     public String getHeureDebutSession() {
         return heureDebutSession;
     }
@@ -66,7 +66,7 @@ public class SessionDto {
         this.heureDebutSession = heureDebutSession;
     }
 
-    @XmlElement
+    @XmlElement(name = "HeureFinSession")
     public String getHeureFinSession() {
         return heureFinSession;
     }

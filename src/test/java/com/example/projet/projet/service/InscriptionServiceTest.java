@@ -181,6 +181,8 @@ public class InscriptionServiceTest {
 
     }
 
+    @Test
+
     @AfterEach
     public void tearDown() {
         File xmlFile = new File(InscriptionXMLUtils.XML_FILE);

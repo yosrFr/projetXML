@@ -22,6 +22,7 @@ public class ReservationLocalXMLUtils {
             jaxbContext = JAXBContext.newInstance(ReservationLocalWrapper.class);
             Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
             jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+            jaxbMarshaller.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, "http://www.example.com/ReservationsLocal ReservationsLocal.xsd");
             ReservationLocalWrapper wrapper = new ReservationLocalWrapper(reservationLocal);
             jaxbMarshaller.marshal(wrapper, new File(XML_FILE));
         } catch (JAXBException e) {

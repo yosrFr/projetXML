@@ -6,7 +6,7 @@ import jakarta.xml.bind.annotation.XmlElement;
 
 import java.util.Objects;
 
-@XmlRootElement
+@XmlRootElement(name = "ReservationsLocal", namespace = "http://www.example.com/ReservationsLocal")
 public class ReservationLocalDto {
     @NotNull
     private long idReservationLocal;
@@ -32,7 +32,7 @@ public class ReservationLocalDto {
         this.idReservationLocal = idReservationLocal;
     }
 
-    @XmlElement (name = "local")
+    @XmlElement (name = "Local")
     public LocalDto getLocal() {
         return local;
     }
@@ -41,7 +41,7 @@ public class ReservationLocalDto {
         this.local = local;
     }
 
-    @XmlElement (name = "session")
+    @XmlElement (name = "Session")
     public SessionDto getSession() {
         return session;
     }

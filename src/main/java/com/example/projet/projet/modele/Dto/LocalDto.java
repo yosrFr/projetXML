@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.Length;
 
 import java.util.Objects;
 
-@XmlRootElement
+@XmlRootElement(name = "Locaux", namespace = "http://www.example.com/Locaux")
 public class LocalDto {
     @NotNull
     @Size(min = 4, max = 30)

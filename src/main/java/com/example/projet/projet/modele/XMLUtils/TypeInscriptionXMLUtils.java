@@ -22,6 +22,7 @@ public class TypeInscriptionXMLUtils {
             jaxbContext = JAXBContext.newInstance(TypeInscriptionWrapper.class);
             Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
             jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+            jaxbMarshaller.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, "http://www.example.com/TypesInscription TypesInscription.xsd");
             TypeInscriptionWrapper wrapper = new TypeInscriptionWrapper(typeInscription);
             jaxbMarshaller.marshal(wrapper, new File(XML_FILE));
         } catch (JAXBException e) {

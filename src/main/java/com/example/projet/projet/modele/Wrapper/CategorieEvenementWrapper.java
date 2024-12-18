@@ -1,6 +1,5 @@
 package com.example.projet.projet.modele.Wrapper;
 
-
 import com.example.projet.projet.modele.Dto.CategorieEvenementDto;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;

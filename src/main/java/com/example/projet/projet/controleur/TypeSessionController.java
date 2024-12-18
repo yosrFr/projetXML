@@ -41,7 +41,7 @@ public class TypeSessionController {
         }
     }
 
-    @Operation(summary = "Get a type of session by ID")
+    @Operation(summary = "recuperer les types de sessions par id")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Successfully retrieved the type of session"),
             @ApiResponse(responseCode = "404", description = "Type of session not found")
@@ -56,7 +56,7 @@ public class TypeSessionController {
         }
     }
 
-    @Operation(summary = "Update a type of session")
+    @Operation(summary = "mettre a jour un type de session")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Type of session updated successfully"),
             @ApiResponse(responseCode = "400", description = "Invalid type of session data provided")
@@ -71,7 +71,7 @@ public class TypeSessionController {
         }
     }
 
-    @Operation(summary = "Delete a type of session")
+    @Operation(summary = "supprimer un type de session")
     @ApiResponses({
             @ApiResponse(responseCode = "204", description = "Type of session deleted successfully"),
             @ApiResponse(responseCode = "404", description = "Type of session not found")

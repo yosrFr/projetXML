@@ -7,7 +7,7 @@ import jakarta.xml.bind.annotation.XmlElement;
 
 import java.util.Objects;
 
-@XmlRootElement
+@XmlRootElement(name = "typeSession", namespace = "http://www.example.com/TypesSession")
 public class TypeSessionDto {
     @NotNull
     private long idTypeSession;

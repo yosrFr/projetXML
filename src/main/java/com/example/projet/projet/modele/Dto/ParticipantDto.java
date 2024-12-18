@@ -3,9 +3,10 @@ package com.example.projet.projet.modele.Dto;
 import jakarta.validation.constraints.NotNull;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlElement;
+
 import java.util.Objects;
 
-@XmlRootElement
+@XmlRootElement(name = "Participants", namespace = "http://www.example.com/Participants")
 public class ParticipantDto extends PersonneDto {
     @NotNull
     private long idParticipant;

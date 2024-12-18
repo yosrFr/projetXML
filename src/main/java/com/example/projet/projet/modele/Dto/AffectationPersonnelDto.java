@@ -6,7 +6,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 import java.util.Objects;
 
-@XmlRootElement
+@XmlRootElement(name = "AffectationsPersonnel", namespace = "http://www.example.com/AffectationsPersonnel")
 public class AffectationPersonnelDto {
     @NotNull
     private long idAffectationPersonnel;
@@ -25,7 +25,7 @@ public class AffectationPersonnelDto {
         this.session = session;
     }
 
-    @XmlElement
+    @XmlElement (name = "IdAffectation")
     public long getIdAffectationPersonnel() {
         return idAffectationPersonnel;
     }
@@ -34,7 +34,7 @@ public class AffectationPersonnelDto {
         this.idAffectationPersonnel = idAffectationPersonnel;
     }
 
-    @XmlElement
+    @XmlElement (name = "Personnel")
     public PersonnelDto getPersonnel() {
         return personnel;
     }
@@ -43,7 +43,7 @@ public class AffectationPersonnelDto {
         this.personnel = personnel;
     }
 
-    @XmlElement
+    @XmlElement (name = "Session")
     public SessionDto getSession() {
         return session;
     }

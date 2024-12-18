@@ -4,11 +4,12 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlElement;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-@XmlRootElement
+@XmlRootElement(name = "Evenements", namespace = "http://www.example.com/Evenements")
 public class EvenementDto {
     @NotNull
     private long idEvenement;
